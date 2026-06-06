@@ -1,0 +1,10 @@
+^C:\USERS\ARYAN GUPTA\DESKTOP\WORK\PROJECTS\CHESS_ENGINE\CHESS_ENGINE\BUILD\CMAKEFILES\553D261892C8D30520C973EDFF7539F8\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Aryan Gupta/Desktop/Work/Projects/chess_engine/chess_engine" "-BC:/Users/Aryan Gupta/Desktop/Work/Projects/chess_engine/chess_engine/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Aryan Gupta/Desktop/Work/Projects/chess_engine/chess_engine/build/chess_engine.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
