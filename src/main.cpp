@@ -4,7 +4,7 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("8/8/8/3p4/4P3/8/8/8 w - - 0 1");
+    pos.loadFEN("8/8/8/3B4/2p5/8/8/8 w - - 0 1");
     pos.printBoard();
     
     MoveGenerator generator;
@@ -26,6 +26,13 @@ int main() {
     std::cout << "\nPawn Moves:\n";
     std::cout << "Total moves: " << pawnMoves.size() << "\n";
     for (const auto& m : pawnMoves){
+        std::cout << "(" << m.fromRow << "," << m.fromCol << ") -> (" << m.toRow << "," << m.toCol << ")\n";
+    }
+
+    auto bishopMoves = generator.generateBishopMoves(pos);
+    std::cout << "\nBishop Moves:\n";
+    std::cout << "Total moves: " << bishopMoves.size() << "\n";
+    for (const auto& m : bishopMoves){
         std::cout << "(" << m.fromRow << "," << m.fromCol << ") -> (" << m.toRow << "," << m.toCol << ")\n";
     }
 }

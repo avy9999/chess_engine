@@ -115,3 +115,84 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
     }
     return moves;
 }
+
+std::vector<Move> MoveGenerator::generateBishopMoves(const Position& pos){
+    std::vector<Move> moves;
+
+    for(int i=0; i<8; ++i){
+        for(int j=0; j<8; ++j){
+            // checks if the square has a bishop
+            if ((pos.board[i][j] == 'b' && pos.sideToMove == 'b') || (pos.board[i][j] == 'B' && pos.sideToMove == 'w')){
+                int m = i;
+                int n = j;
+                while(m-1>=0 && n-1>=0){
+                    char target = pos.board[m-1][n-1];
+                    if (target == '.'){
+                        moves.emplace_back(Move(i, j, m-1, n-1));
+                    }
+                    else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')){
+                        moves.emplace_back(Move(i, j, m-1, n-1));
+                        break;
+                    }
+                    else{
+                        break;
+                    }
+                    m--;
+                    n--;
+                }
+                m = i;
+                n = j;
+                while(m-1>=0 && n+1<8){
+                    char target = pos.board[m-1][n+1];
+                    if (target == '.'){
+                        moves.emplace_back(Move(i, j, m-1, n+1));
+                    }
+                    else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')){
+                        moves.emplace_back(Move(i, j, m-1, n+1));
+                        break;
+                    }
+                    else{
+                        break;
+                    }
+                    m--;
+                    n++;
+                }
+                m = i;
+                n = j;
+                while(m+1<8 && n-1>=0){
+                    char target = pos.board[m+1][n-1];
+                    if (target == '.'){
+                        moves.emplace_back(Move(i, j, m+1, n-1));
+                    }
+                    else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')){
+                        moves.emplace_back(Move(i, j, m+1, n-1));
+                        break;
+                    }
+                    else{
+                        break;
+                    }
+                    m++;
+                    n--;
+                }
+                m = i;
+                n = j;
+                while(m+1<8 && n+1<8){
+                    char target = pos.board[m+1][n+1];
+                    if (target == '.'){
+                        moves.emplace_back(Move(i, j, m+1, n+1));
+                    }
+                    else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')){
+                        moves.emplace_back(Move(i, j, m+1, n+1));
+                        break;
+                    }
+                    else{
+                        break;
+                    }
+                    m++;
+                    n++;
+                }
+            }
+        }
+    }
+    return moves;
+}

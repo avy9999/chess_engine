@@ -8,4 +8,5 @@ class MoveGenerator {
         std::vector<Move> generateKnightMoves(const Position& pos);
         std::vector<Move> generateKingMoves(const Position& pos);
         std::vector<Move> generatePawnMoves(const Position& pos);
+        std::vector<Move> generateBishopMoves(const Position& pos);
 };
