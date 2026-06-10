@@ -4,6 +4,15 @@
     <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\movegenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\CMakeLists.txt" />
