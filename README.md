@@ -13,6 +13,7 @@ A chess engine built from scratch in C++.
 - Bishop Move Generation
 - Rook Move Generation
 - Queen Move Generation
+- Refactor Move Generation
 
 ### Planned
 - Castling

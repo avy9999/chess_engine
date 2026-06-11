@@ -224,3 +224,33 @@ std::vector<Move> MoveGenerator::generateQueenMoves(const Position& pos){
     }
     return moves;
 }
+
+std::vector<Move> MoveGenerator::generateAllMoves(const Position& pos){
+    std::vector<Move> moves;
+    
+    std::vector<Move> knightMoves = generateKnightMoves(pos);
+    std::vector<Move> pawnMoves = generatePawnMoves(pos);
+    std::vector<Move> kingMoves = generateKingMoves(pos);
+    std::vector<Move> bishopMoves = generateBishopMoves(pos);
+    std::vector<Move> rookMoves = generateRookMoves(pos);
+    std::vector<Move> queenMoves = generateQueenMoves(pos);
+
+    moves.insert(moves.end(), knightMoves.begin(), knightMoves.end());
+    moves.insert(moves.end(), pawnMoves.begin(), pawnMoves.end());
+    moves.insert(moves.end(), kingMoves.begin(), kingMoves.end());
+    moves.insert(moves.end(), bishopMoves.begin(), bishopMoves.end());
+    moves.insert(moves.end(), rookMoves.begin(), rookMoves.end());
+    moves.insert(moves.end(), queenMoves.begin(), queenMoves.end());
+
+    return moves;
+}
+
+void MoveGenerator::makeMove(Position& pos, const Move& move){
+    
+    char piece = pos.board[move.fromRow][move.fromCol];
+
+    pos.board[move.toRow][move.toCol] = piece;
+    pos.board[move.fromRow][move.fromCol] = '.';
+
+    pos.sideToMove = (pos.sideToMove == 'w') ? 'b':'w';
+}

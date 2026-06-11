@@ -6,4 +6,5 @@ add_executable(chess_engine
     src/position.cpp
     src/move.cpp
     src/movegenerator.cpp
+    src/utils.cpp
 )

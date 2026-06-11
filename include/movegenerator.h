@@ -11,4 +11,6 @@ class MoveGenerator {
         std::vector<Move> generateBishopMoves(const Position& pos);
         std::vector<Move> generateRookMoves(const Position& pos);
         std::vector<Move> generateQueenMoves(const Position& pos);
+        std::vector<Move> generateAllMoves(const Position& pos);
+        void makeMove(Position& pos, const Move& move);
 };

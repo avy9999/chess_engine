@@ -3,11 +3,25 @@
 #include "../include/movegenerator.h"
 
 int main() {
+    MoveGenerator generator;
+
     Position pos;
-    pos.loadFEN("8/8/8/3Q4/8/8/8/8 w - - 0 1");
+    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    pos.printBoard();
+
+    Move move(6, 4, 4, 4); // e2 -> e4
+    generator.makeMove(pos, move);
+
+    std::cout << "\nAfter e2-e4:\n";
+    pos.printBoard();
+    std::cout << "\nSide: " << pos.sideToMove << "\n";
+
+    Move move2(1, 4, 3, 4); // e7 -> e5
+    generator.makeMove(pos, move2);
+
+    std::cout << "\nAfter e7-e5:\n";
     pos.printBoard();
     
-    MoveGenerator generator;
     auto knightMoves = generator.generateKnightMoves(pos);
     std::cout << "\nKnight Moves:\n";
     std::cout << "Total moves: " << knightMoves.size() << "\n";
@@ -49,4 +63,7 @@ int main() {
     for (const auto& m : queenMoves){
         std::cout << "(" << m.fromRow << "," << m.fromCol << ") -> (" << m.toRow << "," << m.toCol << ")\n";
     }
+
+    auto moves = generator.generateAllMoves(pos);
+    std::cout << moves.size() << "\n";
 }
