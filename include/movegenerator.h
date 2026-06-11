@@ -9,4 +9,6 @@ class MoveGenerator {
         std::vector<Move> generateKingMoves(const Position& pos);
         std::vector<Move> generatePawnMoves(const Position& pos);
         std::vector<Move> generateBishopMoves(const Position& pos);
+        std::vector<Move> generateRookMoves(const Position& pos);
+        std::vector<Move> generateQueenMoves(const Position& pos);
 };

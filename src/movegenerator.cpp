@@ -123,73 +123,100 @@ std::vector<Move> MoveGenerator::generateBishopMoves(const Position& pos){
         for(int j=0; j<8; ++j){
             // checks if the square has a bishop
             if ((pos.board[i][j] == 'b' && pos.sideToMove == 'b') || (pos.board[i][j] == 'B' && pos.sideToMove == 'w')){
-                int m = i;
-                int n = j;
-                while(m-1>=0 && n-1>=0){
-                    char target = pos.board[m-1][n-1];
-                    if (target == '.'){
-                        moves.emplace_back(Move(i, j, m-1, n-1));
+                // move determination where bishop can slide over
+                std::vector<std::pair<int, int>> movements = {
+                    {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
+                };
+
+                // now loop through every diagonal bishop can go until blocked or out of board 
+                for (auto k : movements){
+                    int m = i + k.first;
+                    int n = j + k.second;
+                    while(m >= 0 && m < 8 && n >= 0 && n < 8){
+                        char target = pos.board[m][n];
+                        if (target == '.'){
+                            moves.emplace_back(Move(i, j, m, n));
+                        } else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')) {
+                            moves.emplace_back(Move(i, j, m, n));
+                            break;
+                        } else{
+                            break;
+                        }
+                        m += k.first;
+                        n += k.second;
                     }
-                    else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')){
-                        moves.emplace_back(Move(i, j, m-1, n-1));
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                    m--;
-                    n--;
                 }
-                m = i;
-                n = j;
-                while(m-1>=0 && n+1<8){
-                    char target = pos.board[m-1][n+1];
-                    if (target == '.'){
-                        moves.emplace_back(Move(i, j, m-1, n+1));
+            }
+        }
+    }
+    return moves;
+}
+
+std::vector<Move> MoveGenerator::generateRookMoves(const Position& pos){
+    std::vector<Move> moves;
+
+    for(int i=0; i<8; ++i){
+        for(int j=0; j<8; ++j){
+            // checks if the square has a rook
+            if ((pos.board[i][j] == 'r' && pos.sideToMove == 'b') || (pos.board[i][j] == 'R' && pos.sideToMove == 'w')){
+                // move determination where rook can slide over
+                std::vector<std::pair<int, int>> movements = {
+                    {-1, 0}, {0, 1}, {1, 0}, {0, -1}
+                };
+
+                // now loop through particular row & column until blocked or out of board
+                for (auto k : movements){
+                    int m = i + k.first;
+                    int n = j + k.second;
+                    while(m >= 0 && m < 8 && n >= 0 && n < 8){
+                        char target = pos.board[m][n];
+                        if (target == '.'){
+                            moves.emplace_back(Move(i, j, m, n));
+                        } else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')) {
+                            moves.emplace_back(Move(i, j, m, n));
+                            break;
+                        } else{
+                            break;
+                        }
+                        m += k.first;
+                        n += k.second;
                     }
-                    else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')){
-                        moves.emplace_back(Move(i, j, m-1, n+1));
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                    m--;
-                    n++;
                 }
-                m = i;
-                n = j;
-                while(m+1<8 && n-1>=0){
-                    char target = pos.board[m+1][n-1];
-                    if (target == '.'){
-                        moves.emplace_back(Move(i, j, m+1, n-1));
+            }
+        }
+    }
+    return moves;
+}
+
+std::vector<Move> MoveGenerator::generateQueenMoves(const Position& pos){
+    std::vector<Move> moves;
+
+    for(int i=0; i<8; ++i){
+        for(int j=0; j<8; ++j){
+            // checks if the square has a queen
+            if ((pos.board[i][j] == 'q' && pos.sideToMove == 'b') || (pos.board[i][j] == 'Q' && pos.sideToMove == 'w')){
+                // move determination where queen can slide over
+                std::vector<std::pair<int, int>> movements = {
+                    {-1, 0}, {0, 1}, {1, 0}, {0, -1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
+                };
+
+                // now loop through particular row, column & diagonals until blocked or out of board
+                for (auto k : movements){
+                    int m = i + k.first;
+                    int n = j + k.second;
+                    while(m >= 0 && m < 8 && n >= 0 && n < 8){
+                        char target = pos.board[m][n];
+                        if (target == '.'){
+                            moves.emplace_back(Move(i, j, m, n));
+                        } else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')) {
+                            moves.emplace_back(Move(i, j, m, n));
+                            break;
+                        } else{
+                            break;
+                        }
+                        m += k.first;
+                        n += k.second;
                     }
-                    else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')){
-                        moves.emplace_back(Move(i, j, m+1, n-1));
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                    m++;
-                    n--;
-                }
-                m = i;
-                n = j;
-                while(m+1<8 && n+1<8){
-                    char target = pos.board[m+1][n+1];
-                    if (target == '.'){
-                        moves.emplace_back(Move(i, j, m+1, n+1));
-                    }
-                    else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')){
-                        moves.emplace_back(Move(i, j, m+1, n+1));
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                    m++;
-                    n++;
                 }
             }
         }

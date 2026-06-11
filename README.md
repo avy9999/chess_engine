@@ -10,11 +10,11 @@ A chess engine built from scratch in C++.
 - Knight Move Generation
 - King Move Generation
 - Pawn Move Generation
-
-### Planned
 - Bishop Move Generation
 - Rook Move Generation
 - Queen Move Generation
+
+### Planned
 - Castling
 - En Passant
 - Check Detection
@@ -28,3 +28,6 @@ The engine can currently load any valid FEN position and generate legal moves fo
 - Knights
 - Kings
 - Pawns
+- Bishops
+- Rooks
+- Queens
