@@ -1,4 +1,5 @@
 #include "../include/movegenerator.h"
+#include "../include/utils.h"
 
 std::vector<Move> MoveGenerator::generateKnightMoves(const Position& pos) {
     std::vector<Move> moves;
@@ -13,12 +14,12 @@ std::vector<Move> MoveGenerator::generateKnightMoves(const Position& pos) {
                     {i-1, j-2}, {i+1, j-2}, {i-1, j+2}, {i+1, j+2}, {i-2, j-1}, {i-2, j+1}, {i+2, j-1}, {i+2, j+1}
                 };
                 
-                for (auto k : allKnightMoves){
+                for (const auto& k : allKnightMoves){
                     // check board bounds and opponent pieces
                     if (k.first >= 0 && k.second >= 0 && k.first < 8 && k.second < 8){
                         char target = pos.board[k.first][k.second];
                         // add valid moves to vector
-                        if (target == '.' || (isupper(target) && pos.sideToMove == 'b') || (islower(target) && pos.sideToMove == 'w')){
+                        if (isEmptySquare(target) || isEnemyPiece(target, pos.sideToMove)){
                             moves.emplace_back(Move(i, j, k.first, k.second));
                         }
                     }      
@@ -41,12 +42,12 @@ std::vector<Move> MoveGenerator::generateKingMoves(const Position& pos){
                     {i-1, j-1}, {i-1, j}, {i-1, j+1}, {i, j-1}, {i, j+1}, {i+1, j-1}, {i+1, j}, {i+1, j+1}
                 };
                 
-                for (auto k : allKingMoves){
+                for (const auto& k : allKingMoves){
                     // check board bounds and opponent pieces
                     if (k.first >= 0 && k.second >= 0 && k.first < 8 && k.second < 8){
                         char target = pos.board[k.first][k.second];
                         // add valid moves to vector
-                        if (target == '.' || (isupper(target) && pos.sideToMove == 'b') || (islower(target) && pos.sideToMove == 'w')){
+                        if (isEmptySquare(target) || isEnemyPiece(target, pos.sideToMove)){
                             moves.emplace_back(Move(i, j, k.first, k.second));
                         }
                     }      
@@ -76,13 +77,13 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                 // capture moves
                 if (i+1 < 8 && j-1 >= 0){
                     char target = pos.board[i+1][j-1];
-                    if (isupper(target)){
+                    if (isEnemyPiece(target, pos.sideToMove)){
                         moves.emplace_back(Move(i, j, i+1, j-1));
                     }
                 }
                 if (i+1 < 8 && j+1 < 8){
                     char target = pos.board[i+1][j+1];
-                    if (isupper(target)){
+                    if (isEnemyPiece(target, pos.sideToMove)){
                         moves.emplace_back(Move(i, j, i+1, j+1));
                     }
                 }
@@ -100,13 +101,13 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                 // capture moves
                 if (i-1 >= 0 && j-1 >= 0){
                     char target = pos.board[i-1][j-1];
-                    if (islower(target)){
+                    if (isEnemyPiece(target, pos.sideToMove)){
                         moves.emplace_back(Move(i, j, i-1, j-1));
                     }
                 }
                 if (i-1 >= 0 && j+1 < 8){
                     char target = pos.board[i-1][j+1];
-                    if (islower(target)){
+                    if (isEnemyPiece(target, pos.sideToMove)){
                         moves.emplace_back(Move(i, j, i-1, j+1));
                     }
                 }
@@ -129,14 +130,14 @@ std::vector<Move> MoveGenerator::generateBishopMoves(const Position& pos){
                 };
 
                 // now loop through every diagonal bishop can go until blocked or out of board 
-                for (auto k : movements){
+                for (const auto& k : movements){
                     int m = i + k.first;
                     int n = j + k.second;
                     while(m >= 0 && m < 8 && n >= 0 && n < 8){
                         char target = pos.board[m][n];
-                        if (target == '.'){
+                        if (isEmptySquare(target)){
                             moves.emplace_back(Move(i, j, m, n));
-                        } else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')) {
+                        } else if (isEnemyPiece(target, pos.sideToMove)) {
                             moves.emplace_back(Move(i, j, m, n));
                             break;
                         } else{
@@ -165,14 +166,14 @@ std::vector<Move> MoveGenerator::generateRookMoves(const Position& pos){
                 };
 
                 // now loop through particular row & column until blocked or out of board
-                for (auto k : movements){
+                for (const auto& k : movements){
                     int m = i + k.first;
                     int n = j + k.second;
                     while(m >= 0 && m < 8 && n >= 0 && n < 8){
                         char target = pos.board[m][n];
-                        if (target == '.'){
+                        if (isEmptySquare(target)){
                             moves.emplace_back(Move(i, j, m, n));
-                        } else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')) {
+                        } else if (isEnemyPiece(target, pos.sideToMove)) {
                             moves.emplace_back(Move(i, j, m, n));
                             break;
                         } else{
@@ -201,14 +202,14 @@ std::vector<Move> MoveGenerator::generateQueenMoves(const Position& pos){
                 };
 
                 // now loop through particular row, column & diagonals until blocked or out of board
-                for (auto k : movements){
+                for (const auto& k : movements){
                     int m = i + k.first;
                     int n = j + k.second;
                     while(m >= 0 && m < 8 && n >= 0 && n < 8){
                         char target = pos.board[m][n];
-                        if (target == '.'){
+                        if (isEmptySquare(target)){
                             moves.emplace_back(Move(i, j, m, n));
-                        } else if ((isupper(target) && pos.sideToMove=='b') || (islower(target) && pos.sideToMove == 'w')) {
+                        } else if (isEnemyPiece(target, pos.sideToMove)) {
                             moves.emplace_back(Move(i, j, m, n));
                             break;
                         } else{
