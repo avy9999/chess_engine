@@ -225,6 +225,7 @@ std::vector<Move> MoveGenerator::generateQueenMoves(const Position& pos){
     return moves;
 }
 
+// generate all possible moves
 std::vector<Move> MoveGenerator::generateAllMoves(const Position& pos){
     std::vector<Move> moves;
     
@@ -247,10 +248,122 @@ std::vector<Move> MoveGenerator::generateAllMoves(const Position& pos){
 
 void MoveGenerator::makeMove(Position& pos, const Move& move){
     
+    // this makes a move on the board
     char piece = pos.board[move.fromRow][move.fromCol];
 
     pos.board[move.toRow][move.toCol] = piece;
     pos.board[move.fromRow][move.fromCol] = '.';
 
     pos.sideToMove = (pos.sideToMove == 'w') ? 'b':'w';
+}
+
+// this checks if any function attacks the square
+bool MoveGenerator::isSquareAttacked(
+    const Position& pos,
+    int row,
+    int col,
+    char attackingSide
+){
+    return
+        checkPawnAttack(pos, row, col, attackingSide) ||
+        checkKnightAttack(pos, row, col, attackingSide) ||
+        checkKingAttack(pos, row, col, attackingSide) ||
+        checkDiagonalAttack(pos, row, col, attackingSide) ||
+        checkStraightAttack(pos, row, col, attackingSide);
+}
+
+// checking if pawn attacks the square
+bool MoveGenerator::checkPawnAttack(const Position& pos, int row, int col, char attackingSide){
+    int pawnDir = attackingSide == 'w' ? 1 : -1;
+    char pawn = attackingSide =='w' ? 'P' : 'p';
+    if (row+pawnDir >= 0 && row+pawnDir<8 && col-1>=0 && pos.board[row+pawnDir][col-1] == pawn){
+            return true;
+    }
+    if (row+pawnDir >= 0 && row+pawnDir<8 && col+1<8 && pos.board[row+pawnDir][col+1]==pawn){
+        return true;
+    }
+    return false;
+}
+
+// checking if knight attacks the square
+bool MoveGenerator::checkKnightAttack(const Position& pos, int row, int col, char attackingSide){
+    std::vector<std::pair<int, int>> knightMoves = {
+        {-1, -2}, {1, -2}, {-1, 2}, {1, 2}, {-2, -1}, {-2, 1}, {2, -1}, {2, 1}   
+    };
+
+    char knight = attackingSide == 'w' ? 'N' : 'n';
+    
+    for (const auto& k : knightMoves){
+        if (row+k.first >= 0 && row+k.first<8 && col+k.second>=0 && col+k.second<8 && pos.board[row+k.first][col+k.second] == knight){
+            return true;
+        }
+    }
+    return false;
+}
+
+// checking if king attacks the square
+bool MoveGenerator::checkKingAttack(const Position& pos, int row, int col, char attackingSide){
+    std::vector<std::pair<int, int>> kingMoves = {
+        {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}
+    };
+    
+    char king = attackingSide == 'w' ? 'K' : 'k';
+
+    for (const auto& k : kingMoves){
+        if (row+k.first >= 0 && row+k.first<8 && col+k.second>=0 && col+k.second<8 && pos.board[row+k.first][col+k.second] == king){
+            return true;
+        }
+    }
+    return false;
+}
+
+// checking if bishop or queen attacks the diagonal squares
+bool MoveGenerator::checkDiagonalAttack(const Position& pos, int row, int col, char attackingSide){
+    std::vector<std::pair<int, int>> diagonalMoves = {
+        {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
+    }; 
+
+    char bishop = attackingSide == 'w' ? 'B' : 'b';
+    char queen = attackingSide == 'w' ? 'Q' : 'q';
+
+    for (const auto& k : diagonalMoves){
+        int i = row;
+        int j = col;
+        while (i+k.first >= 0 && i+k.first<8 && j+k.second>=0 && j+k.second<8){
+            if (pos.board[i+k.first][j+k.second]==bishop || pos.board[i+k.first][j+k.second]==queen){
+                return true;
+            } else if (pos.board[i+k.first][j+k.second] == '.'){
+                i+=k.first;
+                j+=k.second;
+            } else{
+                break;
+            }
+        }
+    }
+    return false;
+}
+
+bool MoveGenerator::checkStraightAttack(const Position& pos, int row, int col, char attackingSide){
+    std::vector<std::pair<int, int>> axesMoves = {
+        {-1, 0}, {0, 1}, {1, 0}, {0, -1}
+    };
+
+    char rook = attackingSide == 'w' ? 'R' : 'r';
+    char queen = attackingSide == 'w' ? 'Q' : 'q';
+
+    for (const auto& k : axesMoves){
+        int i = row;
+        int j = col;
+        while (i+k.first >= 0 && i+k.first<8 && j+k.second>=0 && j+k.second<8){
+            if (pos.board[i+k.first][j+k.second]==rook || pos.board[i+k.first][j+k.second]==queen){
+                return true;
+            } else if (pos.board[i+k.first][j+k.second] == '.'){
+                i+=k.first;
+                j+=k.second;
+            } else{
+                break;
+            }
+        }
+    }
+    return false;
 }

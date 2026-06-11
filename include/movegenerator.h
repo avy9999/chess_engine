@@ -13,4 +13,10 @@ class MoveGenerator {
         std::vector<Move> generateQueenMoves(const Position& pos);
         std::vector<Move> generateAllMoves(const Position& pos);
         void makeMove(Position& pos, const Move& move);
+        bool isSquareAttacked(const Position& pos, int row, int col, char attackingSide);
+        bool checkPawnAttack(const Position& pos, int row, int col, char attackingSide);
+        bool checkKnightAttack(const Position& pos, int row, int col, char attackingSide);
+        bool checkKingAttack(const Position& pos, int row, int col, char attackingSide);
+        bool checkDiagonalAttack(const Position& pos, int row, int col, char attackingSide);
+        bool checkStraightAttack(const Position& pos, int row, int col, char attackingSide);
 };

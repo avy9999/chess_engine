@@ -3,25 +3,22 @@
 #include "../include/movegenerator.h"
 
 int main() {
+    Position pos;
     MoveGenerator generator;
 
-    Position pos;
-    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-    pos.printBoard();
+    pos.loadFEN("8/8/8/8/4p3/8/8/8 b - - 0 1");
 
-    Move move(6, 4, 4, 4); // e2 -> e4
-    generator.makeMove(pos, move);
+    std::cout << "d3 attacked by black: "
+            << generator.isSquareAttacked(pos, 5, 3, 'b') << "\n";
 
-    std::cout << "\nAfter e2-e4:\n";
-    pos.printBoard();
-    std::cout << "\nSide: " << pos.sideToMove << "\n";
+    std::cout << "f3 attacked by black: "
+            << generator.isSquareAttacked(pos, 5, 5, 'b') << "\n";
 
-    Move move2(1, 4, 3, 4); // e7 -> e5
-    generator.makeMove(pos, move2);
-
-    std::cout << "\nAfter e7-e5:\n";
-    pos.printBoard();
+    std::cout << "e5 attacked by white: "
+          << generator.isSquareAttacked(pos, 3, 4, 'w') << "\n";
     
+    pos.printBoard();
+
     auto knightMoves = generator.generateKnightMoves(pos);
     std::cout << "\nKnight Moves:\n";
     std::cout << "Total moves: " << knightMoves.size() << "\n";
