@@ -14,6 +14,7 @@ A chess engine built from scratch in C++.
 - Rook Move Generation
 - Queen Move Generation
 - Refactor Move Generation
+- Move Execution & All-Moves Generation
 
 ### Planned
 - Castling
