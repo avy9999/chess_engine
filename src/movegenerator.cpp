@@ -367,3 +367,24 @@ bool MoveGenerator::checkStraightAttack(const Position& pos, int row, int col, c
     }
     return false;
 }
+
+// this function checks if the king is in check or not
+bool MoveGenerator::isKingInCheck(const Position& pos, char side){
+
+    // determine attacking side
+    char attackingSide = side == 'b' ? 'w' : 'b';
+    
+    // determine king
+    char king = side == 'b' ? 'k' : 'K';
+
+    for(int i=0; i<8; ++i){
+        for(int j=0; j<8; ++j){
+            // checks if square has king of side
+            if (pos.board[i][j] == king){
+                return isSquareAttacked(pos, i, j, attackingSide);
+            }
+        }
+    }
+
+    return false;
+}

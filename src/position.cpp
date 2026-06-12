@@ -116,9 +116,4 @@ void Position::loadFEN(const std::string& fen){
         index++;
     }
     fullMoveNumber = full;
-
-    cout << "Side: " << sideToMove << "\n";
-    cout << "EP: " << enPassantRow << " " << enPassantCol << "\n";
-    cout << "Half: " << halfMoveClock << "\n";
-    cout << "Full: " << fullMoveNumber << "\n";
 }

@@ -6,16 +6,15 @@ int main() {
     Position pos;
     MoveGenerator generator;
 
-    pos.loadFEN("8/8/8/8/4p3/8/8/8 b - - 0 1");
+    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
-    std::cout << "d3 attacked by black: "
-            << generator.isSquareAttacked(pos, 5, 3, 'b') << "\n";
+    std::cout << "White in check: "
+            << generator.isKingInCheck(pos, 'w')
+            << "\n";
 
-    std::cout << "f3 attacked by black: "
-            << generator.isSquareAttacked(pos, 5, 5, 'b') << "\n";
-
-    std::cout << "e5 attacked by white: "
-          << generator.isSquareAttacked(pos, 3, 4, 'w') << "\n";
+    std::cout << "Black in check: "
+            << generator.isKingInCheck(pos, 'b')
+            << "\n";
     
     pos.printBoard();
 

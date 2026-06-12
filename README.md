@@ -20,16 +20,16 @@ A chess engine built from scratch in C++.
 * Square Attack Detection (`isSquareAttacked`)
 * Move Generation Refactoring
 * Utility Functions for Piece Handling
+* Check Detection
 
 ### In Progress
 
-* Check Detection
+* Legal Move Generation
 
 ### Planned
 
 * Castling
 * En Passant
-* Legal Move Generation
 * Checkmate Detection
 * Stalemate Detection
 * Evaluation Function
@@ -40,13 +40,14 @@ A chess engine built from scratch in C++.
 
 ## Current Status
 
-The engine can:
+The engine can currently:
 
-* Load positions from FEN strings
-* Generate pseudo-legal moves for all pieces
-* Execute moves on the board
-* Detect whether a square is attacked by a given side
-* Generate all available moves for the side to move
+- Load positions from FEN strings
+- Generate pseudo-legal moves for all pieces
+- Execute moves on the board
+- Detect whether a square is attacked
+- Detect whether a king is in check
+- Generate all pseudo-legal moves for the side to move
 
 ## Next Milestone
 

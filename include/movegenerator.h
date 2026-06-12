@@ -19,4 +19,5 @@ class MoveGenerator {
         bool checkKingAttack(const Position& pos, int row, int col, char attackingSide);
         bool checkDiagonalAttack(const Position& pos, int row, int col, char attackingSide);
         bool checkStraightAttack(const Position& pos, int row, int col, char attackingSide);
+        bool isKingInCheck(const Position& pos, char side);
 };
