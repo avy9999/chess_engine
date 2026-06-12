@@ -20,4 +20,5 @@ class MoveGenerator {
         bool checkDiagonalAttack(const Position& pos, int row, int col, char attackingSide);
         bool checkStraightAttack(const Position& pos, int row, int col, char attackingSide);
         bool isKingInCheck(const Position& pos, char side);
+        std::vector<Move> generateLegalMoves(const Position& pos);
 };

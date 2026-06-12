@@ -6,15 +6,7 @@ int main() {
     Position pos;
     MoveGenerator generator;
 
-    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-
-    std::cout << "White in check: "
-            << generator.isKingInCheck(pos, 'w')
-            << "\n";
-
-    std::cout << "Black in check: "
-            << generator.isKingInCheck(pos, 'b')
-            << "\n";
+    pos.loadFEN("4r3/8/8/8/8/8/8/4K3 w - - 0 1");
     
     pos.printBoard();
 
@@ -60,6 +52,6 @@ int main() {
         std::cout << "(" << m.fromRow << "," << m.fromCol << ") -> (" << m.toRow << "," << m.toCol << ")\n";
     }
 
-    auto moves = generator.generateAllMoves(pos);
+    auto moves = generator.generateLegalMoves(pos);
     std::cout << moves.size() << "\n";
 }

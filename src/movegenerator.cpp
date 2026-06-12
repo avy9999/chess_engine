@@ -20,7 +20,7 @@ std::vector<Move> MoveGenerator::generateKnightMoves(const Position& pos) {
                         char target = pos.board[k.first][k.second];
                         // add valid moves to vector
                         if (isEmptySquare(target) || isEnemyPiece(target, pos.sideToMove)){
-                            moves.emplace_back(Move(i, j, k.first, k.second));
+                            moves.push_back(Move(i, j, k.first, k.second));
                         }
                     }      
                 }
@@ -48,7 +48,7 @@ std::vector<Move> MoveGenerator::generateKingMoves(const Position& pos){
                         char target = pos.board[k.first][k.second];
                         // add valid moves to vector
                         if (isEmptySquare(target) || isEnemyPiece(target, pos.sideToMove)){
-                            moves.emplace_back(Move(i, j, k.first, k.second));
+                            moves.push_back(Move(i, j, k.first, k.second));
                         }
                     }      
                 }
@@ -68,23 +68,23 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                 // generate all possible pawn moves for black
                 // single forward move
                 if (i+1 < 8 && pos.board[i+1][j] == '.'){
-                    moves.emplace_back(Move(i, j, i+1, j));
+                    moves.push_back(Move(i, j, i+1, j));
                 }
                 // double forward move only when pawn on its initial position
                 if (i==1 && pos.board[3][j]=='.' && pos.board[2][j]=='.'){
-                    moves.emplace_back(Move(i, j, i+2, j));
+                    moves.push_back(Move(i, j, i+2, j));
                 }
                 // capture moves
                 if (i+1 < 8 && j-1 >= 0){
                     char target = pos.board[i+1][j-1];
                     if (isEnemyPiece(target, pos.sideToMove)){
-                        moves.emplace_back(Move(i, j, i+1, j-1));
+                        moves.push_back(Move(i, j, i+1, j-1));
                     }
                 }
                 if (i+1 < 8 && j+1 < 8){
                     char target = pos.board[i+1][j+1];
                     if (isEnemyPiece(target, pos.sideToMove)){
-                        moves.emplace_back(Move(i, j, i+1, j+1));
+                        moves.push_back(Move(i, j, i+1, j+1));
                     }
                 }
             }
@@ -92,23 +92,23 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                 // generate all possible pawn moves for white
                 // single forward move
                 if (i-1 >=0 && pos.board[i-1][j] == '.'){
-                    moves.emplace_back(Move(i, j, i-1, j));
+                    moves.push_back(Move(i, j, i-1, j));
                 }
                 // double forward move only when pawn on its initial position
                 if (i==6 && pos.board[4][j]=='.' && pos.board[5][j]=='.'){
-                    moves.emplace_back(Move(i, j, i-2, j));
+                    moves.push_back(Move(i, j, i-2, j));
                 }
                 // capture moves
                 if (i-1 >= 0 && j-1 >= 0){
                     char target = pos.board[i-1][j-1];
                     if (isEnemyPiece(target, pos.sideToMove)){
-                        moves.emplace_back(Move(i, j, i-1, j-1));
+                        moves.push_back(Move(i, j, i-1, j-1));
                     }
                 }
                 if (i-1 >= 0 && j+1 < 8){
                     char target = pos.board[i-1][j+1];
                     if (isEnemyPiece(target, pos.sideToMove)){
-                        moves.emplace_back(Move(i, j, i-1, j+1));
+                        moves.push_back(Move(i, j, i-1, j+1));
                     }
                 }
             }
@@ -136,9 +136,9 @@ std::vector<Move> MoveGenerator::generateBishopMoves(const Position& pos){
                     while(m >= 0 && m < 8 && n >= 0 && n < 8){
                         char target = pos.board[m][n];
                         if (isEmptySquare(target)){
-                            moves.emplace_back(Move(i, j, m, n));
+                            moves.push_back(Move(i, j, m, n));
                         } else if (isEnemyPiece(target, pos.sideToMove)) {
-                            moves.emplace_back(Move(i, j, m, n));
+                            moves.push_back(Move(i, j, m, n));
                             break;
                         } else{
                             break;
@@ -172,9 +172,9 @@ std::vector<Move> MoveGenerator::generateRookMoves(const Position& pos){
                     while(m >= 0 && m < 8 && n >= 0 && n < 8){
                         char target = pos.board[m][n];
                         if (isEmptySquare(target)){
-                            moves.emplace_back(Move(i, j, m, n));
+                            moves.push_back(Move(i, j, m, n));
                         } else if (isEnemyPiece(target, pos.sideToMove)) {
-                            moves.emplace_back(Move(i, j, m, n));
+                            moves.push_back(Move(i, j, m, n));
                             break;
                         } else{
                             break;
@@ -208,9 +208,9 @@ std::vector<Move> MoveGenerator::generateQueenMoves(const Position& pos){
                     while(m >= 0 && m < 8 && n >= 0 && n < 8){
                         char target = pos.board[m][n];
                         if (isEmptySquare(target)){
-                            moves.emplace_back(Move(i, j, m, n));
+                            moves.push_back(Move(i, j, m, n));
                         } else if (isEnemyPiece(target, pos.sideToMove)) {
-                            moves.emplace_back(Move(i, j, m, n));
+                            moves.push_back(Move(i, j, m, n));
                             break;
                         } else{
                             break;
@@ -387,4 +387,26 @@ bool MoveGenerator::isKingInCheck(const Position& pos, char side){
     }
 
     return false;
+}
+
+// generate all legal moves
+std::vector<Move> MoveGenerator::generateLegalMoves(const Position& pos){
+    std::vector<Move> legalMoves;
+
+    // this generate all possible moves from the current position
+    auto moves = generateAllMoves(pos);
+
+    for (const auto& move : moves){
+        // create a copy of current position
+        Position copy = pos;
+
+        // make a move on the copy position
+        makeMove(copy, move);
+
+        if (!isKingInCheck(copy, pos.sideToMove)){
+            legalMoves.push_back(move);
+        }
+    }
+
+    return legalMoves;
 }
