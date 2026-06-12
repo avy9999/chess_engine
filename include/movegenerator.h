@@ -12,6 +12,8 @@ class MoveGenerator {
         std::vector<Move> generateRookMoves(const Position& pos);
         std::vector<Move> generateQueenMoves(const Position& pos);
         std::vector<Move> generateAllMoves(const Position& pos);
+        std::vector<Move> generateLegalMoves(const Position& pos);
+        std::vector<Move> generateSlidingMoves(const Position& pos, char pieceType, const std::vector<std::pair<int,int>>& directions);
         void makeMove(Position& pos, const Move& move);
         bool isSquareAttacked(const Position& pos, int row, int col, char attackingSide);
         bool checkPawnAttack(const Position& pos, int row, int col, char attackingSide);
@@ -20,5 +22,4 @@ class MoveGenerator {
         bool checkDiagonalAttack(const Position& pos, int row, int col, char attackingSide);
         bool checkStraightAttack(const Position& pos, int row, int col, char attackingSide);
         bool isKingInCheck(const Position& pos, char side);
-        std::vector<Move> generateLegalMoves(const Position& pos);
 };

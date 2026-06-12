@@ -130,110 +130,83 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
 }
 
 std::vector<Move> MoveGenerator::generateBishopMoves(const Position& pos){
-    std::vector<Move> moves;
 
-    for(int i=0; i<8; ++i){
-        for(int j=0; j<8; ++j){
-            // checks if the square has a bishop
-            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'b')){
-                // move determination where bishop can slide over
-                std::vector<std::pair<int, int>> movements = {
-                    {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
-                };
+    static const std::vector<std::pair<int,int>> directions = {
+        {-1,-1},
+        {-1, 1},
+        { 1,-1},
+        { 1, 1}
+    };
 
-                // now loop through every diagonal bishop can go until blocked or out of board 
-                for (const auto& k : movements){
-                    int m = i + k.first;
-                    int n = j + k.second;
-                    while(isInsideBoard(m,n)){
-                        char target = pos.board[m][n];
-                        if (isEmptySquare(target)){
-                            moves.push_back(Move(i, j, m, n));
-                        } else if (isEnemyPiece(target, pos.sideToMove)) {
-                            moves.push_back(Move(i, j, m, n));
-                            break;
-                        } else{
-                            break;
-                        }
-                        m += k.first;
-                        n += k.second;
-                    }
-                }
-            }
-        }
-    }
-    return moves;
+    return generateSlidingMoves(pos, 'b', directions);
 }
 
 std::vector<Move> MoveGenerator::generateRookMoves(const Position& pos){
-    std::vector<Move> moves;
 
-    for(int i=0; i<8; ++i){
-        for(int j=0; j<8; ++j){
-            // checks if the square has a rook
-            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'r')){
-                // move determination where rook can slide over
-                std::vector<std::pair<int, int>> movements = {
-                    {-1, 0}, {0, 1}, {1, 0}, {0, -1}
-                };
+    static const std::vector<std::pair<int,int>> directions = {
+        {-1,0},
+        {0,1},
+        {1,0},
+        {0,-1}
+    };
 
-                // now loop through particular row & column until blocked or out of board
-                for (const auto& k : movements){
-                    int m = i + k.first;
-                    int n = j + k.second;
-                    while(isInsideBoard(m, n)){
-                        char target = pos.board[m][n];
-                        if (isEmptySquare(target)){
-                            moves.push_back(Move(i, j, m, n));
-                        } else if (isEnemyPiece(target, pos.sideToMove)) {
-                            moves.push_back(Move(i, j, m, n));
-                            break;
-                        } else{
-                            break;
-                        }
-                        m += k.first;
-                        n += k.second;
-                    }
-                }
-            }
-        }
-    }
-    return moves;
+    return generateSlidingMoves(pos, 'r', directions);
 }
 
 std::vector<Move> MoveGenerator::generateQueenMoves(const Position& pos){
+
+    static const std::vector<std::pair<int,int>> directions = {
+        {-1,0},
+        {0,1},
+        {1,0},
+        {0,-1},
+        {-1,-1},
+        {-1,1},
+        {1,-1},
+        {1,1}
+    };
+
+    return generateSlidingMoves(pos, 'q', directions);
+}
+
+// helper function for generating sliding moves
+std::vector<Move> MoveGenerator::generateSlidingMoves(const Position& pos, char pieceType, const std::vector<std::pair<int,int>>& directions){
     std::vector<Move> moves;
 
-    for(int i=0; i<8; ++i){
-        for(int j=0; j<8; ++j){
-            // checks if the square has a queen
-            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'q')){
-                // move determination where queen can slide over
-                std::vector<std::pair<int, int>> movements = {
-                    {-1, 0}, {0, 1}, {1, 0}, {0, -1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
-                };
+    for(int i = 0; i < 8; ++i){
+        for(int j = 0; j < 8; ++j){
 
-                // now loop through particular row, column & diagonals until blocked or out of board
-                for (const auto& k : movements){
-                    int m = i + k.first;
-                    int n = j + k.second;
-                    while(isInsideBoard(m,n)){
+            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) &&
+                isPieceType(pos.board[i][j], pieceType))
+            {
+                for(const auto& dir : directions){
+
+                    int m = i + dir.first;
+                    int n = j + dir.second;
+
+                    while(isInsideBoard(m, n)){
+
                         char target = pos.board[m][n];
-                        if (isEmptySquare(target)){
+
+                        if(isEmptySquare(target)){
                             moves.push_back(Move(i, j, m, n));
-                        } else if (isEnemyPiece(target, pos.sideToMove)) {
+                        }
+                        else if(isEnemyPiece(target, pos.sideToMove)){
                             moves.push_back(Move(i, j, m, n));
-                            break;
-                        } else{
                             break;
                         }
-                        m += k.first;
-                        n += k.second;
+                        else{
+                            break;
+                        }
+
+                        m += dir.first;
+                        n += dir.second;
                     }
                 }
             }
         }
     }
+
     return moves;
 }
 
