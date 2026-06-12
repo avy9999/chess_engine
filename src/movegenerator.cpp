@@ -38,11 +38,11 @@ std::vector<Move> MoveGenerator::generateKingMoves(const Position& pos){
             // checks if square has king of pos.sideToMove
             if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'k')){
                 // generate all 8 possible king moves
-                std::vector <std:: pair <int, int>> allKingMoves = {
+                std::vector <std:: pair <int, int>> normalKingMoves = {
                     {i-1, j-1}, {i-1, j}, {i-1, j+1}, {i, j-1}, {i, j+1}, {i+1, j-1}, {i+1, j}, {i+1, j+1}
                 };
                 
-                for (const auto& k : allKingMoves){
+                for (const auto& k : normalKingMoves){
                     // check board bounds and opponent pieces
                     if (isInsideBoard(k.first, k.second)){
                         char target = pos.board[k.first][k.second];
@@ -51,6 +51,53 @@ std::vector<Move> MoveGenerator::generateKingMoves(const Position& pos){
                             moves.push_back(Move(i, j, k.first, k.second));
                         }
                     }      
+                }
+                // castle moves
+                bool kingInCheck = isKingInCheck(pos, pos.sideToMove);
+                if (pos.sideToMove == 'w'){
+                    // kingside castle
+                    if (pos.castlingRights[0] 
+                        && pos.board[7][5] == '.' 
+                        && pos.board[7][6] == '.' 
+                        && !kingInCheck
+                        && !isSquareAttacked(pos, 7, 5, 'b') 
+                        && !isSquareAttacked(pos, 7, 6, 'b')
+                        && pos.board[7][7] == 'R'){
+                            moves.emplace_back(Move(i, j, i, j+2));
+                    }
+                    // queenside castle
+                    if (pos.castlingRights[1] 
+                        && pos.board[7][1] == '.' 
+                        && pos.board[7][2] == '.' 
+                        && pos.board[7][3] == '.' 
+                        && !kingInCheck
+                        && !isSquareAttacked(pos, 7, 2, 'b') 
+                        && !isSquareAttacked(pos, 7, 3, 'b')
+                        && pos.board[7][0] == 'R'){
+                            moves.emplace_back(Move(i, j, i, j-2));
+                    }
+                } else {
+                    // kingside castle
+                    if (pos.castlingRights[2] 
+                        && pos.board[0][5] == '.' 
+                        && pos.board[0][6] == '.' 
+                        && !kingInCheck
+                        && !isSquareAttacked(pos, 0, 5, 'w') 
+                        && !isSquareAttacked(pos, 0, 6, 'w')
+                        && pos.board[0][7] == 'r'){
+                            moves.emplace_back(Move(i, j, i, j+2));
+                    }
+                    // queenside castle
+                    if (pos.castlingRights[3] 
+                        && pos.board[0][1] == '.' 
+                        && pos.board[0][2] == '.' 
+                        && pos.board[0][3] == '.' 
+                        && !kingInCheck
+                        && !isSquareAttacked(pos, 0, 2, 'w') 
+                        && !isSquareAttacked(pos, 0, 3, 'w')
+                        && pos.board[0][0] == 'r'){
+                            moves.emplace_back(Move(i, j, i, j-2));
+                    }
                 }
             }
         }

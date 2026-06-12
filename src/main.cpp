@@ -4,7 +4,7 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    pos.loadFEN("r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1");
 
     MoveGenerator generator;
 
