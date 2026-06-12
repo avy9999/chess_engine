@@ -26,3 +26,12 @@ bool isEnemyPiece(char piece, char sideToMove){
 bool isEmptySquare(char piece){
     return piece == '.';
 };
+
+bool isInsideBoard(int row, int col){
+    return row >= 0 && row < 8 &&
+           col >= 0 && col < 8;
+}
+
+bool isPieceType(char piece, char pieceType){
+    return std::tolower(piece) == pieceType;
+}

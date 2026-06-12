@@ -7,3 +7,6 @@ bool isFriendlyPiece(char piece, char sideToMove);
 bool isEnemyPiece(char piece, char sideToMove);
 
 bool isEmptySquare(char piece);
+
+bool isInsideBoard(int row, int col);
+bool isPieceType(char piece, char pieceType);

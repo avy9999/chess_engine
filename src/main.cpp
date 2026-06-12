@@ -4,9 +4,17 @@
 
 int main() {
     Position pos;
+    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+
     MoveGenerator generator;
 
-    pos.loadFEN("4r3/8/8/8/8/8/8/4K3 w - - 0 1");
+    std::cout << "White in check: "
+            << generator.isKingInCheck(pos, 'w')
+            << "\n";
+
+    std::cout << "Black in check: "
+            << generator.isKingInCheck(pos, 'b')
+          << "\n";
     
     pos.printBoard();
 

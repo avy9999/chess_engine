@@ -8,7 +8,7 @@ std::vector<Move> MoveGenerator::generateKnightMoves(const Position& pos) {
     for(int i=0; i<8; ++i){
         for(int j=0; j<8; ++j){
             // checks if square has knight of pos.sideToMove
-            if ((pos.board[i][j] == 'n' && pos.sideToMove == 'b') || (pos.board[i][j] == 'N' && pos.sideToMove == 'w')){
+            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'n')){
                 // generate all 8 possible knight moves
                 std::vector <std:: pair <int, int>> allKnightMoves = {
                     {i-1, j-2}, {i+1, j-2}, {i-1, j+2}, {i+1, j+2}, {i-2, j-1}, {i-2, j+1}, {i+2, j-1}, {i+2, j+1}
@@ -16,7 +16,7 @@ std::vector<Move> MoveGenerator::generateKnightMoves(const Position& pos) {
                 
                 for (const auto& k : allKnightMoves){
                     // check board bounds and opponent pieces
-                    if (k.first >= 0 && k.second >= 0 && k.first < 8 && k.second < 8){
+                    if (isInsideBoard(k.first, k.second)){
                         char target = pos.board[k.first][k.second];
                         // add valid moves to vector
                         if (isEmptySquare(target) || isEnemyPiece(target, pos.sideToMove)){
@@ -36,7 +36,7 @@ std::vector<Move> MoveGenerator::generateKingMoves(const Position& pos){
     for(int i=0; i<8; ++i){
         for(int j=0; j<8; ++j){
             // checks if square has king of pos.sideToMove
-            if ((pos.board[i][j] == 'k' && pos.sideToMove == 'b') || (pos.board[i][j] == 'K' && pos.sideToMove == 'w')){
+            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'k')){
                 // generate all 8 possible king moves
                 std::vector <std:: pair <int, int>> allKingMoves = {
                     {i-1, j-1}, {i-1, j}, {i-1, j+1}, {i, j-1}, {i, j+1}, {i+1, j-1}, {i+1, j}, {i+1, j+1}
@@ -44,7 +44,7 @@ std::vector<Move> MoveGenerator::generateKingMoves(const Position& pos){
                 
                 for (const auto& k : allKingMoves){
                     // check board bounds and opponent pieces
-                    if (k.first >= 0 && k.second >= 0 && k.first < 8 && k.second < 8){
+                    if (isInsideBoard(k.first, k.second)){
                         char target = pos.board[k.first][k.second];
                         // add valid moves to vector
                         if (isEmptySquare(target) || isEnemyPiece(target, pos.sideToMove)){
@@ -60,60 +60,72 @@ std::vector<Move> MoveGenerator::generateKingMoves(const Position& pos){
 
 std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
     std::vector<Move> moves;
-    
-    for(int i=0; i<8; ++i){
-        for(int j=0; j<8; ++j){
-            // checks if square has pawn of pos.sideToMove
-            if (pos.board[i][j] == 'p' && pos.sideToMove == 'b'){
-                // generate all possible pawn moves for black
-                // single forward move
-                if (i+1 < 8 && pos.board[i+1][j] == '.'){
-                    moves.push_back(Move(i, j, i+1, j));
+
+    for(int i = 0; i < 8; ++i){
+        for(int j = 0; j < 8; ++j){
+
+            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) &&
+                isPieceType(pos.board[i][j], 'p'))
+            {
+                int direction = (pos.sideToMove == 'w') ? -1 : 1;
+                int startRow  = (pos.sideToMove == 'w') ? 6 : 1;
+
+                // single push
+                if (isInsideBoard(i + direction, j) &&
+                    isEmptySquare(pos.board[i + direction][j]))
+                {
+                    moves.push_back(
+                        Move(i, j,
+                             i + direction, j)
+                    );
                 }
-                // double forward move only when pawn on its initial position
-                if (i==1 && pos.board[3][j]=='.' && pos.board[2][j]=='.'){
-                    moves.push_back(Move(i, j, i+2, j));
+
+                // double push
+                if (i == startRow &&
+                    isEmptySquare(pos.board[i + direction][j]) &&
+                    isEmptySquare(pos.board[i + 2 * direction][j]))
+                {
+                    moves.push_back(
+                        Move(i, j,
+                             i + 2 * direction, j)
+                    );
                 }
-                // capture moves
-                if (i+1 < 8 && j-1 >= 0){
-                    char target = pos.board[i+1][j-1];
-                    if (isEnemyPiece(target, pos.sideToMove)){
-                        moves.push_back(Move(i, j, i+1, j-1));
+
+                // capture left
+                if (isInsideBoard(i + direction, j - 1))
+                {
+                    char target =
+                        pos.board[i + direction][j - 1];
+
+                    if (isEnemyPiece(target, pos.sideToMove))
+                    {
+                        moves.push_back(
+                            Move(i, j,
+                                 i + direction,
+                                 j - 1)
+                        );
                     }
                 }
-                if (i+1 < 8 && j+1 < 8){
-                    char target = pos.board[i+1][j+1];
-                    if (isEnemyPiece(target, pos.sideToMove)){
-                        moves.push_back(Move(i, j, i+1, j+1));
-                    }
-                }
-            }
-            if (pos.board[i][j] == 'P' && pos.sideToMove == 'w'){
-                // generate all possible pawn moves for white
-                // single forward move
-                if (i-1 >=0 && pos.board[i-1][j] == '.'){
-                    moves.push_back(Move(i, j, i-1, j));
-                }
-                // double forward move only when pawn on its initial position
-                if (i==6 && pos.board[4][j]=='.' && pos.board[5][j]=='.'){
-                    moves.push_back(Move(i, j, i-2, j));
-                }
-                // capture moves
-                if (i-1 >= 0 && j-1 >= 0){
-                    char target = pos.board[i-1][j-1];
-                    if (isEnemyPiece(target, pos.sideToMove)){
-                        moves.push_back(Move(i, j, i-1, j-1));
-                    }
-                }
-                if (i-1 >= 0 && j+1 < 8){
-                    char target = pos.board[i-1][j+1];
-                    if (isEnemyPiece(target, pos.sideToMove)){
-                        moves.push_back(Move(i, j, i-1, j+1));
+
+                // capture right
+                if (isInsideBoard(i + direction, j + 1))
+                {
+                    char target =
+                        pos.board[i + direction][j + 1];
+
+                    if (isEnemyPiece(target, pos.sideToMove))
+                    {
+                        moves.push_back(
+                            Move(i, j,
+                                 i + direction,
+                                 j + 1)
+                        );
                     }
                 }
             }
         }
     }
+
     return moves;
 }
 
@@ -123,7 +135,7 @@ std::vector<Move> MoveGenerator::generateBishopMoves(const Position& pos){
     for(int i=0; i<8; ++i){
         for(int j=0; j<8; ++j){
             // checks if the square has a bishop
-            if ((pos.board[i][j] == 'b' && pos.sideToMove == 'b') || (pos.board[i][j] == 'B' && pos.sideToMove == 'w')){
+            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'b')){
                 // move determination where bishop can slide over
                 std::vector<std::pair<int, int>> movements = {
                     {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
@@ -133,7 +145,7 @@ std::vector<Move> MoveGenerator::generateBishopMoves(const Position& pos){
                 for (const auto& k : movements){
                     int m = i + k.first;
                     int n = j + k.second;
-                    while(m >= 0 && m < 8 && n >= 0 && n < 8){
+                    while(isInsideBoard(m,n)){
                         char target = pos.board[m][n];
                         if (isEmptySquare(target)){
                             moves.push_back(Move(i, j, m, n));
@@ -159,7 +171,7 @@ std::vector<Move> MoveGenerator::generateRookMoves(const Position& pos){
     for(int i=0; i<8; ++i){
         for(int j=0; j<8; ++j){
             // checks if the square has a rook
-            if ((pos.board[i][j] == 'r' && pos.sideToMove == 'b') || (pos.board[i][j] == 'R' && pos.sideToMove == 'w')){
+            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'r')){
                 // move determination where rook can slide over
                 std::vector<std::pair<int, int>> movements = {
                     {-1, 0}, {0, 1}, {1, 0}, {0, -1}
@@ -169,7 +181,7 @@ std::vector<Move> MoveGenerator::generateRookMoves(const Position& pos){
                 for (const auto& k : movements){
                     int m = i + k.first;
                     int n = j + k.second;
-                    while(m >= 0 && m < 8 && n >= 0 && n < 8){
+                    while(isInsideBoard(m, n)){
                         char target = pos.board[m][n];
                         if (isEmptySquare(target)){
                             moves.push_back(Move(i, j, m, n));
@@ -195,7 +207,7 @@ std::vector<Move> MoveGenerator::generateQueenMoves(const Position& pos){
     for(int i=0; i<8; ++i){
         for(int j=0; j<8; ++j){
             // checks if the square has a queen
-            if ((pos.board[i][j] == 'q' && pos.sideToMove == 'b') || (pos.board[i][j] == 'Q' && pos.sideToMove == 'w')){
+            if (isFriendlyPiece(pos.board[i][j], pos.sideToMove) && isPieceType(pos.board[i][j], 'q')){
                 // move determination where queen can slide over
                 std::vector<std::pair<int, int>> movements = {
                     {-1, 0}, {0, 1}, {1, 0}, {0, -1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
@@ -205,7 +217,7 @@ std::vector<Move> MoveGenerator::generateQueenMoves(const Position& pos){
                 for (const auto& k : movements){
                     int m = i + k.first;
                     int n = j + k.second;
-                    while(m >= 0 && m < 8 && n >= 0 && n < 8){
+                    while(isInsideBoard(m,n)){
                         char target = pos.board[m][n];
                         if (isEmptySquare(target)){
                             moves.push_back(Move(i, j, m, n));
@@ -294,7 +306,7 @@ bool MoveGenerator::checkKnightAttack(const Position& pos, int row, int col, cha
     char knight = attackingSide == 'w' ? 'N' : 'n';
     
     for (const auto& k : knightMoves){
-        if (row+k.first >= 0 && row+k.first<8 && col+k.second>=0 && col+k.second<8 && pos.board[row+k.first][col+k.second] == knight){
+        if (isInsideBoard(row+k.first, col+k.second) && pos.board[row+k.first][col+k.second] == knight){
             return true;
         }
     }
@@ -310,7 +322,7 @@ bool MoveGenerator::checkKingAttack(const Position& pos, int row, int col, char 
     char king = attackingSide == 'w' ? 'K' : 'k';
 
     for (const auto& k : kingMoves){
-        if (row+k.first >= 0 && row+k.first<8 && col+k.second>=0 && col+k.second<8 && pos.board[row+k.first][col+k.second] == king){
+        if (isInsideBoard(row+k.first, col+k.second) && pos.board[row+k.first][col+k.second] == king){
             return true;
         }
     }
@@ -329,7 +341,7 @@ bool MoveGenerator::checkDiagonalAttack(const Position& pos, int row, int col, c
     for (const auto& k : diagonalMoves){
         int i = row;
         int j = col;
-        while (i+k.first >= 0 && i+k.first<8 && j+k.second>=0 && j+k.second<8){
+        while (isInsideBoard(i+k.first, j+k.second)){
             if (pos.board[i+k.first][j+k.second]==bishop || pos.board[i+k.first][j+k.second]==queen){
                 return true;
             } else if (pos.board[i+k.first][j+k.second] == '.'){
@@ -354,7 +366,7 @@ bool MoveGenerator::checkStraightAttack(const Position& pos, int row, int col, c
     for (const auto& k : axesMoves){
         int i = row;
         int j = col;
-        while (i+k.first >= 0 && i+k.first<8 && j+k.second>=0 && j+k.second<8){
+        while (isInsideBoard(i+k.first, j+k.second)){
             if (pos.board[i+k.first][j+k.second]==rook || pos.board[i+k.first][j+k.second]==queen){
                 return true;
             } else if (pos.board[i+k.first][j+k.second] == '.'){
@@ -373,14 +385,11 @@ bool MoveGenerator::isKingInCheck(const Position& pos, char side){
 
     // determine attacking side
     char attackingSide = side == 'b' ? 'w' : 'b';
-    
-    // determine king
-    char king = side == 'b' ? 'k' : 'K';
 
     for(int i=0; i<8; ++i){
         for(int j=0; j<8; ++j){
             // checks if square has king of side
-            if (pos.board[i][j] == king){
+            if (isFriendlyPiece(pos.board[i][j], side) && isPieceType(pos.board[i][j], 'k')) {
                 return isSquareAttacked(pos, i, j, attackingSide);
             }
         }
