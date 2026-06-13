@@ -32,27 +32,13 @@ A chess engine built from scratch in C++.
   * Requires correct castling rights
   * Requires unmoved rook
   * Requires empty squares between king and rook
-
-### In Progress
-
 * Checkmate Detection
 * Stalemate Detection
 
-### Planned
+### In Progress
 
 * En Passant
 * Pawn Promotion
-* Draw Detection
-
-  * Fifty-Move Rule
-  * Threefold Repetition
-  * Insufficient Material
-* Evaluation Function
-* Minimax Search
-* Alpha-Beta Pruning
-* Move Ordering
-* UCI Support
-* Web Interface
 
 ## Current Status
 
@@ -63,6 +49,8 @@ The engine can currently:
 * Execute moves on the board
 * Detect attacked squares
 * Detect checks
+* Detect checkmate positions
+* Detect stalemate positions
 * Filter illegal moves that leave the king in check
 * Generate and execute castling moves
 * Track and update castling rights
@@ -72,12 +60,13 @@ The engine can currently:
 
 Implement:
 
-* Checkmate Detection
-* Stalemate Detection
+* En Passant
+* Pawn Promotion
 
 using:
 
-* `generateLegalMoves()`
-* `isKingInCheck()`
+* Move generation
+* Move execution
+* Position state tracking
 
-After this milestone, the engine will be able to correctly determine game-ending positions before moving on to advanced rules such as en passant, promotion, and draw detection.
+After this milestone, the engine will support all standard chess moves and special move rules, providing a complete legal move generation system.

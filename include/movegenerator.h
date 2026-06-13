@@ -22,4 +22,6 @@ class MoveGenerator {
         bool checkDiagonalAttack(const Position& pos, int row, int col, char attackingSide);
         bool checkStraightAttack(const Position& pos, int row, int col, char attackingSide);
         bool isKingInCheck(const Position& pos, char side);
+        bool isCheckmate(const Position& pos);
+        bool isStalemate(const Position& pos);
 };

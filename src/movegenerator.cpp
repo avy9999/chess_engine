@@ -523,3 +523,13 @@ std::vector<Move> MoveGenerator::generateLegalMoves(const Position& pos){
 
     return legalMoves;
 }
+
+// detects if it is a checkmate
+bool MoveGenerator::isCheckmate(const Position& pos){
+    return isKingInCheck(pos, pos.sideToMove) && generateLegalMoves(pos).empty();
+}
+
+// detects if it is a stalemate
+bool MoveGenerator::isStalemate(const Position& pos){
+    return !isKingInCheck(pos, pos.sideToMove) && generateLegalMoves(pos).empty();
+}
