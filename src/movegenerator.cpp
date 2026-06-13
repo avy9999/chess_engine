@@ -283,8 +283,92 @@ void MoveGenerator::makeMove(Position& pos, const Move& move){
     // this makes a move on the board
     char piece = pos.board[move.fromRow][move.fromCol];
 
-    pos.board[move.toRow][move.toCol] = piece;
-    pos.board[move.fromRow][move.fromCol] = '.';
+    // determine king and rook
+    char king = pos.sideToMove == 'w' ? 'K' : 'k';
+    char rook = pos.sideToMove == 'w' ? 'R' : 'r';
+
+    // determine captured piece
+    char captured = pos.board[move.toRow][move.toCol];
+
+    // white rook captured so disable white castling rights
+    if (captured == 'R') {
+        if (move.toRow == 7 && move.toCol == 0)
+            pos.castlingRights[1] = false;
+
+        if (move.toRow == 7 && move.toCol == 7)
+            pos.castlingRights[0] = false;
+    }
+
+    // black rook captured so disable black castling rights
+    if (captured == 'r') {
+        if (move.toRow == 0 && move.toCol == 0)
+            pos.castlingRights[3] = false;
+
+        if (move.toRow == 0 && move.toCol == 7)
+            pos.castlingRights[2] = false;
+    }
+    
+
+    if (piece == king){
+        // check if its a castle move
+        if (isCastleMove(move)){
+            pos.board[move.toRow][move.toCol] = king;
+            pos.board[move.fromRow][move.fromCol] = '.';
+            // updates castle rights
+            if (pos.sideToMove == 'w'){
+                pos.castlingRights[0] = false;
+                pos.castlingRights[1] = false;
+            }
+            else{
+                pos.castlingRights[2] = false;
+                pos.castlingRights[3] = false;
+            }
+            // move rook according to the castle type
+            if (move.toCol == 2){
+                pos.board[move.toRow][3] = rook;
+                pos.board[move.fromRow][0] = '.';
+            } else{
+                pos.board[move.toRow][5] = rook;
+                pos.board[move.fromRow][7] = '.';
+            }
+        }
+        else{
+            // normal king moves
+            pos.board[move.toRow][move.toCol] = piece;
+            pos.board[move.fromRow][move.fromCol] = '.';
+            // updates castle rights as king is displaced from his position
+            if (pos.sideToMove == 'w'){
+                pos.castlingRights[0] = false;
+                pos.castlingRights[1] = false;
+            }
+            else{
+                pos.castlingRights[2] = false;
+                pos.castlingRights[3] = false;
+            }
+        }
+    } else if (piece == rook){
+        // normal rook moves but also updates castle rights as it displaced
+        pos.board[move.toRow][move.toCol] = piece;
+        pos.board[move.fromRow][move.fromCol] = '.';
+        if (pos.sideToMove == 'w') {
+            if (move.fromRow == 7 && move.fromCol == 7)
+                pos.castlingRights[0] = false; // K
+
+            if (move.fromRow == 7 && move.fromCol == 0)
+                pos.castlingRights[1] = false; // Q
+        }
+        else {
+            if (move.fromRow == 0 && move.fromCol == 7)
+                pos.castlingRights[2] = false; // k
+
+            if (move.fromRow == 0 && move.fromCol == 0)
+                pos.castlingRights[3] = false; // q
+        }
+    } else{
+        // normal moves
+        pos.board[move.toRow][move.toCol] = piece;
+        pos.board[move.fromRow][move.fromCol] = '.';
+    }
 
     pos.sideToMove = (pos.sideToMove == 'w') ? 'b':'w';
 }

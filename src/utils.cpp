@@ -35,3 +35,7 @@ bool isInsideBoard(int row, int col){
 bool isPieceType(char piece, char pieceType){
     return std::tolower(piece) == pieceType;
 }
+
+bool isCastleMove(const Move& move){
+    return std::abs(move.toCol - move.fromCol) == 2;
+}

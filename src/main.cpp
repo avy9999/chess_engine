@@ -4,9 +4,11 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1");
+    pos.loadFEN("r3k2r/8/8/8/8/8/8/Q3K2R w KQkq - 0 1");
 
     MoveGenerator generator;
+
+    generator.makeMove(pos, Move(7,0,0,0));
 
     std::cout << "White in check: "
             << generator.isKingInCheck(pos, 'w')
@@ -15,6 +17,9 @@ int main() {
     std::cout << "Black in check: "
             << generator.isKingInCheck(pos, 'b')
           << "\n";
+
+    std::cout << pos.castlingRights[2] << " "
+          << pos.castlingRights[3] << "\n";
     
     pos.printBoard();
 
