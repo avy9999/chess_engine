@@ -61,13 +61,18 @@ A chess engine built from scratch in C++.
 
 * Stalemate Detection
 
+* Pawn Promotion Move Generation
+
+* Pawn Promotion Execution
+
+* Promotion Piece Selection (Queen, Rook, Bishop, Knight)
+
 ### In Progress
 
-* Pawn Promotion
+* Evaluation Function
 
 ### Planned
 
-* Evaluation Function
 * Minimax Search
 * Alpha-Beta Pruning
 * Move Ordering
@@ -76,32 +81,36 @@ A chess engine built from scratch in C++.
 
 ## Current Status
 
-The engine can currently:
+The engine currently supports all standard chess rules and legal move generation.
 
-* Load positions from FEN strings
-* Generate legal moves for all pieces
-* Execute moves on the board
-* Detect attacked squares
-* Detect checks
-* Detect checkmate positions
-* Detect stalemate positions
-* Filter illegal moves that leave the king in check
-* Generate and execute castling moves
-* Track and update castling rights
-* Generate and execute en passant captures
-* Track and update en passant target squares
-* Validate castling legality according to official chess rules
+Capabilities include:
+
+* Loading positions from FEN strings
+* Generating legal moves for all pieces
+* Executing moves on the board
+* Detecting attacked squares
+* Detecting checks
+* Detecting checkmate positions
+* Detecting stalemate positions
+* Filtering illegal moves that leave the king in check
+* Generating and executing castling moves
+* Tracking and updating castling rights
+* Generating and executing en passant captures
+* Tracking and updating en passant target squares
+* Generating and executing pawn promotions
+* Supporting all standard chess move rules
 
 ## Next Milestone
 
 Implement:
 
-* Pawn Promotion
+* Evaluation Function
 
 using:
 
-* Promotion move generation
-* Promotion move execution
-* Promotion piece selection (Queen, Rook, Bishop, Knight)
+* Material counting
+* Piece value scoring
+* Position evaluation from White's perspective
+* Basic testing framework for evaluation accuracy
 
-After this milestone, the engine will support all standard chess rules and legal move generation for classical chess.
+After this milestone, the engine will be able to evaluate positions and determine which side has a material advantage, providing the foundation for Minimax search.

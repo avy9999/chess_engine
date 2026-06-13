@@ -4,17 +4,12 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("7k/P7/8/8/8/8/8/K7 w - - 0 1");
+    pos.loadFEN("k7/8/8/8/8/8/p7/7K b - - 0 1");
 
     MoveGenerator generator;
     
     std::cout << "Is checkmate: " << generator.isCheckmate(pos) << "\n";
     std::cout << "Is stalemate: " << generator.isStalemate(pos) << "\n";
-
-    Move m(1,0,0,0);
-    m.promotionPiece = 'q';
-
-    generator.makeMove(pos, m);
     
     pos.printBoard();
 
