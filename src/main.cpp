@@ -4,19 +4,18 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    pos.loadFEN("7k/P7/8/8/8/8/8/K7 w - - 0 1");
 
     MoveGenerator generator;
     
     std::cout << "Is checkmate: " << generator.isCheckmate(pos) << "\n";
     std::cout << "Is stalemate: " << generator.isStalemate(pos) << "\n";
-    
-    Move mv = Move(6,4,4,4);
-    generator.makeMove(pos, mv);
-    Move mv2 = Move(1,4,2,4);
-    generator.makeMove(pos, mv2);
-    std::cout << pos.enPassantCol << " " << pos.enPassantRow << "\n";
 
+    Move m(1,0,0,0);
+    m.promotionPiece = 'q';
+
+    generator.makeMove(pos, m);
+    
     pos.printBoard();
 
     auto knightMoves = generator.generateKnightMoves(pos);

@@ -121,10 +121,19 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                 if (isInsideBoard(i + direction, j) &&
                     isEmptySquare(pos.board[i + direction][j]))
                 {
-                    moves.push_back(
-                        Move(i, j,
-                             i + direction, j)
-                    );
+                    if (i + direction == 0 || i + direction == 7){
+                        addPromotionMoves(
+                            moves,
+                            i, j,
+                            i + direction,
+                            j
+                        );
+                    } else{
+                        moves.push_back(
+                            Move(i, j,
+                                i + direction, j)
+                        );
+                    }
                 }
 
                 // double push
@@ -147,11 +156,20 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                     // normal capture
                     if (isEnemyPiece(target, pos.sideToMove))
                     {
-                        moves.push_back(
-                            Move(i, j,
-                                 i + direction,
-                                 j - 1)
-                        );
+                        if (i + direction == 0 || i + direction == 7){
+                            addPromotionMoves(
+                                moves,
+                                i, j,
+                                i + direction,
+                                j - 1
+                            );
+                        } else {
+                            moves.push_back(
+                                Move(i, j,
+                                    i + direction,
+                                    j - 1)
+                            );
+                        }
                     }
                     
                     // en passant capture
@@ -177,11 +195,20 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                     // normal capture
                     if (isEnemyPiece(target, pos.sideToMove))
                     {
-                        moves.push_back(
-                            Move(i, j,
-                                 i + direction,
-                                 j + 1)
-                        );
+                        if (i + direction == 0 || i + direction == 7){
+                            addPromotionMoves(
+                                moves,
+                                i, j,
+                                i + direction,
+                                j + 1
+                            );
+                        } else {
+                            moves.push_back(
+                                Move(i, j,
+                                    i + direction,
+                                    j + 1)
+                            );
+                        }
                     }
                     
                     // en passant capture
@@ -200,7 +227,6 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
             }
         }
     }
-
     return moves;
 }
 
@@ -414,6 +440,16 @@ void MoveGenerator::makeMove(Position& pos, const Move& move){
             pos.enPassantCol = move.fromCol;
             pos.board[move.toRow][move.toCol] = piece;
             pos.board[move.fromRow][move.fromCol] = '.';
+        } else if (move.promotionPiece != '\0'){
+            // pawn promotion
+            char promoted = move.promotionPiece;
+            if (pos.sideToMove == 'w'){
+                promoted = std::toupper(move.promotionPiece);
+            } else{
+                promoted = std::tolower(move.promotionPiece);
+            }
+            pos.board[move.toRow][move.toCol] = promoted;
+            pos.board[move.fromRow][move.fromCol] = '.';
         } else{
             // normal pawn moves
             pos.board[move.toRow][move.toCol] = piece;
@@ -587,4 +623,20 @@ bool MoveGenerator::isCheckmate(const Position& pos){
 // detects if it is a stalemate
 bool MoveGenerator::isStalemate(const Position& pos){
     return !isKingInCheck(pos, pos.sideToMove) && generateLegalMoves(pos).empty();
+}
+
+
+// gets promotion moves
+void MoveGenerator::addPromotionMoves(
+    std::vector<Move>& moves,
+    int fromRow,
+    int fromCol,
+    int toRow,
+    int toCol
+){
+    for(char piece : {'q', 'r', 'b', 'n'}){
+        Move move(fromRow, fromCol, toRow, toCol);
+        move.promotionPiece = piece;
+        moves.push_back(move);
+    }
 }
