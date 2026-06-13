@@ -7,17 +7,16 @@ int main() {
     pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
     MoveGenerator generator;
-    std::cout << "White in check: "
-            << generator.isKingInCheck(pos, 'w')
-            << "\n";
-
-    std::cout << "Black in check: "
-            << generator.isKingInCheck(pos, 'b')
-          << "\n";
     
     std::cout << "Is checkmate: " << generator.isCheckmate(pos) << "\n";
     std::cout << "Is stalemate: " << generator.isStalemate(pos) << "\n";
     
+    Move mv = Move(6,4,4,4);
+    generator.makeMove(pos, mv);
+    Move mv2 = Move(1,4,2,4);
+    generator.makeMove(pos, mv2);
+    std::cout << pos.enPassantCol << " " << pos.enPassantRow << "\n";
+
     pos.printBoard();
 
     auto knightMoves = generator.generateKnightMoves(pos);

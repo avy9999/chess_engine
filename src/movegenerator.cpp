@@ -144,6 +144,7 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                     char target =
                         pos.board[i + direction][j - 1];
 
+                    // normal capture
                     if (isEnemyPiece(target, pos.sideToMove))
                     {
                         moves.push_back(
@@ -151,6 +152,19 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                                  i + direction,
                                  j - 1)
                         );
+                    }
+                    
+                    // en passant capture
+                    if (i + direction == pos.enPassantRow &&
+                        j - 1 == pos.enPassantCol)
+                    {
+                        Move move(i, j,
+                                i + direction,
+                                j - 1);
+
+                        move.isEnPassant = true;
+
+                        moves.push_back(move);
                     }
                 }
 
@@ -160,6 +174,7 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                     char target =
                         pos.board[i + direction][j + 1];
 
+                    // normal capture
                     if (isEnemyPiece(target, pos.sideToMove))
                     {
                         moves.push_back(
@@ -167,6 +182,19 @@ std::vector<Move> MoveGenerator::generatePawnMoves(const Position& pos){
                                  i + direction,
                                  j + 1)
                         );
+                    }
+                    
+                    // en passant capture
+                    if (i + direction == pos.enPassantRow &&
+                        j + 1 == pos.enPassantCol)
+                    {
+                        Move move(i, j,
+                                i + direction,
+                                j + 1);
+
+                        move.isEnPassant = true;
+
+                        moves.push_back(move);
                     }
                 }
             }
@@ -280,12 +308,17 @@ std::vector<Move> MoveGenerator::generateAllMoves(const Position& pos){
 
 void MoveGenerator::makeMove(Position& pos, const Move& move){
     
+    // clearing en passant squares
+    pos.enPassantRow = -1;
+    pos.enPassantCol = -1;
+
     // this makes a move on the board
     char piece = pos.board[move.fromRow][move.fromCol];
 
-    // determine king and rook
+    // determine pawn, king and rook
     char king = pos.sideToMove == 'w' ? 'K' : 'k';
     char rook = pos.sideToMove == 'w' ? 'R' : 'r';
+    char pawn = pos.sideToMove == 'w' ? 'P' : 'p';
 
     // determine captured piece
     char captured = pos.board[move.toRow][move.toCol];
@@ -363,6 +396,28 @@ void MoveGenerator::makeMove(Position& pos, const Move& move){
 
             if (move.fromRow == 0 && move.fromCol == 0)
                 pos.castlingRights[3] = false; // q
+        }
+    } else if (piece == pawn){
+        if (move.isEnPassant){
+            pos.board[move.toRow][move.toCol] = piece;
+            pos.board[move.fromRow][move.fromCol] = '.';
+
+            int capturedPawnRow =
+                (pos.sideToMove == 'w')
+                ? move.toRow + 1
+                : move.toRow - 1;
+
+            pos.board[capturedPawnRow][move.toCol] = '.';
+        } else if (abs(move.fromRow-move.toRow) == 2){
+            // double forward pawn move
+            pos.enPassantRow = (move.fromRow + move.toRow) / 2;
+            pos.enPassantCol = move.fromCol;
+            pos.board[move.toRow][move.toCol] = piece;
+            pos.board[move.fromRow][move.fromCol] = '.';
+        } else{
+            // normal pawn moves
+            pos.board[move.toRow][move.toCol] = piece;
+            pos.board[move.fromRow][move.fromCol] = '.';
         }
     } else{
         // normal moves

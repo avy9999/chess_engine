@@ -7,5 +7,7 @@ class Move{
         int toRow;
         int toCol;
 
+        bool isEnPassant = false;
+
         Move(int fr, int fc, int tr, int tc);
 };
