@@ -369,6 +369,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\move.cpp" />
     <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\movegenerator.cpp" />
     <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\utils.cpp" />
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\evaluator.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

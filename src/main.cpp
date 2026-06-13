@@ -1,10 +1,13 @@
 #include <iostream>
 #include "../include/position.h"
 #include "../include/movegenerator.h"
+#include "../include/evaluator.h"
 
 int main() {
     Position pos;
-    pos.loadFEN("k7/8/8/8/8/8/p7/7K b - - 0 1");
+    pos.loadFEN("r6k/8/8/8/8/8/8/7K b - - 0 1");
+    
+    std::cout << Evaluator::evaluate(pos) << "\n";
 
     MoveGenerator generator;
     

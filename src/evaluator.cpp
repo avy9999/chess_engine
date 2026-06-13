@@ -1,0 +1,37 @@
+#include "../include/evaluator.h"
+#include "../include/utils.h"
+
+int Evaluator::evaluate(const Position& pos) {
+    int score = 0;
+
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+
+            char piece = pos.board[i][j];
+
+            switch (tolower(piece)) {
+                case 'p':
+                    score += isWhitePiece(piece) ? 100 : -100;
+                    break;
+
+                case 'n':
+                    score += isWhitePiece(piece) ? 320 : -320;
+                    break;
+
+                case 'b':
+                    score += isWhitePiece(piece) ? 330 : -330;
+                    break;
+
+                case 'r':
+                    score += isWhitePiece(piece) ? 500 : -500;
+                    break;
+
+                case 'q':
+                    score += isWhitePiece(piece) ? 900 : -900;
+                    break;
+            }
+        }
+    }
+
+    return score;
+}

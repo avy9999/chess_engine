@@ -69,11 +69,10 @@ A chess engine built from scratch in C++.
 
 ### In Progress
 
-* Evaluation Function
+* Minimax Search
 
 ### Planned
 
-* Minimax Search
 * Alpha-Beta Pruning
 * Move Ordering
 * Transposition Tables
@@ -99,18 +98,12 @@ Capabilities include:
 * Tracking and updating en passant target squares
 * Generating and executing pawn promotions
 * Supporting all standard chess move rules
+* Evaluation Function
 
 ## Next Milestone
 
 Implement:
 
-* Evaluation Function
-
-using:
-
-* Material counting
-* Piece value scoring
-* Position evaluation from White's perspective
-* Basic testing framework for evaluation accuracy
+* Minimax Search
 
 After this milestone, the engine will be able to evaluate positions and determine which side has a material advantage, providing the foundation for Minimax search.
