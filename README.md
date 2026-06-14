@@ -67,13 +67,14 @@ A chess engine built from scratch in C++.
 
 * Promotion Piece Selection (Queen, Rook, Bishop, Knight)
 
+* Minimax Search
+
 ### In Progress
 
-* Minimax Search
+* Alpha-Beta Pruning
 
 ### Planned
 
-* Alpha-Beta Pruning
 * Move Ordering
 * Transposition Tables
 * UCI Support
@@ -104,6 +105,6 @@ Capabilities include:
 
 Implement:
 
-* Minimax Search
+* Alpha-Beta Pruning
 
 After this milestone, the engine will be able to evaluate positions and determine which side has a material advantage, providing the foundation for Minimax search.

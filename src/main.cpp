@@ -2,15 +2,25 @@
 #include "../include/position.h"
 #include "../include/movegenerator.h"
 #include "../include/evaluator.h"
+#include "../include/search.h"
 
 int main() {
     Position pos;
-    pos.loadFEN("r6k/8/8/8/8/8/8/7K b - - 0 1");
-    
-    std::cout << Evaluator::evaluate(pos) << "\n";
+    pos.loadFEN("7k/8/8/8/8/8/1r6/Q6K w - - 0 1");
+
+    Move best = Search::findBestMove(pos, 1);
+
+    std::cout << "Nodes: " << Search::nodes << "\n";
+
+    std::cout
+    << "Best Move: ("
+    << best.fromRow << ","
+    << best.fromCol << ") -> ("
+    << best.toRow << ","
+    << best.toCol << ")\n";
 
     MoveGenerator generator;
-    
+
     std::cout << "Is checkmate: " << generator.isCheckmate(pos) << "\n";
     std::cout << "Is stalemate: " << generator.isStalemate(pos) << "\n";
     
@@ -57,7 +67,4 @@ int main() {
     for (const auto& m : queenMoves){
         std::cout << "(" << m.fromRow << "," << m.fromCol << ") -> (" << m.toRow << "," << m.toCol << ")\n";
     }
-
-    auto moves = generator.generateLegalMoves(pos);
-    std::cout << moves.size() << "\n";
 }
