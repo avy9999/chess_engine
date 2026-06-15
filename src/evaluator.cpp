@@ -1,5 +1,6 @@
 #include "../include/evaluator.h"
 #include "../include/utils.h"
+#include "../include/pst.h"
 
 int Evaluator::evaluate(const Position& pos) {
     int score = 0;
@@ -15,7 +16,7 @@ int Evaluator::evaluate(const Position& pos) {
                     break;
 
                 case 'n':
-                    score += isWhitePiece(piece) ? 320 : -320;
+                    score += isWhitePiece(piece) ? 320 + PST::knight[i][j] : -320 - PST::knight[7-i][j];
                     break;
 
                 case 'b':

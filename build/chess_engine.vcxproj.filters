@@ -22,6 +22,9 @@
     <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\search.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\pst.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\CMakeLists.txt" />
