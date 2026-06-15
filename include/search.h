@@ -7,6 +7,6 @@ class Search{
 public:
     static long long nodes;
 
-    static int minimax(Position pos, int depth);
+    static int alphabeta(Position pos, int depth, int alpha, int beta);
     static Move findBestMove(Position pos, int depth);
 };

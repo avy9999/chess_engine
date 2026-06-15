@@ -7,8 +7,8 @@
 long long Search::nodes = 0;
 
 
-// minimax algorithm for a given depth
-int Search::minimax(Position pos, int depth){
+// alphabeta algorithm for a given depth
+int Search::alphabeta(Position pos, int depth, int alpha, int beta){
 
     // increase node on every call
     Search::nodes++;
@@ -38,8 +38,12 @@ int Search::minimax(Position pos, int depth){
         for(const auto& move : moves){
             Position copy = pos;
             generator.makeMove(copy, move);
-            int score = minimax(copy, depth - 1);
+            int score = alphabeta(copy, depth - 1, alpha, beta);
             best = std::max(best, score);
+            alpha = std::max(alpha, best);
+            if (beta <= alpha){
+                break;
+            }
         }
         return best;
     }
@@ -48,8 +52,12 @@ int Search::minimax(Position pos, int depth){
         for(const auto& move : moves){
             Position copy = pos;
             generator.makeMove(copy, move);
-            int score = minimax(copy, depth - 1);
+            int score = alphabeta(copy, depth - 1, alpha, beta);
             best = std::min(best, score);
+            beta = std::min(beta, best);
+            if (beta <= alpha){
+                break;
+            }
         }
         return best;
     }
@@ -75,7 +83,12 @@ Move Search::findBestMove(Position pos, int depth){
         for (const auto& move : moves){
             Position copy = pos;
             generator.makeMove(copy, move);
-            int score = minimax(copy, depth-1);
+            int score = alphabeta(
+                copy,
+                depth - 1,
+                -1000000,
+                1000000
+            );
             if (score > bestScore){
                 bestMove = move;
                 bestScore = score;
@@ -86,7 +99,12 @@ Move Search::findBestMove(Position pos, int depth){
         for (const auto& move : moves){
             Position copy = pos;
             generator.makeMove(copy, move);
-            int score = minimax(copy, depth-1);
+            int score = alphabeta(
+                copy,
+                depth - 1,
+                -1000000,
+                1000000
+            );
             if (score < bestScore){
                 bestMove = move;
                 bestScore = score;

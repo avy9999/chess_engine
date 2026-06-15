@@ -3,21 +3,16 @@
 #include "../include/movegenerator.h"
 #include "../include/evaluator.h"
 #include "../include/search.h"
+#include "../include/utils.h"
 
 int main() {
     Position pos;
-    pos.loadFEN("7k/8/8/8/8/8/1r6/Q6K w - - 0 1");
+    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
-    Move best = Search::findBestMove(pos, 1);
+    Move best = Search::findBestMove(pos, 3);
 
     std::cout << "Nodes: " << Search::nodes << "\n";
-
-    std::cout
-    << "Best Move: ("
-    << best.fromRow << ","
-    << best.fromCol << ") -> ("
-    << best.toRow << ","
-    << best.toCol << ")\n";
+    printMove(best);
 
     MoveGenerator generator;
 

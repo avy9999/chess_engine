@@ -7,38 +7,30 @@ A chess engine built from scratch in C++.
 ### Completed
 
 * FEN Parsing
-
 * Board Representation
-
 * Move Representation (`Move` class)
 
+#### Move Generation
+
 * Knight Move Generation
-
 * King Move Generation
-
 * Pawn Move Generation
-
 * Bishop Move Generation
-
 * Rook Move Generation
-
 * Queen Move Generation
-
 * All-Moves Generation
-
-* Move Execution (`makeMove`)
-
-* Utility Functions for Piece Handling
-
-* Square Attack Detection (`isSquareAttacked`)
-
-* Check Detection (`isKingInCheck`)
-
 * Legal Move Generation
 
-* Castling Move Generation
+#### Move Execution
 
+* Move Execution (`makeMove`)
 * Castling Move Execution
+* En Passant Move Execution
+* Pawn Promotion Execution
+
+#### Special Chess Rules
+
+* Castling Move Generation
 
 * Castling Rights Management
 
@@ -53,29 +45,35 @@ A chess engine built from scratch in C++.
 
 * En Passant Move Generation
 
-* En Passant Move Execution
-
 * En Passant State Tracking
-
-* Checkmate Detection
-
-* Stalemate Detection
 
 * Pawn Promotion Move Generation
 
-* Pawn Promotion Execution
-
 * Promotion Piece Selection (Queen, Rook, Bishop, Knight)
 
+#### Position Analysis
+
+* Square Attack Detection (`isSquareAttacked`)
+* Check Detection (`isKingInCheck`)
+* Checkmate Detection
+* Stalemate Detection
+
+#### Evaluation & Search
+
+* Material Evaluation Function
 * Minimax Search
+* Alpha-Beta Pruning
+* Best Move Search (`findBestMove`)
+* Node Counting / Search Statistics
 
 ### In Progress
 
-* Alpha-Beta Pruning
+* Move Ordering
 
 ### Planned
 
-* Move Ordering
+* Piece-Square Tables
+* Iterative Deepening
 * Transposition Tables
 * UCI Support
 
@@ -87,24 +85,29 @@ Capabilities include:
 
 * Loading positions from FEN strings
 * Generating legal moves for all pieces
-* Executing moves on the board
-* Detecting attacked squares
-* Detecting checks
-* Detecting checkmate positions
-* Detecting stalemate positions
-* Filtering illegal moves that leave the king in check
-* Generating and executing castling moves
-* Tracking and updating castling rights
-* Generating and executing en passant captures
-* Tracking and updating en passant target squares
-* Generating and executing pawn promotions
-* Supporting all standard chess move rules
-* Evaluation Function
+* Executing legal moves on the board
+* Detecting attacks on squares
+* Detecting checks, checkmates, and stalemates
+* Handling castling according to official chess rules
+* Handling en passant captures
+* Handling pawn promotions
+* Evaluating positions using material balance
+* Searching positions using Minimax
+* Optimizing search using Alpha-Beta Pruning
+* Selecting the best move from a given position
+* Tracking search node counts for performance analysis
 
 ## Next Milestone
 
 Implement:
 
-* Alpha-Beta Pruning
+* Move Ordering
 
-After this milestone, the engine will be able to evaluate positions and determine which side has a material advantage, providing the foundation for Minimax search.
+Goals:
+
+* Search strong moves first
+* Improve Alpha-Beta pruning efficiency
+* Reduce node count further
+* Increase practical search depth
+
+After this milestone, the engine will search significantly fewer positions while producing the same results, enabling deeper and faster analysis.

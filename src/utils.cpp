@@ -1,4 +1,5 @@
 #include "../include/utils.h"
+#include <iostream>
 #include <cctype>
 
 bool isWhitePiece(char piece){
@@ -38,4 +39,18 @@ bool isPieceType(char piece, char pieceType){
 
 bool isCastleMove(const Move& move){
     return std::abs(move.toCol - move.fromCol) == 2;
+}
+
+void printMove(const Move& move){
+    char fromFile = 'a' + move.fromCol;
+    char toFile   = 'a' + move.toCol;
+
+    int fromRank = 8 - move.fromRow;
+    int toRank   = 8 - move.toRow;
+
+    std::cout
+        << fromFile << fromRank
+        << " -> "
+        << toFile << toRank
+        << "\n";
 }

@@ -14,3 +14,5 @@ bool isInsideBoard(int row, int col);
 bool isPieceType(char piece, char pieceType);
 
 bool isCastleMove(const Move& move);
+
+void printMove(const Move& move);
