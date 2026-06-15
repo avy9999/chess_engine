@@ -12,7 +12,7 @@ int Evaluator::evaluate(const Position& pos) {
 
             switch (tolower(piece)) {
                 case 'p':
-                    score += isWhitePiece(piece) ? 100 : -100;
+                    score += isWhitePiece(piece) ? 100 + PST::pawn[i][j] : -100 - PST::pawn[7-i][j];
                     break;
 
                 case 'n':
@@ -20,7 +20,7 @@ int Evaluator::evaluate(const Position& pos) {
                     break;
 
                 case 'b':
-                    score += isWhitePiece(piece) ? 330 : -330;
+                    score += isWhitePiece(piece) ? 330 + PST::bishop[i][j] : -330 - PST::bishop[7-i][j];
                     break;
 
                 case 'r':

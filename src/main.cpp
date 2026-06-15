@@ -9,9 +9,7 @@ int main() {
     Position pos;
     pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
-    Move best = Search::findBestMove(pos, 3);
-
-    printMove(best);
+    std::cout << Evaluator::evaluate(pos) << "\n";
 
     MoveGenerator generator;
 
