@@ -33,9 +33,9 @@ int Search::alphabeta(Position pos, int depth, int alpha, int beta){
 
     if (generator.isCheckmate(pos)){
         if (pos.sideToMove=='w'){
-            return -100000;
+            return -100000 - depth;
         } else{
-            return 100000;
+            return 100000 + depth;
         }
     }
 
@@ -103,6 +103,12 @@ Move Search::findBestMove(Position pos, int depth){
                 bestMove = move;
                 bestScore = score;
             }
+            std::cout
+            << move.fromRow << "," << move.fromCol
+            << " -> "
+            << move.toRow << "," << move.toCol
+            << " score = "
+            << score << "\n";
         }
 
     } else {        
@@ -119,6 +125,12 @@ Move Search::findBestMove(Position pos, int depth){
                 bestMove = move;
                 bestScore = score;
             }
+            std::cout
+            << move.fromRow << "," << move.fromCol
+            << " -> "
+            << move.toRow << "," << move.toCol
+            << " score = "
+            << score << "\n";
         }
     }
     return bestMove;

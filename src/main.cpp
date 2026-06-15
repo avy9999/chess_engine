@@ -7,18 +7,17 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("7k/8/8/8/8/8/1r6/Q6K w - - 0 1");
+    pos.loadFEN("7k/5Q2/6K1/8/8/8/8/8 w - - 0 1");
 
-    Search::nodes = 0;
+    Move best = Search::findBestMove(pos, 4);
 
-    int score = Search::alphabeta(
-        pos,
-        3,
-        -1000000,
-        1000000
-    );
+    printMove(best);
 
-    std::cout << "Nodes: " << Search::nodes << "\n";
+    MoveGenerator gen;
+    Position copy = pos;
+    gen.makeMove(copy, best);
+
+    std::cout << gen.isCheckmate(copy) << "\n";
 
     MoveGenerator generator;
 

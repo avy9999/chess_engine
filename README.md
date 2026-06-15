@@ -64,16 +64,16 @@ A chess engine built from scratch in C++.
 * Minimax Search
 * Alpha-Beta Pruning
 * Basic Move Ordering (MVV-LVA)
+* Mate Distance Scoring
 * Best Move Search (`findBestMove`)
 * Node Counting / Search Statistics
 
 ### In Progress
 
-* Mate Distance Scoring
+* Piece-Square Tables
 
 ### Planned
 
-* Piece-Square Tables
 * Iterative Deepening
 * Transposition Tables
 * UCI Support
@@ -93,19 +93,39 @@ Capabilities include:
 * Searching positions using Minimax
 * Optimizing search with Alpha-Beta Pruning
 * Ordering moves using MVV-LVA
+* Preferring faster checkmates and delaying unavoidable losses
 * Selecting the best move from a given position
 * Tracking node counts for performance analysis
+
+### Search Improvements
+
+Performance improvements implemented:
+
+* Alpha-Beta Pruning
+
+  * Reduced node count from **9322 → 586** on the starting position depth-3 benchmark
+
+* Move Ordering (MVV-LVA)
+
+  * Reduced node count from **1271 → 340** on tactical capture positions
+
+* Mate Distance Scoring
+
+  * Prefers mate in 1 over mate in 2
+  * Delays unavoidable losses whenever possible
 
 ## Next Milestone
 
 Implement:
 
-* Mate Distance Scoring
+* Piece-Square Tables
 
 Goals:
 
-* Prefer faster checkmates
-* Delay unavoidable losses
-* Improve search quality in tactical positions
+* Reward central control
+* Improve piece development
+* Encourage pawn advancement
+* Improve king safety
+* Produce stronger opening play
 
-After this milestone, the engine will correctly distinguish between mate in 1, mate in 2, and longer mating sequences.
+After this milestone, the engine will evaluate positions using both material and positional factors, resulting in significantly stronger move selection without increasing search depth.
