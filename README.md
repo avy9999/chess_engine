@@ -61,6 +61,9 @@ A chess engine built from scratch in C++.
 #### Evaluation & Search
 
 * Material Evaluation Function
+* Knight Piece-Square Tables
+* Pawn Piece-Square Tables
+* Bishop Piece-Square Tables
 * Minimax Search
 * Alpha-Beta Pruning
 * Basic Move Ordering (MVV-LVA)
@@ -70,7 +73,7 @@ A chess engine built from scratch in C++.
 
 ### In Progress
 
-* Piece-Square Tables
+* King Piece-Square Tables
 
 ### Planned
 
@@ -89,9 +92,10 @@ Capabilities include:
 * Executing legal moves on the board
 * Detecting attacks, checks, checkmates, and stalemates
 * Handling castling, en passant, and promotions
-* Evaluating positions using material balance
+* Evaluating positions using both material and positional factors
+* Applying Piece-Square Table evaluation for knights, pawns, and bishops
 * Searching positions using Minimax
-* Optimizing search with Alpha-Beta Pruning
+* Optimizing search using Alpha-Beta Pruning
 * Ordering moves using MVV-LVA
 * Preferring faster checkmates and delaying unavoidable losses
 * Selecting the best move from a given position
@@ -101,31 +105,103 @@ Capabilities include:
 
 Performance improvements implemented:
 
-* Alpha-Beta Pruning
+#### Alpha-Beta Pruning
 
-  * Reduced node count from **9322 → 586** on the starting position depth-3 benchmark
+* Reduced node count from **9322 → 586** on the starting position depth-3 benchmark
 
-* Move Ordering (MVV-LVA)
+#### Move Ordering (MVV-LVA)
 
-  * Reduced node count from **1271 → 340** on tactical capture positions
+* Reduced node count from **1271 → 340** on tactical capture positions
 
-* Mate Distance Scoring
+#### Mate Distance Scoring
 
-  * Prefers mate in 1 over mate in 2
-  * Delays unavoidable losses whenever possible
+* Prefers mate in 1 over mate in 2
+* Delays unavoidable losses whenever possible
+
+### Evaluation Improvements
+
+#### Knight Piece-Square Tables
+
+* Encourages central knight development
+* Improved opening move selection
+* Changed preferred opening development from **Na3** to **Nc3**
+
+#### Pawn Piece-Square Tables
+
+* Rewards pawn advancement
+* Rewards central pawn presence
+* Encourages stronger positional play
+
+#### Bishop Piece-Square Tables
+
+* Rewards active bishops
+* Rewards central and diagonal control
+* Penalizes passive bishop placement
+
+## Future Improvements / Backlog
+
+### Evaluation
+
+* King Piece-Square Tables (In Progress)
+
+* Rook Piece-Square Tables
+
+* Queen Piece-Square Tables
+
+* Mobility Evaluation
+
+  * Prefer pseudo-legal move counting for performance
+  * Requires dedicated pseudo-legal move generation
+
+* Passed Pawn Evaluation
+
+* Doubled Pawn Penalties
+
+* Isolated Pawn Penalties
+
+* Pawn Chain Evaluation
+
+* Bishop Pair Bonus
+
+* Endgame-Specific Evaluation
+
+### Search
+
+* Iterative Deepening
+* Transposition Tables (Zobrist Hashing)
+* Killer Move Heuristic
+* History Heuristic
+* Quiescence Search
+* Principal Variation Search (PVS)
+
+### Engine Infrastructure
+
+* UCI Protocol Support
+* FEN Export
+* PGN Parsing
+* Perft Testing Suite
+* Search Benchmarking Utilities
+* Time Management
+
+### Optimization
+
+* Bitboards (Long-Term Refactor)
+* Incremental Evaluation
+* Incremental Move Generation
+* Optimized Move Ordering
+* Multi-Threaded Search
 
 ## Next Milestone
 
 Implement:
 
-* Piece-Square Tables
+* King Piece-Square Tables
 
 Goals:
 
-* Reward central control
-* Improve piece development
-* Encourage pawn advancement
-* Improve king safety
-* Produce stronger opening play
+* Encourage king safety
+* Encourage castling
+* Penalize exposed kings in the middlegame
+* Improve overall positional evaluation
 
-After this milestone, the engine will evaluate positions using both material and positional factors, resulting in significantly stronger move selection without increasing search depth.
+After this milestone, the engine will evaluate all major opening and middlegame pieces using Piece-Square Tables, resulting in stronger positional play and improved move selection without increasing search depth.
