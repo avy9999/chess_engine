@@ -7,12 +7,18 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    pos.loadFEN("7k/8/8/8/8/8/1r6/Q6K w - - 0 1");
 
-    Move best = Search::findBestMove(pos, 3);
+    Search::nodes = 0;
+
+    int score = Search::alphabeta(
+        pos,
+        3,
+        -1000000,
+        1000000
+    );
 
     std::cout << "Nodes: " << Search::nodes << "\n";
-    printMove(best);
 
     MoveGenerator generator;
 

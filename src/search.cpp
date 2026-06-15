@@ -21,6 +21,16 @@ int Search::alphabeta(Position pos, int depth, int alpha, int beta){
     auto moves = generator.generateLegalMoves(pos);
     // std::cout << moves.size() << "\n";
 
+    // sort moves according to capture scores
+    std::sort(
+        moves.begin(),
+        moves.end(),
+        [&](const Move& a, const Move& b){
+            return Search::scoreMove(pos, a) >
+                Search::scoreMove(pos, b);
+        }
+    );
+
     if (generator.isCheckmate(pos)){
         if (pos.sideToMove=='w'){
             return -100000;
@@ -112,4 +122,16 @@ Move Search::findBestMove(Position pos, int depth){
         }
     }
     return bestMove;
+}
+
+// a simple function to measure capture move score
+int Search::scoreMove(const Position& pos, const Move& move){
+    char target = pos.board[move.toRow][move.toCol];
+    
+    if (target != '.'){
+        char piece = pos.board[move.fromRow][move.fromCol];
+        return Evaluator::getPieceValue(target) - Evaluator::getPieceValue(piece);
+    }
+
+    return 0;
 }

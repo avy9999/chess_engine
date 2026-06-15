@@ -63,12 +63,13 @@ A chess engine built from scratch in C++.
 * Material Evaluation Function
 * Minimax Search
 * Alpha-Beta Pruning
+* Basic Move Ordering (MVV-LVA)
 * Best Move Search (`findBestMove`)
 * Node Counting / Search Statistics
 
 ### In Progress
 
-* Move Ordering
+* Mate Distance Scoring
 
 ### Planned
 
@@ -86,28 +87,25 @@ Capabilities include:
 * Loading positions from FEN strings
 * Generating legal moves for all pieces
 * Executing legal moves on the board
-* Detecting attacks on squares
-* Detecting checks, checkmates, and stalemates
-* Handling castling according to official chess rules
-* Handling en passant captures
-* Handling pawn promotions
+* Detecting attacks, checks, checkmates, and stalemates
+* Handling castling, en passant, and promotions
 * Evaluating positions using material balance
 * Searching positions using Minimax
-* Optimizing search using Alpha-Beta Pruning
+* Optimizing search with Alpha-Beta Pruning
+* Ordering moves using MVV-LVA
 * Selecting the best move from a given position
-* Tracking search node counts for performance analysis
+* Tracking node counts for performance analysis
 
 ## Next Milestone
 
 Implement:
 
-* Move Ordering
+* Mate Distance Scoring
 
 Goals:
 
-* Search strong moves first
-* Improve Alpha-Beta pruning efficiency
-* Reduce node count further
-* Increase practical search depth
+* Prefer faster checkmates
+* Delay unavoidable losses
+* Improve search quality in tactical positions
 
-After this milestone, the engine will search significantly fewer positions while producing the same results, enabling deeper and faster analysis.
+After this milestone, the engine will correctly distinguish between mate in 1, mate in 2, and longer mating sequences.

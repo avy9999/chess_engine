@@ -35,3 +35,16 @@ int Evaluator::evaluate(const Position& pos) {
 
     return score;
 }
+
+
+// function to return piece value
+int Evaluator::getPieceValue(char piece){
+    switch(std::tolower(piece)){
+        case 'p': return 100;
+        case 'n': return 320;
+        case 'b': return 330;
+        case 'r': return 500;
+        case 'q': return 900;
+        default:  return 0;
+    }
+}
