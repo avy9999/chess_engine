@@ -7,8 +7,8 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-
+    pos.loadFEN("8/8/8/7P/8/8/8/8 w - - 0 1");
+    
     std::cout << Evaluator::evaluate(pos) << "\n";
 
     MoveGenerator generator;

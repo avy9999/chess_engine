@@ -12,7 +12,17 @@ int Evaluator::evaluate(const Position& pos) {
 
             switch (tolower(piece)) {
                 case 'p':
-                    score += isWhitePiece(piece) ? 100 + PST::pawn[i][j] : -100 - PST::pawn[7-i][j];
+                    if (isWhitePiece(piece)){
+                        score += 100 + PST::pawn[i][j];
+                        if (isPassedPawn(pos, i, j)){
+                            score += passedPawnBonus[i];
+                        }
+                    } else {
+                        score -= 100 + PST::pawn[7-i][j];
+                        if (isPassedPawn(pos, i, j)){
+                            score -= passedPawnBonus[7 - i];
+                        }
+                    }
                     break;
 
                 case 'n':
@@ -29,6 +39,11 @@ int Evaluator::evaluate(const Position& pos) {
 
                 case 'q':
                     score += isWhitePiece(piece) ? 900 : -900;
+                    break;
+                case 'k':
+                    score += isWhitePiece(piece)
+                        ? PST::king[i][j]
+                        : -PST::king[7-i][j];
                     break;
             }
         }
@@ -49,3 +64,52 @@ int Evaluator::getPieceValue(char piece){
         default:  return 0;
     }
 }
+
+
+// function to check if its passed pawn
+bool Evaluator::isPassedPawn(const Position& pos, int row, int col){
+    char piece = pos.board[row][col];
+
+    if (piece == 'P'){
+        for (int r = 0; r < row; ++r){
+            for (int c = col - 1; c <= col + 1; ++c){
+                if (c < 0 || c > 7){
+                    continue;
+                }
+                if (pos.board[r][c] == 'p'){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    if (piece == 'p'){
+        for (int r = row + 1; r < 8; ++r){
+            for (int c = col - 1; c <= col + 1; ++c){
+                if (c < 0 || c > 7){
+                    continue;
+                }
+                if (pos.board[r][c] == 'P'){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    return false;
+}
+
+
+// passed pawn scores according to rows
+const int Evaluator::passedPawnBonus[8] = {
+    0,
+    80,
+    50,
+    30,
+    20,
+    10,
+    0,
+    0
+};

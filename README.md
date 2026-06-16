@@ -61,9 +61,21 @@ A chess engine built from scratch in C++.
 #### Evaluation & Search
 
 * Material Evaluation Function
-* Knight Piece-Square Tables
+
+##### Piece-Square Tables
+
 * Pawn Piece-Square Tables
+* Knight Piece-Square Tables
 * Bishop Piece-Square Tables
+* King Piece-Square Tables
+
+##### Positional Evaluation
+
+* Passed Pawn Detection
+* Rank-Based Passed Pawn Bonuses
+
+##### Search
+
 * Minimax Search
 * Alpha-Beta Pruning
 * Basic Move Ordering (MVV-LVA)
@@ -73,7 +85,7 @@ A chess engine built from scratch in C++.
 
 ### In Progress
 
-* King Piece-Square Tables
+* Bishop Pair Bonus
 
 ### Planned
 
@@ -93,7 +105,8 @@ Capabilities include:
 * Detecting attacks, checks, checkmates, and stalemates
 * Handling castling, en passant, and promotions
 * Evaluating positions using both material and positional factors
-* Applying Piece-Square Table evaluation for knights, pawns, and bishops
+* Applying Piece-Square Table evaluation for pawns, knights, bishops, and kings
+* Detecting and rewarding passed pawns
 * Searching positions using Minimax
 * Optimizing search using Alpha-Beta Pruning
 * Ordering moves using MVV-LVA
@@ -138,11 +151,23 @@ Performance improvements implemented:
 * Rewards central and diagonal control
 * Penalizes passive bishop placement
 
+#### King Piece-Square Tables
+
+* Encourages king safety
+* Rewards castled king positions
+* Penalizes exposed central kings
+
+#### Passed Pawn Evaluation
+
+* Detects passed pawns
+* Rewards passed pawns based on advancement
+* Increases promotion pressure in endgames
+
 ## Future Improvements / Backlog
 
 ### Evaluation
 
-* King Piece-Square Tables (In Progress)
+* Bishop Pair Bonus
 
 * Rook Piece-Square Tables
 
@@ -153,15 +178,11 @@ Performance improvements implemented:
   * Prefer pseudo-legal move counting for performance
   * Requires dedicated pseudo-legal move generation
 
-* Passed Pawn Evaluation
-
 * Doubled Pawn Penalties
 
 * Isolated Pawn Penalties
 
 * Pawn Chain Evaluation
-
-* Bishop Pair Bonus
 
 * Endgame-Specific Evaluation
 
@@ -195,13 +216,12 @@ Performance improvements implemented:
 
 Implement:
 
-* King Piece-Square Tables
+* Bishop Pair Bonus
 
 Goals:
 
-* Encourage king safety
-* Encourage castling
-* Penalize exposed kings in the middlegame
-* Improve overall positional evaluation
+* Reward ownership of both bishops
+* Improve long-range piece evaluation
+* Strengthen play in open positions
 
-After this milestone, the engine will evaluate all major opening and middlegame pieces using Piece-Square Tables, resulting in stronger positional play and improved move selection without increasing search depth.
+After this milestone, the engine will begin evaluating strategic piece combinations in addition to material, positional placement, and passed pawn strength.
