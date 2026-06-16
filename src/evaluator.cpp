@@ -5,6 +5,14 @@
 int Evaluator::evaluate(const Position& pos) {
     int score = 0;
 
+    // counts number of bishops
+    int whiteBishops = 0;
+    int blackBishops = 0;
+
+    // counts pawn per file
+    int whitePawnFiles[8] = {};
+    int blackPawnFiles[8] = {};
+    
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
 
@@ -13,11 +21,13 @@ int Evaluator::evaluate(const Position& pos) {
             switch (tolower(piece)) {
                 case 'p':
                     if (isWhitePiece(piece)){
+                        whitePawnFiles[j]++;
                         score += 100 + PST::pawn[i][j];
                         if (isPassedPawn(pos, i, j)){
                             score += passedPawnBonus[i];
                         }
                     } else {
+                        blackPawnFiles[j]++;
                         score -= 100 + PST::pawn[7-i][j];
                         if (isPassedPawn(pos, i, j)){
                             score -= passedPawnBonus[7 - i];
@@ -30,6 +40,11 @@ int Evaluator::evaluate(const Position& pos) {
                     break;
 
                 case 'b':
+                    if (isWhitePiece(piece)){
+                        whiteBishops++;
+                    } else{
+                        blackBishops++;
+                    }
                     score += isWhitePiece(piece) ? 330 + PST::bishop[i][j] : -330 - PST::bishop[7-i][j];
                     break;
 
@@ -48,6 +63,52 @@ int Evaluator::evaluate(const Position& pos) {
             }
         }
     }
+
+    for(int file = 0; file < 8; file++){
+        if(whitePawnFiles[file] > 1){
+            score -= 15 * (whitePawnFiles[file] - 1);
+        }
+
+        if(blackPawnFiles[file] > 1){
+            score += 15 * (blackPawnFiles[file] - 1);
+        }
+    }
+    
+    for (int file = 0; file < 8; file++){
+        if(whitePawnFiles[file] > 0){
+            bool isolated = false;
+            if (file == 0){
+                isolated = (whitePawnFiles[1] == 0);
+            } else if (file == 7){
+                isolated = (whitePawnFiles[6] == 0);
+            } else{
+                isolated = whitePawnFiles[file - 1] == 0 && whitePawnFiles[file + 1] == 0;
+            }
+            if (isolated){
+                score -= 10;
+            }
+        }
+
+        if(blackPawnFiles[file] > 0){
+            bool isolated = false;
+            if (file == 0){
+                isolated = (blackPawnFiles[1] == 0);
+            } else if (file == 7){
+                isolated = (blackPawnFiles[6] == 0);
+            } else{
+                isolated = blackPawnFiles[file - 1] == 0 && blackPawnFiles[file + 1] == 0;
+            }
+            if (isolated){
+                score += 10;
+            }
+        }
+    }
+
+    if(whiteBishops >= 2)
+        score += 30;
+
+    if(blackBishops >= 2)
+        score -= 30;
 
     return score;
 }

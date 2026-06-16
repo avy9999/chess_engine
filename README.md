@@ -73,6 +73,9 @@ A chess engine built from scratch in C++.
 
 * Passed Pawn Detection
 * Rank-Based Passed Pawn Bonuses
+* Bishop Pair Bonus
+* Doubled Pawn Penalties
+* Isolated Pawn Penalties
 
 ##### Search
 
@@ -85,7 +88,7 @@ A chess engine built from scratch in C++.
 
 ### In Progress
 
-* Bishop Pair Bonus
+* Rook Piece-Square Tables
 
 ### Planned
 
@@ -107,6 +110,9 @@ Capabilities include:
 * Evaluating positions using both material and positional factors
 * Applying Piece-Square Table evaluation for pawns, knights, bishops, and kings
 * Detecting and rewarding passed pawns
+* Rewarding bishop pair ownership
+* Penalizing doubled pawns
+* Penalizing isolated pawns
 * Searching positions using Minimax
 * Optimizing search using Alpha-Beta Pruning
 * Ordering moves using MVV-LVA
@@ -163,11 +169,27 @@ Performance improvements implemented:
 * Rewards passed pawns based on advancement
 * Increases promotion pressure in endgames
 
+#### Bishop Pair Bonus
+
+* Rewards ownership of both bishops
+* Improves evaluation of open positions
+* Encourages preservation of the bishop pair
+
+#### Doubled Pawn Evaluation
+
+* Detects doubled pawns
+* Penalizes multiple pawns occupying the same file
+* Encourages healthier pawn structures
+
+#### Isolated Pawn Evaluation
+
+* Detects isolated pawn files
+* Penalizes pawns lacking support from adjacent files
+* Improves pawn structure assessment
+
 ## Future Improvements / Backlog
 
 ### Evaluation
-
-* Bishop Pair Bonus
 
 * Rook Piece-Square Tables
 
@@ -177,10 +199,6 @@ Performance improvements implemented:
 
   * Prefer pseudo-legal move counting for performance
   * Requires dedicated pseudo-legal move generation
-
-* Doubled Pawn Penalties
-
-* Isolated Pawn Penalties
 
 * Pawn Chain Evaluation
 
@@ -216,12 +234,12 @@ Performance improvements implemented:
 
 Implement:
 
-* Bishop Pair Bonus
+* Rook Piece-Square Tables
 
 Goals:
 
-* Reward ownership of both bishops
-* Improve long-range piece evaluation
-* Strengthen play in open positions
+* Encourage active rook placement
+* Reward central and semi-active files
+* Lay groundwork for future open-file evaluation
 
-After this milestone, the engine will begin evaluating strategic piece combinations in addition to material, positional placement, and passed pawn strength.
+After this milestone, all major pieces except queens will have dedicated Piece-Square Table evaluation, providing a complete positional evaluation framework for the middlegame.

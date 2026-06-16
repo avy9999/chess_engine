@@ -7,10 +7,9 @@
 
 int main() {
     Position pos;
-    pos.loadFEN("8/8/8/7P/8/8/8/8 w - - 0 1");
-    
+    pos.loadFEN("8/8/8/4p3/8/8/8/8 b - - 0 1");
     std::cout << Evaluator::evaluate(pos) << "\n";
-
+    
     MoveGenerator generator;
 
     std::cout << "Is checkmate: " << generator.isCheckmate(pos) << "\n";
