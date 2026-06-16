@@ -10,4 +10,5 @@ add_executable(chess_engine
     src/evaluator.cpp
     src/search.cpp
     src/pst.cpp
+    src/uci.cpp
 )

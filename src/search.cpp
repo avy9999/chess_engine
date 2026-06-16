@@ -103,12 +103,12 @@ Move Search::findBestMove(Position pos, int depth){
                 bestMove = move;
                 bestScore = score;
             }
-            std::cout
-            << move.fromRow << "," << move.fromCol
-            << " -> "
-            << move.toRow << "," << move.toCol
-            << " score = "
-            << score << "\n";
+            // std::cout
+            // << move.fromRow << "," << move.fromCol
+            // << " -> "
+            // << move.toRow << "," << move.toCol
+            // << " score = "
+            // << score << "\n";
         }
 
     } else {        
@@ -125,12 +125,12 @@ Move Search::findBestMove(Position pos, int depth){
                 bestMove = move;
                 bestScore = score;
             }
-            std::cout
-            << move.fromRow << "," << move.fromCol
-            << " -> "
-            << move.toRow << "," << move.toCol
-            << " score = "
-            << score << "\n";
+            // std::cout
+            // << move.fromRow << "," << move.fromCol
+            // << " -> "
+            // << move.toRow << "," << move.toCol
+            // << " score = "
+            // << score << "\n";
         }
     }
     return bestMove;

@@ -88,9 +88,22 @@ A chess engine built from scratch in C++.
 * Best Move Search (`findBestMove`)
 * Node Counting / Search Statistics
 
+#### UCI Protocol
+
+* `uci`
+* `isready`
+* `ucinewgame`
+* `quit`
+* `position startpos`
+* `position startpos moves ...`
+* `position fen ...`
+* `position fen ... moves ...`
+* `go depth N`
+* UCI Move Formatting (`bestmove` output)
+
 ### In Progress
 
-* UCI Protocol Support
+* GUI Compatibility Testing (Arena / CuteChess / BanksiaGUI)
 
 ### Planned
 
@@ -120,6 +133,8 @@ Capabilities include:
 * Preferring faster checkmates and delaying unavoidable losses
 * Selecting the best move from a given position
 * Tracking node counts for performance analysis
+* Communicating through the Universal Chess Interface (UCI)
+* Accepting both start-position and arbitrary FEN analysis requests
 
 ### Search Improvements
 
@@ -230,12 +245,21 @@ Performance improvements implemented:
 
 ### Engine Infrastructure
 
-* UCI Protocol Support
+* Full UCI Protocol Support
+
+  * `go movetime`
+  * `go infinite`
+  * `stop`
+  * `setoption`
+  * Time Management
+
 * FEN Export
+
 * PGN Parsing
+
 * Perft Testing Suite
+
 * Search Benchmarking Utilities
-* Time Management
 
 ### Optimization
 
@@ -249,13 +273,14 @@ Performance improvements implemented:
 
 Implement:
 
-* UCI Protocol Support
+* GUI Compatibility Testing
 
 Goals:
 
-* Communicate with standard chess GUIs
-* Support Arena, CuteChess, and BanksiaGUI
-* Enable automated engine testing
-* Provide a foundation for future web integration
+* Verify compatibility with Arena
+* Verify compatibility with CuteChess
+* Verify compatibility with BanksiaGUI
+* Validate UCI command handling under real GUI workloads
+* Identify engine and protocol edge cases
 
-After this milestone, the engine will be compatible with standard chess GUI software and ready for external testing, benchmarking, engine-vs-engine matches, and future web-based integration.
+After this milestone, Avy will be able to play complete games through standard chess GUIs, enabling automated testing, engine-vs-engine matches, and future web integration.
