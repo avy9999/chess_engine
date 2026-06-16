@@ -36,7 +36,7 @@ int Evaluator::evaluate(const Position& pos) {
                     break;
 
                 case 'n':
-                    score += isWhitePiece(piece) ? 320 + PST::knight[i][j] : -320 - PST::knight[7-i][j];
+                    score += isWhitePiece(piece) ? 320 + PST::knight[i][j] : -320 - PST::knight[7 - i][j];
                     break;
 
                 case 'b':
@@ -45,15 +45,15 @@ int Evaluator::evaluate(const Position& pos) {
                     } else{
                         blackBishops++;
                     }
-                    score += isWhitePiece(piece) ? 330 + PST::bishop[i][j] : -330 - PST::bishop[7-i][j];
+                    score += isWhitePiece(piece) ? 330 + PST::bishop[i][j] : -330 - PST::bishop[7 - i][j];
                     break;
 
                 case 'r':
-                    score += isWhitePiece(piece) ? 500 : -500;
+                    score += isWhitePiece(piece) ? 500 + PST::rook[i][j] : -500 - PST::rook[7 - i][j];
                     break;
 
                 case 'q':
-                    score += isWhitePiece(piece) ? 900 : -900;
+                    score += isWhitePiece(piece) ? 900 + PST::queen[i][j] : -900 - PST::queen[7 - i][j];
                     break;
                 case 'k':
                     score += isWhitePiece(piece)

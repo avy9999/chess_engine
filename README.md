@@ -67,6 +67,8 @@ A chess engine built from scratch in C++.
 * Pawn Piece-Square Tables
 * Knight Piece-Square Tables
 * Bishop Piece-Square Tables
+* Rook Piece-Square Tables
+* Queen Piece-Square Tables
 * King Piece-Square Tables
 
 ##### Positional Evaluation
@@ -88,13 +90,12 @@ A chess engine built from scratch in C++.
 
 ### In Progress
 
-* Rook Piece-Square Tables
+* UCI Protocol Support
 
 ### Planned
 
 * Iterative Deepening
 * Transposition Tables
-* UCI Support
 
 ## Current Status
 
@@ -108,7 +109,7 @@ Capabilities include:
 * Detecting attacks, checks, checkmates, and stalemates
 * Handling castling, en passant, and promotions
 * Evaluating positions using both material and positional factors
-* Applying Piece-Square Table evaluation for pawns, knights, bishops, and kings
+* Applying Piece-Square Table evaluation for all chess pieces
 * Detecting and rewarding passed pawns
 * Rewarding bishop pair ownership
 * Penalizing doubled pawns
@@ -157,6 +158,18 @@ Performance improvements implemented:
 * Rewards central and diagonal control
 * Penalizes passive bishop placement
 
+#### Rook Piece-Square Tables
+
+* Encourages active rook placement
+* Slightly rewards central files
+* Provides groundwork for future open-file evaluation
+
+#### Queen Piece-Square Tables
+
+* Encourages central queen activity
+* Slightly discourages edge and corner placement
+* Maintains conservative queen development bonuses
+
 #### King Piece-Square Tables
 
 * Encourages king safety
@@ -191,10 +204,6 @@ Performance improvements implemented:
 
 ### Evaluation
 
-* Rook Piece-Square Tables
-
-* Queen Piece-Square Tables
-
 * Mobility Evaluation
 
   * Prefer pseudo-legal move counting for performance
@@ -203,6 +212,12 @@ Performance improvements implemented:
 * Pawn Chain Evaluation
 
 * Endgame-Specific Evaluation
+
+* Open File Evaluation
+
+* Semi-Open File Evaluation
+
+* Connected Rook Evaluation
 
 ### Search
 
@@ -234,12 +249,13 @@ Performance improvements implemented:
 
 Implement:
 
-* Rook Piece-Square Tables
+* UCI Protocol Support
 
 Goals:
 
-* Encourage active rook placement
-* Reward central and semi-active files
-* Lay groundwork for future open-file evaluation
+* Communicate with standard chess GUIs
+* Support Arena, CuteChess, and BanksiaGUI
+* Enable automated engine testing
+* Provide a foundation for future web integration
 
-After this milestone, all major pieces except queens will have dedicated Piece-Square Table evaluation, providing a complete positional evaluation framework for the middlegame.
+After this milestone, the engine will be compatible with standard chess GUI software and ready for external testing, benchmarking, engine-vs-engine matches, and future web-based integration.
