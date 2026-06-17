@@ -1,0 +1,9 @@
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\main.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\main.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\position.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\position.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\move.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\move.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\movegenerator.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\movegenerator.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\utils.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\utils.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\evaluator.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\evaluator.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\search.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\search.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\pst.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\pst.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\uci.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\uci.obj

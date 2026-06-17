@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 
 namespace {
     const std::string STARTPOS_FEN =
@@ -17,12 +18,18 @@ namespace {
         char fromRank = '8' - move.fromRow;
         char toRank   = '8' - move.toRow;
 
-        return std::string{
+        std::string uci{
             fromFile,
             fromRank,
             toFile,
             toRank
         };
+
+        if(move.promotionPiece != '\0'){
+            uci += std::tolower(move.promotionPiece);
+        }
+
+        return uci;
     }
 
     void applyUCIMoves(
@@ -35,16 +42,74 @@ namespace {
         std::string moveStr;
 
         while(ss >> moveStr){
+
             std::vector<Move> moves =
                 generator.generateLegalMoves(pos);
+
+            bool found = false;
 
             for(const Move& move : moves){
                 if(moveToUCI(move) == moveStr){
                     generator.makeMove(pos, move);
+                    found = true;
                     break;
                 }
             }
+
+            if(!found){
+                std::ofstream log("uci.log", std::ios::app);
+
+                log << "FAILED TO APPLY: "
+                    << moveStr
+                    << '\n';
+
+                log << "Legal moves were:\n";
+
+                for(const Move& move : moves){
+                    log << moveToUCI(move) << ' ';
+                }
+
+                log << "\n";
+            }
         }
+    }
+
+    void validateAndLogMove(
+        const Move& bestMove,
+        const Position& pos,
+        MoveGenerator& generator
+    ){
+        auto legalMoves =
+            generator.generateLegalMoves(pos);
+
+        bool legal = false;
+
+        for(const Move& m : legalMoves){
+            if(moveToUCI(m) == moveToUCI(bestMove)){
+                legal = true;
+                break;
+            }
+        }
+
+        std::ofstream log("uci.log", std::ios::app);
+
+        if(!legal){
+            log << "ILLEGAL BESTMOVE "
+                << moveToUCI(bestMove)
+                << "\n";
+
+            log << "Legal moves:\n";
+
+            for(const Move& m : legalMoves){
+                log << moveToUCI(m) << ' ';
+            }
+
+            log << "\n";
+        }
+
+        log << "SENDING "
+            << moveToUCI(bestMove)
+            << "\n";
     }
 }
 
@@ -55,6 +120,11 @@ void UCI::loop(){
     std::string command;
 
     while(std::getline(std::cin, command)){
+
+        {
+            std::ofstream log("uci.log", std::ios::app);
+            log << command << '\n';
+        }
 
         if (command == "uci"){
             std::cout << "id name Avy\n";
@@ -67,21 +137,12 @@ void UCI::loop(){
             currentPos.loadFEN(STARTPOS_FEN);
         }
 
-        else if (command.rfind("go depth ", 0) == 0){
-            int depth = std::stoi(command.substr(9));
-
-            Move bestMove = search.findBestMove(currentPos, depth);
-
-            std::cout << "bestmove " << moveToUCI(bestMove) << "\n";
-
-            std::cout << std::flush;
-        }
-
         else if(command.rfind("position startpos moves ", 0) == 0){
 
             currentPos.loadFEN(STARTPOS_FEN);
 
-            std::string movesPart = command.substr(24);
+            std::string movesPart =
+                command.substr(24);
 
             applyUCIMoves(
                 currentPos,
@@ -95,14 +156,22 @@ void UCI::loop(){
         }
 
         else if(command.rfind("position fen ", 0) == 0){
-            size_t movesPos = command.find(" moves ");
 
-            if (movesPos != std::string::npos){
+            size_t movesPos =
+                command.find(" moves ");
+
+            if(movesPos != std::string::npos){
+
                 std::string fen =
-                    command.substr(13, movesPos - 13);
+                    command.substr(
+                        13,
+                        movesPos - 13
+                    );
 
                 std::string movesPart =
-                    command.substr(movesPos + 7);
+                    command.substr(
+                        movesPos + 7
+                    );
 
                 currentPos.loadFEN(fen);
 
@@ -113,17 +182,66 @@ void UCI::loop(){
                 );
             }
             else{
-                std::string fen = command.substr(13);
+                std::string fen =
+                    command.substr(13);
+
                 currentPos.loadFEN(fen);
             }
         }
 
-        else if (command == "isready"){
+        else if(command == "isready"){
             std::cout << "readyok\n";
             std::cout << std::flush;
         }
-        
-        else if (command == "quit"){
+
+        else if(command.rfind("go depth ", 0) == 0){
+
+            int depth =
+                std::stoi(command.substr(9));
+
+            Move bestMove =
+                search.findBestMove(
+                    currentPos,
+                    depth
+                );
+
+            validateAndLogMove(
+                bestMove,
+                currentPos,
+                generator
+            );
+
+            std::cout
+                << "bestmove "
+                << moveToUCI(bestMove)
+                << "\n";
+
+            std::cout << std::flush;
+        }
+
+        else if(command.rfind("go", 0) == 0){
+
+            Move bestMove =
+                search.findBestMove(
+                    currentPos,
+                    3
+                );
+
+            validateAndLogMove(
+                bestMove,
+                currentPos,
+                generator
+            );
+
+            std::cout
+                << "bestmove "
+                << moveToUCI(bestMove)
+                << "\n";
+
+            std::cout << std::flush;
+        }
+
+        else if(command == "quit"){
             break;
         }
     }
