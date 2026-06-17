@@ -1,5 +1,11 @@
 #include "../include/movegenerator.h"
 #include "../include/utils.h"
+#include "../include/undoinfo.h"
+
+long long MoveGenerator::legalMoveCalls = 0;
+long long MoveGenerator::kingCheckCalls = 0;
+long long MoveGenerator::positionCopies = 0;
+long long MoveGenerator::generateAllMovesCalls = 0;
 
 std::vector<Move> MoveGenerator::generateKnightMoves(const Position& pos) {
     std::vector<Move> moves;
@@ -313,7 +319,11 @@ std::vector<Move> MoveGenerator::generateSlidingMoves(const Position& pos, char 
 
 // generate all possible moves
 std::vector<Move> MoveGenerator::generateAllMoves(const Position& pos){
+    
+    generateAllMovesCalls++;
+
     std::vector<Move> moves;
+    moves.reserve(256);
     
     std::vector<Move> knightMoves = generateKnightMoves(pos);
     std::vector<Move> pawnMoves = generatePawnMoves(pos);
@@ -370,6 +380,13 @@ void MoveGenerator::makeMove(Position& pos, const Move& move){
 
     if (piece == king){
         // check if its a castle move
+        if (king == 'K'){
+            pos.whiteKingRow = move.toRow;
+            pos.whiteKingCol = move.toCol;
+        } else{
+            pos.blackKingRow = move.toRow;
+            pos.blackKingCol = move.toCol;
+        }
         if (isCastleMove(move)){
             pos.board[move.toRow][move.toCol] = king;
             pos.board[move.fromRow][move.fromCol] = '.';
@@ -462,6 +479,298 @@ void MoveGenerator::makeMove(Position& pos, const Move& move){
     }
 
     pos.sideToMove = (pos.sideToMove == 'w') ? 'b':'w';
+}
+
+void MoveGenerator::makeMove(
+    Position& pos,
+    const Move& move,
+    UndoInfo& undo
+)
+{
+    undo.capturedPiece =
+        pos.board[move.toRow][move.toCol];
+
+    for(int i=0;i<4;i++)
+        undo.castlingRights[i] =
+            pos.castlingRights[i];
+
+    undo.enPassantRow =
+        pos.enPassantRow;
+
+    undo.enPassantCol =
+        pos.enPassantCol;
+
+    undo.halfMoveClock =
+        pos.halfMoveClock;
+
+    undo.fullMoveNumber =
+        pos.fullMoveNumber;
+
+    undo.whiteKingRow =
+        pos.whiteKingRow;
+
+    undo.whiteKingCol =
+        pos.whiteKingCol;
+
+    undo.blackKingRow =
+        pos.blackKingRow;
+
+    undo.blackKingCol =
+        pos.blackKingCol;
+    
+    undo.movedPiece = 
+        pos.board[move.fromRow][move.fromCol];
+
+    undo.wasEnPassant =
+        move.isEnPassant;
+
+    undo.wasCastle =
+        isCastleMove(move);
+
+    undo.wasPromotion =
+        move.promotionPiece != '\0';
+
+    // makeMove code
+    // clearing en passant squares
+    pos.enPassantRow = -1;
+    pos.enPassantCol = -1;
+
+    // this makes a move on the board
+    char piece = pos.board[move.fromRow][move.fromCol];
+
+    // determine pawn, king and rook
+    char king = pos.sideToMove == 'w' ? 'K' : 'k';
+    char rook = pos.sideToMove == 'w' ? 'R' : 'r';
+    char pawn = pos.sideToMove == 'w' ? 'P' : 'p';
+
+    // determine captured piece
+    char captured = pos.board[move.toRow][move.toCol];
+
+    // white rook captured so disable white castling rights
+    if (captured == 'R') {
+        if (move.toRow == 7 && move.toCol == 0)
+            pos.castlingRights[1] = false;
+
+        if (move.toRow == 7 && move.toCol == 7)
+            pos.castlingRights[0] = false;
+    }
+
+    // black rook captured so disable black castling rights
+    if (captured == 'r') {
+        if (move.toRow == 0 && move.toCol == 0)
+            pos.castlingRights[3] = false;
+
+        if (move.toRow == 0 && move.toCol == 7)
+            pos.castlingRights[2] = false;
+    }
+    
+
+    if (piece == king){
+        // check if its a castle move
+        if (king == 'K'){
+            pos.whiteKingRow = move.toRow;
+            pos.whiteKingCol = move.toCol;
+        } else{
+            pos.blackKingRow = move.toRow;
+            pos.blackKingCol = move.toCol;
+        }
+        if (isCastleMove(move)){
+            pos.board[move.toRow][move.toCol] = king;
+            pos.board[move.fromRow][move.fromCol] = '.';
+            // updates castle rights
+            if (pos.sideToMove == 'w'){
+                pos.castlingRights[0] = false;
+                pos.castlingRights[1] = false;
+            }
+            else{
+                pos.castlingRights[2] = false;
+                pos.castlingRights[3] = false;
+            }
+            // move rook according to the castle type
+            if (move.toCol == 2){
+                pos.board[move.toRow][3] = rook;
+                pos.board[move.fromRow][0] = '.';
+            } else{
+                pos.board[move.toRow][5] = rook;
+                pos.board[move.fromRow][7] = '.';
+            }
+        }
+        else{
+            // normal king moves
+            pos.board[move.toRow][move.toCol] = piece;
+            pos.board[move.fromRow][move.fromCol] = '.';
+            // updates castle rights as king is displaced from his position
+            if (pos.sideToMove == 'w'){
+                pos.castlingRights[0] = false;
+                pos.castlingRights[1] = false;
+            }
+            else{
+                pos.castlingRights[2] = false;
+                pos.castlingRights[3] = false;
+            }
+        }
+    } else if (piece == rook){
+        // normal rook moves but also updates castle rights as it displaced
+        pos.board[move.toRow][move.toCol] = piece;
+        pos.board[move.fromRow][move.fromCol] = '.';
+        if (pos.sideToMove == 'w') {
+            if (move.fromRow == 7 && move.fromCol == 7)
+                pos.castlingRights[0] = false; // K
+
+            if (move.fromRow == 7 && move.fromCol == 0)
+                pos.castlingRights[1] = false; // Q
+        }
+        else {
+            if (move.fromRow == 0 && move.fromCol == 7)
+                pos.castlingRights[2] = false; // k
+
+            if (move.fromRow == 0 && move.fromCol == 0)
+                pos.castlingRights[3] = false; // q
+        }
+    } else if (piece == pawn){
+        if (move.isEnPassant){
+            pos.board[move.toRow][move.toCol] = piece;
+            pos.board[move.fromRow][move.fromCol] = '.';
+
+            int capturedPawnRow =
+                (pos.sideToMove == 'w')
+                ? move.toRow + 1
+                : move.toRow - 1;
+
+            pos.board[capturedPawnRow][move.toCol] = '.';
+        } else if (abs(move.fromRow-move.toRow) == 2){
+            // double forward pawn move
+            pos.enPassantRow = (move.fromRow + move.toRow) / 2;
+            pos.enPassantCol = move.fromCol;
+            pos.board[move.toRow][move.toCol] = piece;
+            pos.board[move.fromRow][move.fromCol] = '.';
+        } else if (move.promotionPiece != '\0'){
+            // pawn promotion
+            char promoted = move.promotionPiece;
+            if (pos.sideToMove == 'w'){
+                promoted = std::toupper(move.promotionPiece);
+            } else{
+                promoted = std::tolower(move.promotionPiece);
+            }
+            pos.board[move.toRow][move.toCol] = promoted;
+            pos.board[move.fromRow][move.fromCol] = '.';
+        } else{
+            // normal pawn moves
+            pos.board[move.toRow][move.toCol] = piece;
+            pos.board[move.fromRow][move.fromCol] = '.';
+        }
+    } else{
+        // normal moves
+        pos.board[move.toRow][move.toCol] = piece;
+        pos.board[move.fromRow][move.fromCol] = '.';
+    }
+
+    pos.sideToMove = (pos.sideToMove == 'w') ? 'b':'w';
+}
+
+void MoveGenerator::undoMove(
+    Position& pos,
+    const Move& move,
+    const UndoInfo& undo
+)
+{
+    char piece;
+    if(undo.wasCastle)
+    {
+        pos.board[move.fromRow][move.fromCol] =
+            undo.movedPiece;
+
+        pos.board[move.toRow][move.toCol] =
+            '.';
+
+        if(move.toCol == 6) // kingside
+        {
+            pos.board[move.fromRow][7] =
+                (undo.movedPiece == 'K')
+                ? 'R'
+                : 'r';
+
+            pos.board[move.fromRow][5] =
+                '.';
+        }
+        else // queenside
+        {
+            pos.board[move.fromRow][0] =
+                (undo.movedPiece == 'K')
+                ? 'R'
+                : 'r';
+
+            pos.board[move.fromRow][3] =
+                '.';
+        }
+    } else if(undo.wasEnPassant)
+    {
+        pos.board[move.fromRow][move.fromCol] =
+            undo.movedPiece;
+
+        pos.board[move.toRow][move.toCol] =
+            '.';
+
+        int capturedPawnRow =
+            (undo.movedPiece == 'P')
+            ? move.toRow + 1
+            : move.toRow - 1;
+
+        pos.board[capturedPawnRow][move.toCol] =
+            undo.capturedPiece;
+    }
+    else
+    {
+        char piece;
+
+        if(undo.wasPromotion)
+        {
+            piece = undo.movedPiece;
+        }
+        else
+        {
+            piece = pos.board[move.toRow][move.toCol];
+        }
+
+        pos.board[move.fromRow][move.fromCol] =
+            piece;
+
+        pos.board[move.toRow][move.toCol] =
+            undo.capturedPiece;
+    }
+
+    pos.sideToMove =
+        pos.sideToMove == 'w'
+        ? 'b'
+        : 'w';
+
+    for(int i=0;i<4;i++)
+        pos.castlingRights[i] =
+            undo.castlingRights[i];
+
+    pos.enPassantRow =
+        undo.enPassantRow;
+
+    pos.enPassantCol =
+        undo.enPassantCol;
+
+    pos.halfMoveClock =
+        undo.halfMoveClock;
+
+    pos.fullMoveNumber =
+        undo.fullMoveNumber;
+
+    pos.whiteKingRow =
+        undo.whiteKingRow;
+
+    pos.whiteKingCol =
+        undo.whiteKingCol;
+
+    pos.blackKingRow =
+        undo.blackKingRow;
+
+    pos.blackKingCol =
+        undo.blackKingCol;
 }
 
 // this checks if any function attacks the square
@@ -576,52 +885,65 @@ bool MoveGenerator::checkStraightAttack(const Position& pos, int row, int col, c
 }
 
 // this function checks if the king is in check or not
-bool MoveGenerator::isKingInCheck(const Position& pos, char side){
-
-    // determine attacking side
-    char attackingSide = side == 'b' ? 'w' : 'b';
-
-    for(int i=0; i<8; ++i){
-        for(int j=0; j<8; ++j){
-            // checks if square has king of side
-            if (isFriendlyPiece(pos.board[i][j], side) && isPieceType(pos.board[i][j], 'k')) {
-                return isSquareAttacked(pos, i, j, attackingSide);
-            }
-        }
+bool MoveGenerator::isKingInCheck(
+    const Position& pos,
+    char side
+)
+{
+    kingCheckCalls++;
+    if(side == 'w')
+    {
+        return isSquareAttacked(
+            pos,
+            pos.whiteKingRow,
+            pos.whiteKingCol,
+            'b'
+        );
     }
 
-    return false;
+    return isSquareAttacked(
+        pos,
+        pos.blackKingRow,
+        pos.blackKingCol,
+        'w'
+    );
 }
 
 // generate all legal moves
-std::vector<Move> MoveGenerator::generateLegalMoves(const Position& pos){
+std::vector<Move> MoveGenerator::generateLegalMoves(Position& pos){
+    legalMoveCalls++;
     std::vector<Move> legalMoves;
+    legalMoves.reserve(256);
 
     // this generate all possible moves from the current position
     auto moves = generateAllMoves(pos);
 
-    for (const auto& move : moves){
-        // create a copy of current position
-        Position copy = pos;
+    for(const auto& move : moves)
+    {
+        UndoInfo undo;
 
-        // make a move on the copy position
-        makeMove(copy, move);
+        char side = pos.sideToMove;
 
-        if (!isKingInCheck(copy, pos.sideToMove)){
+        makeMove(pos, move, undo);
+
+        if(!isKingInCheck(pos, side))
+        {
             legalMoves.push_back(move);
         }
+
+        undoMove(pos, move, undo);
     }
 
     return legalMoves;
 }
 
 // detects if it is a checkmate
-bool MoveGenerator::isCheckmate(const Position& pos){
+bool MoveGenerator::isCheckmate(Position& pos){
     return isKingInCheck(pos, pos.sideToMove) && generateLegalMoves(pos).empty();
 }
 
 // detects if it is a stalemate
-bool MoveGenerator::isStalemate(const Position& pos){
+bool MoveGenerator::isStalemate(Position& pos){
     return !isKingInCheck(pos, pos.sideToMove) && generateLegalMoves(pos).empty();
 }
 

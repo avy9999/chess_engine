@@ -5,6 +5,12 @@
 class Position{
     public:
         char board[8][8];
+
+        int whiteKingRow;
+        int whiteKingCol;
+
+        int blackKingRow;
+        int blackKingCol;
         char sideToMove;
         bool castlingRights[4];
         int enPassantRow;

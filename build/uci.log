@@ -15,3 +15,148 @@ position startpos
 go depth 6
 SENDING b1c3
 quit
+position startpos
+
+go depth 5
+SENDING e2e4
+quit
+position startpos
+go depth 5
+SENDING e2e4
+quit
+position startpos
+go depth 5
+SENDING e2e4
+quir
+quit
+position startpos
+go depth 5
+SENDING e2e4
+quit
+position startpos
+go depth 5
+SENDING g1f3
+quit
+position startpos
+go depth 4
+SENDING g1f3
+go depth 5
+SENDING g1f3
+position startpos
+go depth 5
+SENDING g1f3
+position startpos
+go depth 6
+SENDING d2d4
+quit
+position startpos
+go depth 6
+SENDING d2d4
+quit
+position startpos
+go depth 6
+SENDING b1c3
+
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 6
+SENDING b1c3
+quit
+position startpos
+go depth 6
+SENDING b1c3
+quit
+position startpos
+go depth 6
+SENDING b1c3
+quit
+position startpos
+go depth 6
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 5
+SENDING b1c3
+quit
+position startpos
+go depth 3
+SENDING a2a3
+quit
+position startpos
+go depth 1
+SENDING b1c3
+quit
+position startpos
+go depth 2
+SENDING g1f3
+quit
+position startpos
+go depth 5
+SENDING g1f3
+quit
+position startpos
+go depth 6
+SENDING g1f3
+quit
+quit
+go depth 6
+ILLEGAL BESTMOVE `9`9
+Legal moves:
+
+SENDING `9`9
+position startpos
+go depth 6
+SENDING f2f3
+quit
+position startpos
+go depth 6
+SENDING g1f3
+quit
+position startpos
+go depth 6
+SENDING f2f3
+quit
+position startpos
+go depth 6
+SENDING h2h4
+quit
+position startpos
+go depth 6
+SENDING g1f3
+quit

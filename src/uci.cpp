@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <chrono>
 
 namespace {
     const std::string STARTPOS_FEN =
@@ -76,7 +77,7 @@ namespace {
 
     void validateAndLogMove(
         const Move& bestMove,
-        const Position& pos,
+        Position& pos,
         MoveGenerator& generator
     ){
         auto legalMoves =
@@ -195,6 +196,7 @@ void UCI::loop(){
         }
 
         else if(command.rfind("go depth ", 0) == 0){
+            auto start = std::chrono::steady_clock::now();
 
             int depth =
                 std::stoi(command.substr(9));
@@ -205,12 +207,21 @@ void UCI::loop(){
                     depth
                 );
 
+            auto end = std::chrono::steady_clock::now();
+
             validateAndLogMove(
                 bestMove,
                 currentPos,
                 generator
             );
 
+            auto ms = std::chrono::duration_cast< std::chrono::milliseconds >(end - start).count();
+            std::cout << "Time: " << ms << " ms\n";
+            std::cout << "NPS: " << (ms > 0 ? (Search::nodes * 1000LL / ms) : 0) << "\n";
+            std::cout << "Legal Move Calls " << MoveGenerator::legalMoveCalls <<"\n";
+            std::cout << "Legal King Check Calls " << MoveGenerator::kingCheckCalls <<"\n";
+            std::cout << "Position Copied " << MoveGenerator::positionCopies <<"\n";
+            std::cout << "All Move Calls " << MoveGenerator::generateAllMovesCalls <<"\n";
             std::cout
                 << "bestmove "
                 << moveToUCI(bestMove)

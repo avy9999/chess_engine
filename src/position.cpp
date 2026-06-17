@@ -9,6 +9,13 @@ using namespace std;
 // this initialises a chess board with initial position and rules
 Position::Position(){
     initializeBoard();
+
+    whiteKingRow = -1;
+    whiteKingCol = -1;
+
+    blackKingRow = -1;
+    blackKingCol = -1;
+
     sideToMove = 'w';
     castlingRights[0] = castlingRights[1] = castlingRights[2] = castlingRights[3] = true;
     enPassantRow = -1;
@@ -57,6 +64,14 @@ void Position::loadFEN(const std::string& fen){
             }
             else{
                 board[i][j]=fen[index];
+                if (fen[index] == 'K'){
+                    whiteKingRow = i;
+                    whiteKingCol = j;
+                }
+                if (fen[index] == 'k'){
+                    blackKingRow = i;
+                    blackKingCol = j;
+                }
                 j++;
             }
             index++;

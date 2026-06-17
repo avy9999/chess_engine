@@ -1,3 +1,4 @@
+#include "../include/movegenerator.h"
 #include "../include/evaluator.h"
 #include "../include/utils.h"
 #include "../include/pst.h"
@@ -110,6 +111,36 @@ int Evaluator::evaluate(const Position& pos) {
     if(blackBishops >= 2)
         score -= 30;
 
+    // Development bonus
+
+    if (pos.board[7][1] != 'N') score += 10;
+    if (pos.board[7][6] != 'N') score += 10;
+
+    if (pos.board[7][2] != 'B') score += 10;
+    if (pos.board[7][5] != 'B') score += 10;
+
+    if (pos.board[0][1] != 'n') score -= 10;
+    if (pos.board[0][6] != 'n') score -= 10;
+
+    if (pos.board[0][2] != 'b') score -= 10;
+    if (pos.board[0][5] != 'b') score -= 10;
+
+    MoveGenerator gen;
+
+    Position whitePos = pos;
+    whitePos.sideToMove = 'w';
+
+    Position blackPos = pos;
+    blackPos.sideToMove = 'b';
+
+    int whiteMoves =
+        gen.generateLegalMoves(whitePos).size();
+
+    int blackMoves =
+        gen.generateLegalMoves(blackPos).size();
+
+    score += (whiteMoves - blackMoves);
+    
     return score;
 }
 

@@ -1,286 +1,164 @@
-# Chess Engine
+# Chess Engine (Avy)
 
-A chess engine built from scratch in C++.
+A chess engine built from scratch in modern C++ featuring full legal move generation, positional evaluation, alpha-beta search, iterative deepening, and UCI support.
+
+---
 
 ## Features
 
-### Completed
+### Chess Rules
 
+* Full legal move generation
+* Check detection
+* Checkmate detection
+* Stalemate detection
+* Castling
+* En Passant
+* Pawn Promotion
 * FEN Parsing
-* Board Representation
-* Move Representation (`Move` class)
 
-#### Move Generation
+### Move Generation
 
-* Knight Move Generation
-* King Move Generation
-* Pawn Move Generation
-* Bishop Move Generation
-* Rook Move Generation
-* Queen Move Generation
-* All-Moves Generation
-* Legal Move Generation
+* Pawn moves
+* Knight moves
+* Bishop moves
+* Rook moves
+* Queen moves
+* King moves
+* Legal move filtering
 
-#### Move Execution
+### Evaluation
 
-* Move Execution (`makeMove`)
-* Castling Move Execution
-* En Passant Move Execution
-* Pawn Promotion Execution
+#### Material Evaluation
 
-#### Special Chess Rules
+* Standard piece values
 
-* Castling Move Generation
+#### Piece-Square Tables
 
-* Castling Rights Management
+* Pawn PST
+* Knight PST
+* Bishop PST
+* Rook PST
+* Queen PST
+* King PST
 
-* Castling Validation
+#### Positional Evaluation
 
-  * Cannot castle while in check
-  * Cannot castle through check
-  * Cannot castle into check
-  * Requires correct castling rights
-  * Requires unmoved rook
-  * Requires empty squares between king and rook
-
-* En Passant Move Generation
-
-* En Passant State Tracking
-
-* Pawn Promotion Move Generation
-
-* Promotion Piece Selection (Queen, Rook, Bishop, Knight)
-
-#### Position Analysis
-
-* Square Attack Detection (`isSquareAttacked`)
-* Check Detection (`isKingInCheck`)
-* Checkmate Detection
-* Stalemate Detection
-
-#### Evaluation & Search
-
-* Material Evaluation Function
-
-##### Piece-Square Tables
-
-* Pawn Piece-Square Tables
-* Knight Piece-Square Tables
-* Bishop Piece-Square Tables
-* Rook Piece-Square Tables
-* Queen Piece-Square Tables
-* King Piece-Square Tables
-
-##### Positional Evaluation
-
-* Passed Pawn Detection
-* Rank-Based Passed Pawn Bonuses
+* Passed Pawn Bonuses
 * Bishop Pair Bonus
 * Doubled Pawn Penalties
 * Isolated Pawn Penalties
 
-##### Search
+### Search
 
 * Minimax Search
 * Alpha-Beta Pruning
-* Basic Move Ordering (MVV-LVA)
+* Iterative Deepening
+* MVV-LVA Move Ordering
+* Principal Variation (PV) Move Ordering
 * Mate Distance Scoring
-* Best Move Search (`findBestMove`)
-* Node Counting / Search Statistics
+* Search Statistics & Node Counting
 
-#### UCI Protocol
+### Engine Optimizations
+
+* Make/Undo Move System
+* Incremental King Tracking
+* Reduced Position Copying
+* Search Profiling Utilities
+
+### UCI Support
+
+Implemented commands:
 
 * `uci`
 * `isready`
 * `ucinewgame`
 * `quit`
 * `position startpos`
-* `position startpos moves ...`
-* `position fen ...`
-* `position fen ... moves ...`
+* `position startpos moves`
+* `position fen`
+* `position fen moves`
 * `go depth N`
-* UCI Move Formatting (`bestmove` output)
 
-### In Progress
+Compatible with:
 
-* GUI Compatibility Testing (Arena / CuteChess / BanksiaGUI)
+* BanksiaGUI
+---
 
-### Planned
+## Current Capabilities
 
-* Iterative Deepening
-* Transposition Tables
-
-## Current Status
-
-The engine currently supports all standard chess rules and legal move generation.
+The engine currently supports complete legal chess gameplay and search.
 
 Capabilities include:
 
 * Loading positions from FEN strings
 * Generating legal moves for all pieces
-* Executing legal moves on the board
-* Detecting attacks, checks, checkmates, and stalemates
+* Executing and undoing moves efficiently
+* Detecting checks, checkmates, and stalemates
 * Handling castling, en passant, and promotions
-* Evaluating positions using both material and positional factors
-* Applying Piece-Square Table evaluation for all chess pieces
-* Detecting and rewarding passed pawns
-* Rewarding bishop pair ownership
-* Penalizing doubled pawns
-* Penalizing isolated pawns
-* Searching positions using Minimax
-* Optimizing search using Alpha-Beta Pruning
-* Ordering moves using MVV-LVA
-* Preferring faster checkmates and delaying unavoidable losses
-* Selecting the best move from a given position
-* Tracking node counts for performance analysis
+* Evaluating positions using material and positional factors
+* Searching positions using Alpha-Beta pruning
+* Ordering moves using MVV-LVA and PV ordering
+* Preferring faster checkmates and delaying losses
 * Communicating through the Universal Chess Interface (UCI)
-* Accepting both start-position and arbitrary FEN analysis requests
 
-### Search Improvements
+---
 
-Performance improvements implemented:
+## Performance Highlights
 
-#### Alpha-Beta Pruning
+Implemented optimizations include:
 
-* Reduced node count from **9322 → 586** on the starting position depth-3 benchmark
+### Alpha-Beta Pruning
 
-#### Move Ordering (MVV-LVA)
+* Significant reduction in explored nodes compared to plain minimax
 
-* Reduced node count from **1271 → 340** on tactical capture positions
+### Move Ordering
 
-#### Mate Distance Scoring
+* MVV-LVA capture ordering
+* Principal Variation ordering through iterative deepening
 
-* Prefers mate in 1 over mate in 2
-* Delays unavoidable losses whenever possible
+### Search Optimizations
 
-### Evaluation Improvements
+* Make/Undo search instead of full position copying
+* Incremental king position tracking
+* Search profiling and benchmarking utilities
 
-#### Knight Piece-Square Tables
+---
 
-* Encourages central knight development
-* Improved opening move selection
-* Changed preferred opening development from **Na3** to **Nc3**
+## Roadmap
 
-#### Pawn Piece-Square Tables
+### Search
 
-* Rewards pawn advancement
-* Rewards central pawn presence
-* Encourages stronger positional play
-
-#### Bishop Piece-Square Tables
-
-* Rewards active bishops
-* Rewards central and diagonal control
-* Penalizes passive bishop placement
-
-#### Rook Piece-Square Tables
-
-* Encourages active rook placement
-* Slightly rewards central files
-* Provides groundwork for future open-file evaluation
-
-#### Queen Piece-Square Tables
-
-* Encourages central queen activity
-* Slightly discourages edge and corner placement
-* Maintains conservative queen development bonuses
-
-#### King Piece-Square Tables
-
-* Encourages king safety
-* Rewards castled king positions
-* Penalizes exposed central kings
-
-#### Passed Pawn Evaluation
-
-* Detects passed pawns
-* Rewards passed pawns based on advancement
-* Increases promotion pressure in endgames
-
-#### Bishop Pair Bonus
-
-* Rewards ownership of both bishops
-* Improves evaluation of open positions
-* Encourages preservation of the bishop pair
-
-#### Doubled Pawn Evaluation
-
-* Detects doubled pawns
-* Penalizes multiple pawns occupying the same file
-* Encourages healthier pawn structures
-
-#### Isolated Pawn Evaluation
-
-* Detects isolated pawn files
-* Penalizes pawns lacking support from adjacent files
-* Improves pawn structure assessment
-
-## Future Improvements / Backlog
+* Quiescence Search Improvements
+* Killer Move Heuristic
+* History Heuristic
+* Transposition Tables
+* Principal Variation Search (PVS)
+* Negamax Refactor
 
 ### Evaluation
 
 * Mobility Evaluation
-
-  * Prefer pseudo-legal move counting for performance
-  * Requires dedicated pseudo-legal move generation
-
-* Pawn Chain Evaluation
-
-* Endgame-Specific Evaluation
-
-* Open File Evaluation
-
-* Semi-Open File Evaluation
-
-* Connected Rook Evaluation
-
-### Search
-
-* Iterative Deepening
-* Transposition Tables (Zobrist Hashing)
-* Killer Move Heuristic
-* History Heuristic
-* Quiescence Search
-* Principal Variation Search (PVS)
+* Pawn Chains
+* Open Files
+* Semi-Open Files
+* Connected Rooks
+* Endgame Evaluation
 
 ### Engine Infrastructure
 
-* Full UCI Protocol Support
-
-  * `go movetime`
-  * `go infinite`
-  * `stop`
-  * `setoption`
-  * Time Management
-
+* Full UCI Time Management
+* `go movetime`
+* `go infinite`
+* `stop`
+* `setoption`
+* Perft Testing Suite
+* PGN Parsing
 * FEN Export
 
-* PGN Parsing
+### Long-Term Goals
 
-* Perft Testing Suite
-
-* Search Benchmarking Utilities
-
-### Optimization
-
-* Bitboards (Long-Term Refactor)
+* Zobrist Hashing
 * Incremental Evaluation
-* Incremental Move Generation
-* Optimized Move Ordering
+* Bitboards
 * Multi-Threaded Search
-
-## Next Milestone
-
-Implement:
-
-* GUI Compatibility Testing
-
-Goals:
-
-* Verify compatibility with Arena
-* Verify compatibility with CuteChess
-* Verify compatibility with BanksiaGUI
-* Validate UCI command handling under real GUI workloads
-* Identify engine and protocol edge cases
-
-After this milestone, Avy will be able to play complete games through standard chess GUIs, enabling automated testing, engine-vs-engine matches, and future web integration.
