@@ -21,5 +21,6 @@ bool Move::operator==(const Move& other) const {
            fromCol == other.fromCol &&
            toRow == other.toRow &&
            toCol == other.toCol &&
+           isEnPassant == other.isEnPassant &&
            promotionPiece == other.promotionPiece;
 }

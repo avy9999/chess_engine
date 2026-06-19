@@ -387,7 +387,7 @@ void MoveGenerator::makeMove(Position& pos, const Move& move){
             pos.blackKingRow = move.toRow;
             pos.blackKingCol = move.toCol;
         }
-        if (isCastleMove(move)){
+        if (isCastleMove(pos, move)){
             pos.board[move.toRow][move.toCol] = king;
             pos.board[move.fromRow][move.fromCol] = '.';
             // updates castle rights
@@ -487,8 +487,21 @@ void MoveGenerator::makeMove(
     UndoInfo& undo
 )
 {
-    undo.capturedPiece =
-        pos.board[move.toRow][move.toCol];
+    if (move.isEnPassant)
+    {
+        int capturedPawnRow =
+            (pos.sideToMove == 'w')
+            ? move.toRow + 1
+            : move.toRow - 1;
+
+        undo.capturedPiece =
+            pos.board[capturedPawnRow][move.toCol];
+    }
+    else
+    {
+        undo.capturedPiece =
+            pos.board[move.toRow][move.toCol];
+    }
 
     for(int i=0;i<4;i++)
         undo.castlingRights[i] =
@@ -525,7 +538,7 @@ void MoveGenerator::makeMove(
         move.isEnPassant;
 
     undo.wasCastle =
-        isCastleMove(move);
+        isCastleMove(pos, move);
 
     undo.wasPromotion =
         move.promotionPiece != '\0';
@@ -574,7 +587,7 @@ void MoveGenerator::makeMove(
             pos.blackKingRow = move.toRow;
             pos.blackKingCol = move.toCol;
         }
-        if (isCastleMove(move)){
+        if (isCastleMove(pos, move)){
             pos.board[move.toRow][move.toCol] = king;
             pos.board[move.fromRow][move.fromCol] = '.';
             // updates castle rights

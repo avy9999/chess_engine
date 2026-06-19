@@ -37,8 +37,16 @@ bool isPieceType(char piece, char pieceType){
     return std::tolower(piece) == pieceType;
 }
 
-bool isCastleMove(const Move& move){
-    return std::abs(move.toCol - move.fromCol) == 2;
+bool isCastleMove(
+    const Position& pos,
+    const Move& move
+){
+    char piece =
+        pos.board[move.fromRow][move.fromCol];
+
+    return
+        std::tolower(piece) == 'k' &&
+        std::abs(move.toCol - move.fromCol) == 2;
 }
 
 void printMove(const Move& move){

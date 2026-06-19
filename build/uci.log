@@ -160,3 +160,189 @@ position startpos
 go depth 6
 SENDING g1f3
 quit
+position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6
+quit
+position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6
+quit
+position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6
+quit
+position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6
+quit
+position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e5 d4b3 c8e6 f2f4 e5f4 e3f4 b8c6 d1d2 d6d5 e4d5
+quit
+position startpos moves e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3 e7e5 d4b3 c8e6 f2f4 e5f4 e3f4 b8c6 d1d2 d6d5 e4d5
+quit
+position startpos
+go depth 4
+SENDING b1c3
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 3
+SENDING g1f3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING b2b4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING b2b4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING b2b4
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 5
+SENDING b2b4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 3
+SENDING g1f3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING b2b4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING b2b4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 3
+SENDING g1f3
+go depth 4
+SENDING g1f3
+go depth 5
+SENDING d2d4
+quit
+position fen 8/8/8/4pP2/8/8/8/8 w - f6 0 1
+
+=== POSITION FEN ===
+position fen 8/8/8/4pP2/8/8/8/8 w - f6 0 1
+go depth 4
+SENDING f5f6
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 5
+SENDING a2a4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING g1f3
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 6
+SENDING a2a4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+
+go depth 4
+SENDING g1f3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 5
+SENDING d2d4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 5
+SENDING f2f4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING b1c3
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 5
+SENDING c2c4
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 1
+SENDING g1f3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 2
+SENDING g1f3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 3
+SENDING g1f3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING g1f3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 4
+SENDING b1c3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 5
+SENDING f2f4
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 6
+SENDING g1f3
+quit

@@ -3,144 +3,143 @@
 #include "../include/utils.h"
 #include "../include/pst.h"
 
-int Evaluator::evaluate(const Position& pos) {
+int Evaluator::evaluate(const Position& pos)
+{
     int score = 0;
 
-    // counts number of bishops
-    int whiteBishops = 0;
-    int blackBishops = 0;
+    int whiteBishops = 0, blackBishops = 0;
+    int whitePawnsFile[8] = {0};
+    int blackPawnsFile[8] = {0};
 
-    // counts pawn per file
-    int whitePawnFiles[8] = {};
-    int blackPawnFiles[8] = {};
-    
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
+    int whiteMaterial = 0;
+    int blackMaterial = 0;
 
-            char piece = pos.board[i][j];
+    int whiteKingSafety = 0;
+    int blackKingSafety = 0;
 
-            switch (tolower(piece)) {
-                case 'p':
-                    if (isWhitePiece(piece)){
-                        whitePawnFiles[j]++;
-                        score += 100 + PST::pawn[i][j];
-                        if (isPassedPawn(pos, i, j)){
-                            score += passedPawnBonus[i];
-                        }
-                    } else {
-                        blackPawnFiles[j]++;
-                        score -= 100 + PST::pawn[7-i][j];
-                        if (isPassedPawn(pos, i, j)){
-                            score -= passedPawnBonus[7 - i];
-                        }
-                    }
-                    break;
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            char p = pos.board[i][j];
+            if (p == '.') continue;
 
-                case 'n':
-                    score += isWhitePiece(piece) ? 320 + PST::knight[i][j] : -320 - PST::knight[7 - i][j];
-                    break;
+            bool white = isWhitePiece(p);
+            char pc = tolower(p);
 
-                case 'b':
-                    if (isWhitePiece(piece)){
-                        whiteBishops++;
-                    } else{
-                        blackBishops++;
-                    }
-                    score += isWhitePiece(piece) ? 330 + PST::bishop[i][j] : -330 - PST::bishop[7 - i][j];
-                    break;
+            int pieceValue = 0;
 
-                case 'r':
-                    score += isWhitePiece(piece) ? 500 + PST::rook[i][j] : -500 - PST::rook[7 - i][j];
-                    break;
-
-                case 'q':
-                    score += isWhitePiece(piece) ? 900 + PST::queen[i][j] : -900 - PST::queen[7 - i][j];
-                    break;
-                case 'k':
-                    score += isWhitePiece(piece)
-                        ? PST::king[i][j]
-                        : -PST::king[7-i][j];
-                    break;
+            switch (pc)
+            {
+                case 'p': pieceValue = 100; break;
+                case 'n': pieceValue = 320; break;
+                case 'b': pieceValue = 330; break;
+                case 'r': pieceValue = 500; break;
+                case 'q': pieceValue = 900; break;
+                case 'k': pieceValue = 20000; break;
             }
+
+            if (white)
+            {
+                whiteMaterial += pieceValue;
+                score += pieceValue;
+
+                if (pc == 'p')
+                {
+                    whitePawnsFile[j]++;
+                    score += PST::pawn[i][j];
+                }
+                if (pc == 'b') whiteBishops++;
+            }
+            else
+            {
+                blackMaterial += pieceValue;
+                score -= pieceValue;
+
+                if (pc == 'p')
+                {
+                    blackPawnsFile[j]++;
+                    score -= PST::pawn[7 - i][j];
+                }
+                if (pc == 'b') blackBishops++;
+            }
+
+            // PST for non-pawns
+            if (pc == 'n')
+                score += white ? PST::knight[i][j] : -PST::knight[7 - i][j];
+
+            if (pc == 'b')
+                score += white ? PST::bishop[i][j] : -PST::bishop[7 - i][j];
+
+            if (pc == 'r')
+                score += white ? PST::rook[i][j] : -PST::rook[7 - i][j];
+
+            if (pc == 'q')
+                score += white ? PST::queen[i][j] : -PST::queen[7 - i][j];
+
+            if (pc == 'k')
+                score += white ? PST::king[i][j] : -PST::king[7 - i][j];
         }
     }
 
-    for(int file = 0; file < 8; file++){
-        if(whitePawnFiles[file] > 1){
-            score -= 15 * (whitePawnFiles[file] - 1);
-        }
+    // -----------------------------
+    // Pawn structure (SAFE version)
+    // -----------------------------
+    for (int f = 0; f < 8; f++)
+    {
+        if (whitePawnsFile[f] > 1)
+            score -= 12 * (whitePawnsFile[f] - 1);
 
-        if(blackPawnFiles[file] > 1){
-            score += 15 * (blackPawnFiles[file] - 1);
-        }
-    }
-    
-    for (int file = 0; file < 8; file++){
-        if(whitePawnFiles[file] > 0){
-            bool isolated = false;
-            if (file == 0){
-                isolated = (whitePawnFiles[1] == 0);
-            } else if (file == 7){
-                isolated = (whitePawnFiles[6] == 0);
-            } else{
-                isolated = whitePawnFiles[file - 1] == 0 && whitePawnFiles[file + 1] == 0;
-            }
-            if (isolated){
-                score -= 10;
-            }
-        }
+        if (blackPawnsFile[f] > 1)
+            score += 12 * (blackPawnsFile[f] - 1);
 
-        if(blackPawnFiles[file] > 0){
-            bool isolated = false;
-            if (file == 0){
-                isolated = (blackPawnFiles[1] == 0);
-            } else if (file == 7){
-                isolated = (blackPawnFiles[6] == 0);
-            } else{
-                isolated = blackPawnFiles[file - 1] == 0 && blackPawnFiles[file + 1] == 0;
-            }
-            if (isolated){
-                score += 10;
-            }
-        }
+        bool whiteIsolated =
+            (whitePawnsFile[f] > 0) &&
+            ( (f == 0 || whitePawnsFile[f - 1] == 0) &&
+              (f == 7 || whitePawnsFile[f + 1] == 0) );
+
+        bool blackIsolated =
+            (blackPawnsFile[f] > 0) &&
+            ( (f == 0 || blackPawnsFile[f - 1] == 0) &&
+              (f == 7 || blackPawnsFile[f + 1] == 0) );
+
+        if (whiteIsolated) score -= 8;
+        if (blackIsolated) score += 8;
     }
 
-    if(whiteBishops >= 2)
-        score += 30;
+    // -----------------------------
+    // Bishop pair bonus
+    // -----------------------------
+    if (whiteBishops >= 2) score += 25;
+    if (blackBishops >= 2) score -= 25;
 
-    if(blackBishops >= 2)
-        score -= 30;
+    // -----------------------------
+    // SIMPLE development bonus
+    // (ONLY early pieces)
+    // -----------------------------
+    int whiteDev =
+        (pos.board[7][1] != 'N') +
+        (pos.board[7][6] != 'N') +
+        (pos.board[7][2] != 'B') +
+        (pos.board[7][5] != 'B');
 
-    // Development bonus
+    int blackDev =
+        (pos.board[0][1] != 'n') +
+        (pos.board[0][6] != 'n') +
+        (pos.board[0][2] != 'b') +
+        (pos.board[0][5] != 'b');
 
-    if (pos.board[7][1] != 'N') score += 10;
-    if (pos.board[7][6] != 'N') score += 10;
+    score += 10 * (whiteDev - blackDev);
 
-    if (pos.board[7][2] != 'B') score += 10;
-    if (pos.board[7][5] != 'B') score += 10;
+    // -----------------------------
+    // VERY LIGHT king safety (no mobility)
+    // -----------------------------
+    if (whiteMaterial < blackMaterial)
+        score -= 10;
 
-    if (pos.board[0][1] != 'n') score -= 10;
-    if (pos.board[0][6] != 'n') score -= 10;
+    if (blackMaterial < whiteMaterial)
+        score += 10;
 
-    if (pos.board[0][2] != 'b') score -= 10;
-    if (pos.board[0][5] != 'b') score -= 10;
-
-    MoveGenerator gen;
-
-    Position whitePos = pos;
-    whitePos.sideToMove = 'w';
-
-    Position blackPos = pos;
-    blackPos.sideToMove = 'b';
-
-    int whiteMoves =
-        gen.generateLegalMoves(whitePos).size();
-
-    int blackMoves =
-        gen.generateLegalMoves(blackPos).size();
-
-    score += (whiteMoves - blackMoves);
-    
     return score;
 }
 

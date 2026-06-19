@@ -51,7 +51,41 @@ namespace {
 
             for(const Move& move : moves){
                 if(moveToUCI(move) == moveStr){
+                    // std::cout << "\nApplying: "
+                    //         << moveToUCI(move)
+                    //         << "\n";
+
+                    // pos.printBoard();
+                    // std::cout << "\n";
                     generator.makeMove(pos, move);
+
+                    // std::cout << "After:\n";
+                    // pos.printBoard();
+                    // std::cout << "\n";
+                    
+                    // std::cout
+                    //     << "White King: "
+                    //     << pos.whiteKingRow
+                    //     << ","
+                    //     << pos.whiteKingCol
+                    //     << "\n";
+
+                    // std::cout
+                    //     << "Black King: "
+                    //     << pos.blackKingRow
+                    //     << ","
+                    //     << pos.blackKingCol
+                    //     << "\n";
+
+                    // std::cout
+                    //     << "White in check = "
+                    //     << generator.isKingInCheck(pos, 'w')
+                    //     << "\n";
+
+                    // std::cout
+                    //     << "Black in check = "
+                    //     << generator.isKingInCheck(pos, 'b')
+                    //     << "\n";
                     found = true;
                     break;
                 }
@@ -108,6 +142,21 @@ namespace {
             log << "\n";
         }
 
+        if(!legal){
+            std::cout
+                << "\nILLEGAL BESTMOVE DETECTED: "
+                << moveToUCI(bestMove)
+                << "\n";
+
+            std::cout << "Legal moves are:\n";
+
+            for(const Move& m : legalMoves){
+                std::cout << moveToUCI(m) << " ";
+            }
+
+            std::cout << "\n";
+        }
+
         log << "SENDING "
             << moveToUCI(bestMove)
             << "\n";
@@ -127,7 +176,7 @@ void UCI::loop(){
             log << command << '\n';
         }
 
-        if (command == "uci"){
+        if(command == "uci"){
             std::cout << "id name Avy\n";
             std::cout << "id author Avy\n";
             std::cout << "uciok\n";
@@ -135,10 +184,23 @@ void UCI::loop(){
         }
 
         else if(command == "position startpos"){
+
+            {
+                std::ofstream log("uci.log", std::ios::app);
+                log << "\n=== POSITION STARTPOS ===\n";
+                log << command << "\n";
+            }
+
             currentPos.loadFEN(STARTPOS_FEN);
         }
 
         else if(command.rfind("position startpos moves ", 0) == 0){
+
+            {
+                std::ofstream log("uci.log", std::ios::app);
+                log << "\n=== POSITION STARTPOS MOVES ===\n";
+                log << command << "\n";
+            }
 
             currentPos.loadFEN(STARTPOS_FEN);
 
@@ -157,6 +219,12 @@ void UCI::loop(){
         }
 
         else if(command.rfind("position fen ", 0) == 0){
+
+            {
+                std::ofstream log("uci.log", std::ios::app);
+                log << "\n=== POSITION FEN ===\n";
+                log << command << "\n";
+            }
 
             size_t movesPos =
                 command.find(" moves ");
@@ -196,7 +264,13 @@ void UCI::loop(){
         }
 
         else if(command.rfind("go depth ", 0) == 0){
-            auto start = std::chrono::steady_clock::now();
+
+            // std::cout << "Before search:\n";
+            // currentPos.printBoard();
+            // std::cout << "\n";
+
+            auto start =
+                std::chrono::steady_clock::now();
 
             int depth =
                 std::stoi(command.substr(9));
@@ -207,7 +281,12 @@ void UCI::loop(){
                     depth
                 );
 
-            auto end = std::chrono::steady_clock::now();
+            auto end =
+                std::chrono::steady_clock::now();
+
+            // std::cout << "After search:\n";
+            // currentPos.printBoard();
+            // std::cout << "\n";
 
             validateAndLogMove(
                 bestMove,
@@ -215,13 +294,61 @@ void UCI::loop(){
                 generator
             );
 
-            auto ms = std::chrono::duration_cast< std::chrono::milliseconds >(end - start).count();
-            std::cout << "Time: " << ms << " ms\n";
-            std::cout << "NPS: " << (ms > 0 ? (Search::nodes * 1000LL / ms) : 0) << "\n";
-            std::cout << "Legal Move Calls " << MoveGenerator::legalMoveCalls <<"\n";
-            std::cout << "Legal King Check Calls " << MoveGenerator::kingCheckCalls <<"\n";
-            std::cout << "Position Copied " << MoveGenerator::positionCopies <<"\n";
-            std::cout << "All Move Calls " << MoveGenerator::generateAllMovesCalls <<"\n";
+            auto ms =
+                std::chrono::duration_cast<
+                    std::chrono::milliseconds
+                >(end - start).count();
+
+            std::cout
+                << "Time: "
+                << ms
+                << " ms\n";
+
+            std::cout
+                << "NPS: "
+                << (ms > 0
+                    ? (Search::nodes * 1000LL / ms)
+                    : 0)
+                << "\n";
+
+            std::cout
+                << "Legal Move Calls "
+                << MoveGenerator::legalMoveCalls
+                << "\n";
+
+            std::cout
+                << "Legal King Check Calls "
+                << MoveGenerator::kingCheckCalls
+                << "\n";
+
+            std::cout
+                << "Position Copied "
+                << MoveGenerator::positionCopies
+                << "\n";
+
+            std::cout
+                << "All Move Calls "
+                << MoveGenerator::generateAllMovesCalls
+                << "\n";
+
+            auto legalMoves =
+                generator.generateLegalMoves(currentPos);
+
+            bool found = false;
+
+            for(const auto& m : legalMoves){
+                if(moveToUCI(m) == moveToUCI(bestMove)){
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found){
+                std::cout
+                    << "\nENGINE IS ABOUT TO SEND AN ILLEGAL MOVE: "
+                    << moveToUCI(bestMove)
+                    << "\n";
+            }
             std::cout
                 << "bestmove "
                 << moveToUCI(bestMove)
@@ -232,11 +359,19 @@ void UCI::loop(){
 
         else if(command.rfind("go", 0) == 0){
 
+            // std::cout << "Before search:\n";
+            // currentPos.printBoard();
+            // std::cout << "\n";
+
             Move bestMove =
                 search.findBestMove(
                     currentPos,
                     3
                 );
+
+            // std::cout << "After search:\n";
+            // currentPos.printBoard();
+            // std::cout << "\n";
 
             validateAndLogMove(
                 bestMove,
