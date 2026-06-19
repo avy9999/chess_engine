@@ -596,7 +596,7 @@ void MoveGenerator::makeMove(
                 pos.castlingRights[1] = false;
             }
             else{
-                pos.castlingRights[2] = false;
+                pos.castlingRights[2] = false;  
                 pos.castlingRights[3] = false;
             }
             // move rook according to the castle type

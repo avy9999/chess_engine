@@ -140,8 +140,24 @@ int Evaluator::evaluate(const Position& pos)
     if (blackMaterial < whiteMaterial)
         score += 10;
 
-    return score;
-}
+    
+    // White castled kingside
+    if (pos.board[7][6] == 'K' && pos.board[7][5] == 'R')
+        score += 40;
+
+    // White castled queenside
+    if (pos.board[7][2] == 'K' && pos.board[7][3] == 'R')
+        score += 30;
+
+    // Black castled kingside
+    if (pos.board[0][6] == 'k' && pos.board[0][5] == 'r')
+        score -= 40;
+
+    // Black castled queenside
+    if (pos.board[0][2] == 'k' && pos.board[0][3] == 'r')
+        score -= 30;
+        return score;
+    }
 
 
 // function to return piece value
