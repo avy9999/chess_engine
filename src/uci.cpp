@@ -142,20 +142,20 @@ namespace {
             log << "\n";
         }
 
-        if(!legal){
-            std::cout
-                << "\nILLEGAL BESTMOVE DETECTED: "
-                << moveToUCI(bestMove)
-                << "\n";
+        // if(!legal){
+        //     std::cout
+        //         << "\nILLEGAL BESTMOVE DETECTED: "
+        //         << moveToUCI(bestMove)
+        //         << "\n";
 
-            std::cout << "Legal moves are:\n";
+        //     std::cout << "Legal moves are:\n";
 
-            for(const Move& m : legalMoves){
-                std::cout << moveToUCI(m) << " ";
-            }
+        //     for(const Move& m : legalMoves){
+        //         std::cout << moveToUCI(m) << " ";
+        //     }
 
-            std::cout << "\n";
-        }
+        //     std::cout << "\n";
+        // }
 
         log << "SENDING "
             << moveToUCI(bestMove)

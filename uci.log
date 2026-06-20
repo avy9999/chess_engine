@@ -1,0 +1,9 @@
+uci
+isready
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 1
+SENDING g1f3
+quit
