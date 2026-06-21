@@ -3,11 +3,13 @@
 #include "../include/search.h"
 #include "../include/movegenerator.h"
 #include "../include/perft.h"
+#include "../include/openingbook.h"
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <fstream>
 #include <chrono>
+#include <vector>
 
 namespace {
     const std::string STARTPOS_FEN =
@@ -64,7 +66,8 @@ namespace {
     void applyUCIMoves(
         Position& pos,
         const std::string& movesPart,
-        MoveGenerator& generator
+        MoveGenerator& generator,
+        std::vector<std::string>* moveHistory
     ){
         std::stringstream ss(movesPart);
 
@@ -86,6 +89,10 @@ namespace {
                     // pos.printBoard();
                     // std::cout << "\n";
                     generator.makeMove(pos, move);
+
+                    if(moveHistory != nullptr){
+                        moveHistory->push_back(moveStr);
+                    }
 
                     // std::cout << "After:\n";
                     // pos.printBoard();
@@ -135,6 +142,24 @@ namespace {
                 log << "\n";
             }
         }
+    }
+
+    bool findLegalMoveFromUCI(
+        Position& pos,
+        MoveGenerator& generator,
+        const std::string& moveStr,
+        Move& result
+    ){
+        auto moves = generator.generateLegalMoves(pos);
+
+        for(const Move& move : moves){
+            if(moveToUCI(move) == moveStr){
+                result = move;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void validateAndLogMove(
@@ -195,6 +220,8 @@ void UCI::loop(){
     Position currentPos;
     Search search;
     MoveGenerator generator;
+    std::vector<std::string> moveHistory;
+    bool bookEligible = true;
     std::string command;
 
     while(std::getline(std::cin, command)){
@@ -220,6 +247,8 @@ void UCI::loop(){
             }
 
             currentPos.loadFEN(STARTPOS_FEN);
+            moveHistory.clear();
+            bookEligible = true;
         }
 
         else if(command.rfind("position startpos moves ", 0) == 0){
@@ -231,6 +260,8 @@ void UCI::loop(){
             }
 
             currentPos.loadFEN(STARTPOS_FEN);
+            moveHistory.clear();
+            bookEligible = true;
 
             std::string movesPart =
                 command.substr(24);
@@ -238,12 +269,15 @@ void UCI::loop(){
             applyUCIMoves(
                 currentPos,
                 movesPart,
-                generator
+                generator,
+                &moveHistory
             );
         }
 
         else if(command == "ucinewgame"){
             currentPos.loadFEN(STARTPOS_FEN);
+            moveHistory.clear();
+            bookEligible = true;
         }
 
         else if(command.rfind("position fen ", 0) == 0){
@@ -271,11 +305,14 @@ void UCI::loop(){
                     );
 
                 currentPos.loadFEN(fen);
+                moveHistory.clear();
+                bookEligible = fen == STARTPOS_FEN;
 
                 applyUCIMoves(
                     currentPos,
                     movesPart,
-                    generator
+                    generator,
+                    bookEligible ? &moveHistory : nullptr
                 );
             }
             else{
@@ -283,6 +320,8 @@ void UCI::loop(){
                     command.substr(13);
 
                 currentPos.loadFEN(fen);
+                moveHistory.clear();
+                bookEligible = fen == STARTPOS_FEN;
             }
         }
 
@@ -292,6 +331,39 @@ void UCI::loop(){
         }
 
         else if(command.rfind("go depth ", 0) == 0){
+
+            if(bookEligible){
+                std::string bookMove =
+                    OpeningBook::findMove(moveHistory);
+
+                Move bestMove;
+
+                if(!bookMove.empty() &&
+                    findLegalMoveFromUCI(
+                        currentPos,
+                        generator,
+                        bookMove,
+                        bestMove
+                    )
+                ){
+                    validateAndLogMove(
+                        bestMove,
+                        currentPos,
+                        generator
+                    );
+
+                    std::cout
+                        << "info string book move\n";
+
+                    std::cout
+                        << "bestmove "
+                        << bookMove
+                        << "\n";
+
+                    std::cout << std::flush;
+                    continue;
+                }
+            }
 
             // std::cout << "Before search:\n";
             // currentPos.printBoard();
@@ -386,6 +458,39 @@ void UCI::loop(){
         }
 
         else if(command.rfind("go", 0) == 0){
+
+            if(bookEligible){
+                std::string bookMove =
+                    OpeningBook::findMove(moveHistory);
+
+                Move bestMove;
+
+                if(!bookMove.empty() &&
+                    findLegalMoveFromUCI(
+                        currentPos,
+                        generator,
+                        bookMove,
+                        bestMove
+                    )
+                ){
+                    validateAndLogMove(
+                        bestMove,
+                        currentPos,
+                        generator
+                    );
+
+                    std::cout
+                        << "info string book move\n";
+
+                    std::cout
+                        << "bestmove "
+                        << bookMove
+                        << "\n";
+
+                    std::cout << std::flush;
+                    continue;
+                }
+            }
 
             // std::cout << "Before search:\n";
             // currentPos.printBoard();

@@ -12,4 +12,5 @@ add_executable(chess_engine
     src/pst.cpp
     src/uci.cpp
     src/perft.cpp
+    src/openingbook.cpp
 )

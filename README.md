@@ -25,6 +25,7 @@ The project is currently focused on building a correct classical chess engine fi
 - UCI support
 - Perft and divide debugging tools
 - Automated perft regression suite
+- Simple text-based opening book
 
 ---
 
@@ -39,6 +40,7 @@ chess_engine/
     evaluator.h       Evaluation interface
     search.h          Search interface
     perft.h           Perft and perft test runner
+    openingbook.h     Opening book lookup
     uci.h             UCI loop interface
 
   src/
@@ -49,7 +51,11 @@ chess_engine/
     evaluator.cpp     Material, PST, and positional scoring
     search.cpp        Alpha-beta, quiescence, iterative deepening
     perft.cpp         Perft, divide support, regression positions
+    openingbook.cpp   Text-based opening book lookup
     uci.cpp           UCI command handling
+
+  data/
+    opening_book.txt  UCI opening move lines
 
   docs/
     design.md
@@ -192,15 +198,30 @@ Implemented search features:
 
 ---
 
+## Opening Book
+
+Avy includes a simple text-based opening book in `data/opening_book.txt`.
+
+Each line is a sequence of UCI moves:
+
+```text
+e2e4 e7e5 g1f3 b8c6 f1b5 a7a6
+d2d4 d7d5 c2c4 e7e6 b1c3 g8f6
+```
+
+When the game starts from the normal chess starting position, the engine checks the current move history before searching. If a matching book line exists, Avy immediately returns the next book move. If no book move is found, it falls back to normal search.
+
+---
+
 ## Current Status
 
-Avy can play complete legal chess through UCI and can search positions to a fixed depth. The core move generator has passed manual and automated perft checks for standard and rule-focused positions.
+Avy can play complete legal chess through UCI, search positions to a fixed depth, and use a small opening book from the starting position. The core move generator has passed manual and automated perft checks for standard and rule-focused positions.
 
 The next development focus is engine strength and usability:
 
 1. Keep expanding automated perft coverage.
 2. Add stronger UCI time management.
-3. Add an opening book.
+3. Expand the opening book.
 4. Improve search with transposition tables and move-ordering heuristics.
 5. Improve evaluation with mobility, king safety, and endgame knowledge.
 6. Build a web interface for playing against the engine.
@@ -226,9 +247,9 @@ The next development focus is engine strength and usability:
 
 ### Opening Book
 
-- Simple text or JSON opening book
-- Opening line matching from move history
-- Popular opening move selection
+- Larger curated opening book
+- Book move weighting
+- Book move statistics
 - Later support for PGN import or Polyglot books
 
 ### Search Improvements
