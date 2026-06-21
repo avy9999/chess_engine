@@ -504,3 +504,222 @@ position fen r3k2r/pppppppp/8/8/8/8/PPPPPPPP/4K2R w KQkq - 0 1
 go depth 1
 SENDING e1f1
 quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+perft 1
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+perft 0
+perft 1
+perft 2
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+perft 0
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+perft 1
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+perft 2
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+perft 3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+perft 4
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+perft 5
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+divide 1
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+divide 2
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+divide 3
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+divide 4
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+divide 5
+quit
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R2QKB1R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R2QKB1R w KQkq - 0 1
+perft 1
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R2QKB1R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R2QKB1R w KQkq - 0 1
+perft 2
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R2QKB1R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R2QKB1R w KQkq - 0 1
+perft 3
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R2QKB1R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R2QKB1R w KQkq - 0 1
+perft 4
+quit
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+perft 1
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+perft 2
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+perft 3
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+perft 4
+quit
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2P5/1p2P3/2N2N2/PP1PBPPP/R3K2R w KQkq - 0 1
+divide 1
+quit
+r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+quit
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+perft 1
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+perft 2
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+perft 3
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+perft 4
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+divide 1
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1
+divide 2
+quit
+position fen r3k2r/p1ppqpb1/bn2pnp1/2pP4/1p2P3/2N2N2/PPPB1PPP/R2QKB1R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2pP4/1p2P3/2N2N2/PPPB1PPP/R2QKB1R w KQkq - 0 1
+perft 1
+position fen r3k2r/p1ppqpb1/bn2pnp1/2pP4/1p2P3/2N2N2/PPPB1PPP/R2QKB1R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2pP4/1p2P3/2N2N2/PPPB1PPP/R2QKB1R w KQkq - 0 1
+perft 2
+position fen r3k2r/p1ppqpb1/bn2pnp1/2pP4/1p2P3/2N2N2/PPPB1PPP/R2QKB1R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2pP4/1p2P3/2N2N2/PPPB1PPP/R2QKB1R w KQkq - 0 1
+perft 3
+position fen r3k2r/p1ppqpb1/bn2pnp1/2pP4/1p2P3/2N2N2/PPPB1PPP/R2QKB1R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/p1ppqpb1/bn2pnp1/2pP4/1p2P3/2N2N2/PPPB1PPP/R2QKB1R w KQkq - 0 1
+perft 4
+quit
+position fen 7k/8/8/3pP3/8/8/8/K7 w - d6 0 1
+
+=== POSITION FEN ===
+position fen 7k/8/8/3pP3/8/8/8/K7 w - d6 0 1
+divide 1
+position fen 7k/8/8/8/3Pp3/8/8/K7 b - d3 0 1
+
+=== POSITION FEN ===
+position fen 7k/8/8/8/3Pp3/8/8/K7 b - d3 0 1
+divide 1
+position fen 7k/P7/8/8/8/8/8/K7 w - - 0 1
+
+=== POSITION FEN ===
+position fen 7k/P7/8/8/8/8/8/K7 w - - 0 1
+divide 1
+position fen 7k/8/8/8/8/8/p7/K7 b - - 0 1
+
+=== POSITION FEN ===
+position fen 7k/8/8/8/8/8/p7/K7 b - - 0 1
+divide 1
+quit
+position fen 7k/8/8/8/8/8/p7/7K b - - 0 1
+
+=== POSITION FEN ===
+position fen 7k/8/8/8/8/8/p7/7K b - - 0 1
+divide 1
+quit
+position fen r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1
+divide 1
+position fen r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1
+divide 1
+position fen r3k2r/8/8/8/8/8/5r2/R3K2R w KQkq - 0 1
+
+=== POSITION FEN ===
+position fen r3k2r/8/8/8/8/8/5r2/R3K2R w KQkq - 0 1
+divide 1
+quit
+quit
+perfttest
+quit

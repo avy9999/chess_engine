@@ -2,6 +2,7 @@
 #include "../include/position.h"
 #include "../include/search.h"
 #include "../include/movegenerator.h"
+#include "../include/perft.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -31,6 +32,33 @@ namespace {
         }
 
         return uci;
+    }
+
+    void divide(Position& pos, int depth) {
+        if (depth <= 0) {
+            std::cout << "total: 1\n";
+            return;
+        }
+
+        MoveGenerator generator;
+        auto moves = generator.generateLegalMoves(pos);
+
+        long long total = 0;
+
+        for (const Move& move : moves) {
+            UndoInfo undo;
+            generator.makeMove(pos, move, undo);
+
+            long long nodes = perft(pos, depth - 1);
+
+            generator.undoMove(pos, move, undo);
+
+            total += nodes;
+
+            std::cout << moveToUCI(move) << ": " << nodes << "\n";
+        }
+
+        std::cout << "total: " << total << "\n";
     }
 
     void applyUCIMoves(
@@ -384,6 +412,27 @@ void UCI::loop(){
                 << moveToUCI(bestMove)
                 << "\n";
 
+            std::cout << std::flush;
+        }
+
+        else if(command.rfind("perft ", 0) == 0){
+            int depth = std::stoi(command.substr(6));
+
+            long long nodes = perft(currentPos, depth);
+
+            std::cout << "perft " << depth << " = " <<  nodes << "\n";
+            std::cout << std::flush;
+        }
+
+        else if(command.rfind("divide ", 0) == 0){
+            int depth = std::stoi(command.substr(7));
+
+            divide(currentPos, depth);
+            std::cout << std::flush;
+        }
+
+        else if(command == "perfttest"){
+            runPerftTests(std::cout);
             std::cout << std::flush;
         }
 

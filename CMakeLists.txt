@@ -11,4 +11,5 @@ add_executable(chess_engine
     src/search.cpp
     src/pst.cpp
     src/uci.cpp
+    src/perft.cpp
 )

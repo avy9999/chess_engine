@@ -1,164 +1,261 @@
-# Chess Engine (Avy)
+# Avy Chess Engine
 
-A chess engine built from scratch in modern C++ featuring full legal move generation, positional evaluation, alpha-beta search, iterative deepening, and UCI support.
+Avy is a chess engine built from scratch in modern C++. It supports legal move generation, FEN loading, make/undo search, positional evaluation, alpha-beta search, quiescence search, iterative deepening, and UCI communication.
+
+The project is currently focused on building a correct classical chess engine first, then improving strength through better search, evaluation, opening books, and eventually a playable web interface.
 
 ---
 
-## Features
+## Highlights
 
-### Chess Rules
+- Complete legal move generation
+- Check, checkmate, and stalemate detection
+- Castling, en passant, and pawn promotion
+- FEN parsing
+- Make/undo move system
+- Incremental king tracking
+- Material and positional evaluation
+- Piece-square tables
+- Alpha-beta search
+- Quiescence search
+- Iterative deepening
+- MVV-LVA capture ordering
+- Principal variation move preference
+- Mate distance scoring
+- UCI support
+- Perft and divide debugging tools
+- Automated perft regression suite
 
-* Full legal move generation
-* Check detection
-* Checkmate detection
-* Stalemate detection
-* Castling
-* En Passant
-* Pawn Promotion
-* FEN Parsing
+---
 
-### Move Generation
+## Project Structure
 
-* Pawn moves
-* Knight moves
-* Bishop moves
-* Rook moves
-* Queen moves
-* King moves
-* Legal move filtering
+```text
+chess_engine/
+  include/
+    position.h        Board state and game metadata
+    move.h            Move representation
+    movegenerator.h   Legal move generation and make/undo
+    evaluator.h       Evaluation interface
+    search.h          Search interface
+    perft.h           Perft and perft test runner
+    uci.h             UCI loop interface
 
-### Evaluation
+  src/
+    main.cpp          Starts the UCI loop
+    position.cpp      Board setup and FEN parsing
+    move.cpp          Move constructors and comparison
+    movegenerator.cpp Piece moves, legal filtering, make/undo
+    evaluator.cpp     Material, PST, and positional scoring
+    search.cpp        Alpha-beta, quiescence, iterative deepening
+    perft.cpp         Perft, divide support, regression positions
+    uci.cpp           UCI command handling
 
-#### Material Evaluation
+  docs/
+    design.md
+    perft_positions.md
+```
 
-* Standard piece values
+---
 
-#### Piece-Square Tables
+## Build
 
-* Pawn PST
-* Knight PST
-* Bishop PST
-* Rook PST
-* Queen PST
-* King PST
+From the project directory:
 
-#### Positional Evaluation
+```powershell
+cmake --build build --config Debug
+```
 
-* Passed Pawn Bonuses
-* Bishop Pair Bonus
-* Doubled Pawn Penalties
-* Isolated Pawn Penalties
+Run the debug executable:
 
-### Search
+```powershell
+.\build\Debug\chess_engine.exe
+```
 
-* Minimax Search
-* Alpha-Beta Pruning
-* Iterative Deepening
-* MVV-LVA Move Ordering
-* Principal Variation (PV) Move Ordering
-* Mate Distance Scoring
-* Search Statistics & Node Counting
+Run the release executable:
 
-### Engine Optimizations
+```powershell
+.\build\Release\chess_engine.exe
+```
 
-* Make/Undo Move System
-* Incremental King Tracking
-* Reduced Position Copying
-* Search Profiling Utilities
+---
 
-### UCI Support
+## UCI Commands
 
 Implemented commands:
 
-* `uci`
-* `isready`
-* `ucinewgame`
-* `quit`
-* `position startpos`
-* `position startpos moves`
-* `position fen`
-* `position fen moves`
-* `go depth N`
+```text
+uci
+isready
+ucinewgame
+quit
+position startpos
+position startpos moves ...
+position fen ...
+position fen ... moves ...
+go depth N
+go
+perft N
+divide N
+perfttest
+```
 
-Compatible with:
-
-* BanksiaGUI
----
-
-## Current Capabilities
-
-The engine currently supports complete legal chess gameplay and search.
-
-Capabilities include:
-
-* Loading positions from FEN strings
-* Generating legal moves for all pieces
-* Executing and undoing moves efficiently
-* Detecting checks, checkmates, and stalemates
-* Handling castling, en passant, and promotions
-* Evaluating positions using material and positional factors
-* Searching positions using Alpha-Beta pruning
-* Ordering moves using MVV-LVA and PV ordering
-* Preferring faster checkmates and delaying losses
-* Communicating through the Universal Chess Interface (UCI)
+The engine has been tested with BanksiaGUI.
 
 ---
 
-## Performance Highlights
+## Perft Testing
 
-Implemented optimizations include:
+Perft is used to verify move generation correctness. It counts all legal leaf positions at a given depth.
 
-### Alpha-Beta Pruning
+Example:
 
-* Significant reduction in explored nodes compared to plain minimax
+```text
+position startpos
+perft 1
+perft 2
+perft 3
+perft 4
+perft 5
+```
 
-### Move Ordering
+Expected start position results:
 
-* MVV-LVA capture ordering
-* Principal Variation ordering through iterative deepening
+```text
+perft 1 = 20
+perft 2 = 400
+perft 3 = 8902
+perft 4 = 197281
+perft 5 = 4865609
+```
 
-### Search Optimizations
+Use `divide` to debug mismatches by printing the node count for each legal root move:
 
-* Make/Undo search instead of full position copying
-* Incremental king position tracking
-* Search profiling and benchmarking utilities
+```text
+position startpos
+divide 3
+```
+
+Run the automated regression suite:
+
+```text
+perfttest
+```
+
+Current regression coverage includes:
+
+- Start position
+- Kiwipete
+- White en passant
+- Black en passant
+- White promotion
+- Black promotion
+- White castling
+- Black castling
+- Castling blocked by attack
+
+The expected positions are documented in `docs/perft_positions.md`.
+
+---
+
+## Evaluation
+
+Avy's evaluation currently includes:
+
+- Standard material values
+- Pawn piece-square table
+- Knight piece-square table
+- Bishop piece-square table
+- Rook piece-square table
+- Queen piece-square table
+- King piece-square table
+- Bishop pair bonus
+- Doubled pawn penalties
+- Isolated pawn penalties
+- Simple development bonus
+- Light castling and king-safety scoring
+
+---
+
+## Search
+
+Implemented search features:
+
+- Alpha-beta pruning
+- Quiescence search
+- Iterative deepening
+- MVV-LVA capture ordering
+- Principal variation move preference
+- Mate distance scoring
+- Search statistics and node counting
+- Make/undo move search path
+
+---
+
+## Current Status
+
+Avy can play complete legal chess through UCI and can search positions to a fixed depth. The core move generator has passed manual and automated perft checks for standard and rule-focused positions.
+
+The next development focus is engine strength and usability:
+
+1. Keep expanding automated perft coverage.
+2. Add stronger UCI time management.
+3. Add an opening book.
+4. Improve search with transposition tables and move-ordering heuristics.
+5. Improve evaluation with mobility, king safety, and endgame knowledge.
+6. Build a web interface for playing against the engine.
 
 ---
 
 ## Roadmap
 
-### Search
+### Engine Correctness
 
-* Quiescence Search Improvements
-* Killer Move Heuristic
-* History Heuristic
-* Transposition Tables
-* Principal Variation Search (PVS)
-* Negamax Refactor
+- More perft positions
+- FEN export
+- PGN parsing
+- Dedicated test runner outside the UCI loop
 
-### Evaluation
+### UCI Infrastructure
 
-* Mobility Evaluation
-* Pawn Chains
-* Open Files
-* Semi-Open Files
-* Connected Rooks
-* Endgame Evaluation
+- `go movetime`
+- `go infinite`
+- `stop`
+- `setoption`
+- Full time-control handling
 
-### Engine Infrastructure
+### Opening Book
 
-* Full UCI Time Management
-* `go movetime`
-* `go infinite`
-* `stop`
-* `setoption`
-* Perft Testing Suite
-* PGN Parsing
-* FEN Export
+- Simple text or JSON opening book
+- Opening line matching from move history
+- Popular opening move selection
+- Later support for PGN import or Polyglot books
+
+### Search Improvements
+
+- Zobrist hashing
+- Transposition tables
+- Killer move heuristic
+- History heuristic
+- Principal Variation Search
+- Negamax refactor
+- Aspiration windows
+
+### Evaluation Improvements
+
+- Mobility evaluation
+- Pawn chains
+- Passed pawn scaling
+- Open and semi-open files
+- Connected rooks
+- Rook activity
+- Better king safety
+- Endgame evaluation
 
 ### Long-Term Goals
 
-* Zobrist Hashing
-* Incremental Evaluation
-* Bitboards
-* Multi-Threaded Search
+- Incremental evaluation
+- Bitboards
+- Multi-threaded search
+- Web backend for engine play
+- Browser-based chess UI
