@@ -1,0 +1,169 @@
+uci
+isready
+quit
+uci
+isready
+ucinewgame
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6
+go wtime 179960 btime 175000 winc 0 binc 0 movestogo 36
+SENDING g1e2
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6
+go wtime 179712 btime 171000 winc 0 binc 0 movestogo 35
+SENDING c1e3
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7
+go wtime 179553 btime 170000 winc 0 binc 0 movestogo 34
+SENDING d1d2
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8
+go wtime 179304 btime 169000 winc 0 binc 0 movestogo 33
+SENDING d4d5
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5
+go wtime 178961 btime 165000 winc 0 binc 0 movestogo 32
+SENDING e1c1
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5
+go wtime 177542 btime 163000 winc 0 binc 0 movestogo 31
+SENDING e2d4
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4
+go wtime 176899 btime 159000 winc 0 binc 0 movestogo 30
+SENDING d4f3
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6
+go wtime 176619 btime 139000 winc 0 binc 0 movestogo 29
+SENDING c3e4
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4
+go wtime 175926 btime 137000 winc 0 binc 0 movestogo 28
+SENDING d2a5
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6
+go wtime 175555 btime 130000 winc 0 binc 0 movestogo 27
+SENDING a5b5
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5
+go wtime 175310 btime 128000 winc 0 binc 0 movestogo 26
+SENDING a2a3
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5
+go wtime 174706 btime 119000 winc 0 binc 0 movestogo 25
+SENDING b5c6
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8
+go wtime 174271 btime 116000 winc 0 binc 0 movestogo 24
+SENDING b2b4
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4
+go wtime 173067 btime 113000 winc 0 binc 0 movestogo 23
+SENDING e3f4
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6
+go wtime 172169 btime 108000 winc 0 binc 0 movestogo 22
+SENDING f3e5
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6
+go wtime 171658 btime 90000 winc 0 binc 0 movestogo 21
+SENDING e5d3
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8
+go wtime 171342 btime 85000 winc 0 binc 0 movestogo 20
+SENDING g2g4
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5
+go wtime 170811 btime 84000 winc 0 binc 0 movestogo 19
+SENDING d5e6
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6
+go wtime 170398 btime 83000 winc 0 binc 0 movestogo 18
+SENDING f1g2
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8
+go wtime 169918 btime 79000 winc 0 binc 0 movestogo 17
+SENDING g2d5
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7
+go wtime 169474 btime 74000 winc 0 binc 0 movestogo 16
+SENDING h1e1
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8
+go wtime 169112 btime 59000 winc 0 binc 0 movestogo 15
+SENDING e1e6
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7
+go wtime 168872 btime 57000 winc 0 binc 0 movestogo 14
+SENDING f4d6
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7 f4d6 c7d6
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7 f4d6 c7d6
+go wtime 168441 btime 55000 winc 0 binc 0 movestogo 13
+SENDING c6c8
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7 f4d6 c7d6 c6c8 g7f8
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7 f4d6 c7d6 c6c8 g7f8
+go wtime 168305 btime 54000 winc 0 binc 0 movestogo 12
+SENDING h2h4
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7 f4d6 c7d6 c6c8 g7f8 h2h4 h8g7
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7 f4d6 c7d6 c6c8 g7f8 h2h4 h8g7
+go wtime 168055 btime 50000 winc 0 binc 0 movestogo 11
+SENDING e6d6
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7 f4d6 c7d6 c6c8 g7f8 h2h4 h8g7 e6d6 f7e7
+
+=== POSITION STARTPOS MOVES ===
+position startpos moves e2e4 d7d5 e4d5 d8d5 b1c3 d5d8 d2d4 g8f6 g1e2 g7g6 c1e3 f8g7 d1d2 e8g8 d4d5 c8f5 e1c1 a7a5 e2d4 f5e4 d4f3 b8a6 c3e4 f6e4 d2a5 b7b6 a5b5 a6c5 a2a3 a8a5 b5c6 a5a8 b2b4 c5a4 e3f4 e4d6 f3e5 f7f6 e5d3 f8e8 g2g4 e7e5 d5e6 e8e6 f1g2 a8c8 g2d5 d8e7 h1e1 g8h8 e1e6 e7f7 f4d6 c7d6 c6c8 g7f8 h2h4 h8g7 e6d6 f7e7
+go wtime 167702 btime 48000 winc 0 binc 0 movestogo 10
+SENDING d6d7
+quit

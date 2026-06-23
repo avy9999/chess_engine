@@ -7,3 +7,5 @@ C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\evaluat
 C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\search.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\search.obj
 C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\pst.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\pst.obj
 C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\uci.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\uci.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\perft.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\perft.obj
+C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\openingbook.cpp;C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\build\chess_engine.dir\Release\openingbook.obj
