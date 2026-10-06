@@ -1,46 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\main.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\position.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\move.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\move.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\movegenerator.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\movegenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\utils.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\evaluator.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\evaluator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\search.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\search.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\pst.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\pst.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\uci.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\uci.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\perft.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\perft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\src\openingbook.cpp">
+    <ClCompile Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\src\openingbook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\chess_engine\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\Aryan Gupta\Desktop\Work\Projects\chess_engine\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{545BDADF-3589-356D-A87B-914B52E1ABF8}</UniqueIdentifier>
+      <UniqueIdentifier>{BA16D2AC-5773-3361-AD45-88053E8C431A}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

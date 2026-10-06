@@ -21,7 +21,7 @@ Position::Position(){
     enPassantRow = -1;
     enPassantCol = -1;
     halfMoveClock = 0;
-    fullMoveNumber = 0;
+    fullMoveNumber = 1;
 }
 
 // function to put . in each cell of the board

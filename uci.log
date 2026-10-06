@@ -1,0 +1,29 @@
+quit
+uci
+quit
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go perft 2
+SENDING g1f3
+quit
+perft 2
+quit
+perftest
+quit
+perftest
+quit
+perftest
+quit
+perftest
+quit
+uci
+position startpos
+
+=== POSITION STARTPOS ===
+position startpos
+go depth 3
+SENDING g1f3
+perfttest
+quit

@@ -32,4 +32,6 @@ class MoveGenerator {
         bool isKingInCheck(const Position& pos, char side);
         bool isCheckmate(Position& pos);
         bool isStalemate(Position& pos);
+    private:
+        void makeMoveInternal(Position& pos, const Move& move);
 };
