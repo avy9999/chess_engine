@@ -156,7 +156,6 @@ int Evaluator::evaluate(const Position& pos)
     // Black castled queenside
     if (pos.board[0][2] == 'k' && pos.board[0][3] == 'r')
         score -= 30;
-        return score;
     }
 
 
