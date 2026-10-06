@@ -8,8 +8,7 @@
 
 long long Search::nodes = 0;
 
-
-Move random_choice(const std::vector<Move>& moves)
+Move random_choice(const std::vector<Move> &moves)
 {
     static std::random_device rd;
     static std::mt19937 rng(rd());
@@ -18,7 +17,7 @@ Move random_choice(const std::vector<Move>& moves)
     return moves[dist(rng)];
 }
 
-int Search::alphabeta(Position& pos, int depth, int alpha, int beta)
+int Search::alphabeta(Position &pos, int depth, int alpha, int beta)
 {
     Search::nodes++;
 
@@ -30,8 +29,8 @@ int Search::alphabeta(Position& pos, int depth, int alpha, int beta)
         if (generator.isKingInCheck(pos, pos.sideToMove))
         {
             return (pos.sideToMove == 'w')
-                ? -100000 - depth
-                : 100000 + depth;
+                       ? -100000 - depth
+                       : 100000 + depth;
         }
         return 0;
     }
@@ -42,11 +41,10 @@ int Search::alphabeta(Position& pos, int depth, int alpha, int beta)
     std::sort(
         moves.begin(),
         moves.end(),
-        [&](const Move& a, const Move& b)
+        [&](const Move &a, const Move &b)
         {
             return scoreMove(pos, a) > scoreMove(pos, b);
-        }
-    );
+        });
 
     int best;
 
@@ -54,7 +52,7 @@ int Search::alphabeta(Position& pos, int depth, int alpha, int beta)
     {
         best = -1000000;
 
-        for (const auto& move : moves)
+        for (const auto &move : moves)
         {
             UndoInfo undo;
             generator.makeMove(pos, move, undo);
@@ -74,7 +72,7 @@ int Search::alphabeta(Position& pos, int depth, int alpha, int beta)
     {
         best = 1000000;
 
-        for (const auto& move : moves)
+        for (const auto &move : moves)
         {
             UndoInfo undo;
             generator.makeMove(pos, move, undo);
@@ -100,7 +98,7 @@ Move Search::findBestMove(Position pos, int maxDepth)
 
     Move pvMove;
 
-    for(int depth = 1; depth <= maxDepth; depth++)
+    for (int depth = 1; depth <= maxDepth; depth++)
     {
         bestMove = findBestMoveAtDepth(pos, depth, pvMove);
 
@@ -115,7 +113,7 @@ Move Search::findBestMove(Position pos, int maxDepth)
     return bestMove;
 }
 
-Move Search::findBestMoveAtDepth(Position pos, int depth, const Move& pvMove)
+Move Search::findBestMoveAtDepth(Position pos, int depth, const Move &pvMove)
 {
     Search::nodes = 0;
 
@@ -124,33 +122,27 @@ Move Search::findBestMoveAtDepth(Position pos, int depth, const Move& pvMove)
 
     static std::mt19937 rng(std::random_device{}());
 
-
     std::sort(
         moves.begin(),
         moves.end(),
-        [&](const Move& a, const Move& b)
+        [&](const Move &a, const Move &b)
         {
             return scoreMove(pos, a) >
                    scoreMove(pos, b);
-        }
-    );
-
-    std::shuffle(moves.begin() + 0, moves.begin() + std::min(5, (int)moves.size()), rng);
+        });
 
     if (pvMove.fromRow != -1)
     {
         auto it = std::find(
             moves.begin(),
             moves.end(),
-            pvMove
-        );
+            pvMove);
 
         if (it != moves.end())
         {
             std::iter_swap(
                 moves.begin(),
-                it
-            );
+                it);
         }
     }
 
@@ -163,8 +155,8 @@ Move Search::findBestMoveAtDepth(Position pos, int depth, const Move& pvMove)
 
     int bestScore =
         (pos.sideToMove == 'w')
-        ? std::numeric_limits<int>::min()
-        : std::numeric_limits<int>::max();
+            ? std::numeric_limits<int>::min()
+            : std::numeric_limits<int>::max();
 
     std::vector<Move> bestMoves;
 
@@ -186,7 +178,7 @@ Move Search::findBestMoveAtDepth(Position pos, int depth, const Move& pvMove)
 
     if (pos.sideToMove == 'w')
     {
-        for (const auto& move : moves)
+        for (const auto &move : moves)
         {
             Position copy = pos;
             MoveGenerator::positionCopies++;
@@ -197,8 +189,7 @@ Move Search::findBestMoveAtDepth(Position pos, int depth, const Move& pvMove)
                 copy,
                 depth - 1,
                 -1000000,
-                1000000
-            );
+                1000000);
 
             if (openingPhase)
             {
@@ -219,7 +210,7 @@ Move Search::findBestMoveAtDepth(Position pos, int depth, const Move& pvMove)
     }
     else
     {
-        for (const auto& move : moves)
+        for (const auto &move : moves)
         {
             Position copy = pos;
             MoveGenerator::positionCopies++;
@@ -230,8 +221,7 @@ Move Search::findBestMoveAtDepth(Position pos, int depth, const Move& pvMove)
                 copy,
                 depth - 1,
                 -1000000,
-                1000000
-            );
+                1000000);
 
             if (openingPhase)
             {
@@ -273,25 +263,26 @@ int Search::scoreMove(const Position &pos, const Move &move)
     return 0;
 }
 
-
 // quiescence function
 int Search::quiescence(
-    Position& pos,
+    Position &pos,
     int alpha,
-    int beta
-){
+    int beta)
+{
     Search::nodes++;
 
     int standPat = Evaluator::evaluate(pos);
 
-    if(pos.sideToMove == 'w'){
-        if(standPat >= beta)
+    if (pos.sideToMove == 'w')
+    {
+        if (standPat >= beta)
             return beta;
 
         alpha = std::max(alpha, standPat);
     }
-    else{
-        if(standPat <= alpha)
+    else
+    {
+        if (standPat <= alpha)
             return alpha;
 
         beta = std::min(beta, standPat);
@@ -301,21 +292,22 @@ int Search::quiescence(
     auto moves = generator.generateLegalMoves(pos);
 
     std::sort(
-    moves.begin(),
-    moves.end(),
-        [&](const Move& a, const Move& b){
+        moves.begin(),
+        moves.end(),
+        [&](const Move &a, const Move &b)
+        {
             return scoreMove(pos, a) >
-                scoreMove(pos, b);
-        }
-    );
+                   scoreMove(pos, b);
+        });
 
-    for(const auto& move : moves){
+    for (const auto &move : moves)
+    {
 
         // only search captures
         bool isCapture =
             pos.board[move.toRow][move.toCol] != '.';
 
-        if(!isCapture && !move.isEnPassant)
+        if (!isCapture && !move.isEnPassant)
         {
             continue;
         }
@@ -325,37 +317,36 @@ int Search::quiescence(
         generator.makeMove(
             pos,
             move,
-            undo
-        );
+            undo);
 
         int score =
             quiescence(
                 pos,
                 alpha,
-                beta
-            );
+                beta);
 
         generator.undoMove(
             pos,
             move,
-            undo
-        );
+            undo);
 
-        if(pos.sideToMove == 'w'){
+        if (pos.sideToMove == 'w')
+        {
             alpha = std::max(alpha, score);
 
-            if(alpha >= beta)
+            if (alpha >= beta)
                 break;
         }
-        else{
+        else
+        {
             beta = std::min(beta, score);
 
-            if(beta <= alpha)
+            if (beta <= alpha)
                 break;
         }
     }
 
     return pos.sideToMove == 'w'
-        ? alpha
-        : beta;
+               ? alpha
+               : beta;
 }
